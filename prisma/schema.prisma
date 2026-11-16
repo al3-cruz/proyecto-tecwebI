@@ -1,0 +1,209 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ModalidadTramite {
+  PRESENCIAL
+  VIRTUAL
+  MIXTA
+}
+
+enum EstadoTramite {
+  VENTANILLA_INFORMACIONES
+  INSCRIPCION_RAPIDA
+  PRE_IMPRESION_REVISION
+  EN_PROCESO_REGISTRO
+  LISTO_PARA_DEVOLUCION
+  ENTREGADO
+  OBSERVADO
+}
+
+enum TipoRequisitoCompraventa {
+  TITULO_TRANSFERENCIA
+  IMPUESTO_ANUAL_IMPBI
+  IMPUESTO_TRANSFERENCIA
+  PLANO_Y_CERTIFICADO_CATASTRAL
+  CEDULA_IDENTIDAD_O_NIT
+  PODER_NOTARIADO
+}
+
+model Tramite {
+  id                        Int                 @id @default(autoincrement())
+  usuarioId                 Int
+  codigo                    Int                 @unique
+  codigoOficial             String?             @db.VarChar(20)
+  titulo                    String              @db.VarChar(240)
+  institucionResponsable    String              @default("Registro Público de Derechos Reales") @db.Text
+  oficina                   String?             @db.VarChar(160)
+  finalidad                 String              @db.Text
+  plazoEntregaDias          Int
+  modalidad                 ModalidadTramite
+  notaRequisitos            String?             @db.Text
+  documentosEntregables     String[]            @default([])
+  baseLegal                 String?             @db.Text
+  fechaActualizacionOficial String?             @db.VarChar(80)
+  createdAt                 DateTime            @default(now())
+  updatedAt                 DateTime            @updatedAt
+  deletedAt                 DateTime?
+  requisitos                RequisitoTramite[]
+  pasos                     PasoProcedimiento[]
+  oficinas                  Direccion[]         @relation("TramiteOficinas")
+  usuario                   Usuario             @relation(fields: [usuarioId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([codigo])
+  @@index([modalidad])
+  @@index([plazoEntregaDias])
+  @@index([usuarioId, id])
+  @@index([deletedAt])
+}
+
+model Usuario {
+  id           Int                  @id @default(autoincrement())
+  email        String               @unique @db.VarChar(254)
+  passwordHash String               @db.VarChar(255)
+  createdAt    DateTime             @default(now())
+  deletedAt    DateTime?
+  tramites     Tramite[]
+  roles        Rol[]                @relation("UsuarioRoles")
+  compraventas TramiteCompraventa[]
+  auditLogs    AuditLog[]
+
+  @@index([deletedAt])
+}
+
+model Rol {
+  id        Int       @id @default(autoincrement())
+  codigo    String    @unique @db.VarChar(80)
+  nombre    String    @db.VarChar(120)
+  usuarios  Usuario[] @relation("UsuarioRoles")
+  permisos  Permiso[] @relation("RolPermisos")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Permiso {
+  id          Int      @id @default(autoincrement())
+  codigo      String   @unique @db.VarChar(120)
+  descripcion String   @db.VarChar(240)
+  roles       Rol[]    @relation("RolPermisos")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SecuenciaTramiteCompraventa {
+  anio   Int @id
+  ultimo Int @default(0)
+}
+
+model TramiteCompraventa {
+  id                     Int                    @id @default(autoincrement())
+  codigoTramite          String                 @unique @db.VarChar(32)
+  folioReal              String                 @db.VarChar(100)
+  fechaIngreso           DateTime               @default(now())
+  fechaEstimadaEntrega   DateTime
+  fechaEntregaReal       DateTime?
+  vendedorNombre         String                 @db.VarChar(200)
+  vendedorDocumento      String                 @db.VarChar(40)
+  compradorNombre        String                 @db.VarChar(200)
+  compradorDocumento     String                 @db.VarChar(40)
+  esBienGanancial        Boolean                @default(false)
+  conApoderado           Boolean                @default(false)
+  apoderadoNombre        String?                @db.VarChar(200)
+  apoderadoDocumento     String?                @db.VarChar(40)
+  numeroPoderNotarial    String?                @db.VarChar(100)
+  montoArancel           Decimal                @db.Decimal(12, 2)
+  arancelPagado          Boolean                @default(false)
+  preImpresionConfirmada Boolean                @default(false)
+  observaciones          String?                @db.Text
+  estado                 EstadoTramite          @default(VENTANILLA_INFORMACIONES)
+  estadoAnterior         EstadoTramite?
+  usuarioId              Int
+  usuario                Usuario                @relation(fields: [usuarioId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  requisitos             RequisitoCompraventa[]
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+  deletedAt              DateTime?
+
+  @@index([usuarioId, estado])
+  @@index([fechaIngreso])
+  @@index([deletedAt])
+}
+
+model RequisitoCompraventa {
+  id                 Int                      @id @default(autoincrement())
+  tipoRequisito      TipoRequisitoCompraventa
+  presentoOriginal   Boolean                  @default(false)
+  cantidadFotocopias Int                      @default(0)
+  verificado         Boolean                  @default(false)
+  tramiteId          Int
+  tramite            TramiteCompraventa       @relation(fields: [tramiteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([tramiteId, tipoRequisito])
+  @@index([tramiteId, verificado])
+}
+
+model RequisitoTramite {
+  id              Int     @id @default(autoincrement())
+  nombre          String  @db.VarChar(240)
+  detalle         String  @db.Text
+  obligatorio     Boolean @default(true)
+  orden           Int
+  notaCondicional String? @db.Text
+  tramiteId       Int
+  tramite         Tramite @relation(fields: [tramiteId], references: [id], onDelete: Cascade)
+
+  @@index([tramiteId])
+}
+
+model PasoProcedimiento {
+  id          Int     @id @default(autoincrement())
+  orden       Int
+  titulo      String  @db.VarChar(240)
+  descripcion String  @db.Text
+  plazoDias   Int?
+  tramiteId   Int
+  tramite     Tramite @relation(fields: [tramiteId], references: [id], onDelete: Cascade)
+
+  @@index([tramiteId])
+}
+
+model Direccion {
+  id             Int       @id @default(autoincrement())
+  codigoOficina  String?   @unique @db.VarChar(40)
+  nombreOficina  String?   @db.VarChar(160)
+  usuarioId      Int?
+  departamento   String    @db.VarChar(100)
+  provincia      String    @db.VarChar(100)
+  municipio      String    @db.VarChar(100)
+  zonaOComunidad String    @db.VarChar(160)
+  calleOAvenida  String    @db.VarChar(200)
+  numeroPuerta   String?   @db.VarChar(40)
+  latitud        Float?
+  longitud       Float?
+  fechaRegistro  DateTime  @default(now())
+  deletedAt      DateTime?
+  tramites       Tramite[] @relation("TramiteOficinas")
+
+  @@index([usuarioId])
+  @@index([deletedAt])
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  entity    String   @db.VarChar(120)
+  entityId  String   @db.VarChar(120)
+  action    String   @db.VarChar(20)
+  userId    Int?
+  user      Usuario? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  oldData   Json?
+  newData   Json?
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId, createdAt])
+  @@index([userId, createdAt])
+}

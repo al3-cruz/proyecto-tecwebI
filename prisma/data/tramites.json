@@ -1,0 +1,88 @@
+[
+  {
+    "codigo": 1,
+    "codigoOficial": "1",
+    "titulo": "Corrección de datos de identidad (Ley 247)",
+    "institucionResponsable": "Registro Público de Derechos Reales",
+    "oficina": "Oficina Central de Sucre - Ventanilla de Inscripción Rápida",
+    "finalidad": "Permite rectificar y actualizar los datos personales de identidad del titular registrados en el Folio Real al amparo de la Ley 247, garantizando la exactitud registral y seguridad jurídica del derecho propietario.",
+    "plazoEntregaDias": 3,
+    "modalidad": "Presencial",
+    "notaRequisitos": "Documentación en original y dos fotocopias.",
+    "documentosEntregables": [
+      "Folio Real con los datos corregidos.",
+      "Testimonio de Escritura Pública con el sello de registro de DDRR."
+    ],
+    "baseLegal": "Manual de Procedimientos del Registro Público de Derechos Reales, aprobado mediante Acuerdo n.º 253/2023, de 11 de agosto de 2023.",
+    "oficinas": ["CHQ-SUCRE-CENTRAL"],
+    "requisitos": [
+      {
+        "orden": 1,
+        "nombre": "Folio Real en original.",
+        "detalle": "Folio Real en original.",
+        "obligatorio": true,
+        "notaCondicional": null
+      },
+      {
+        "orden": 2,
+        "nombre": "Registro en PROREVI",
+        "detalle": "Registro en PROREVI.",
+        "obligatorio": true,
+        "notaCondicional": null
+      },
+      {
+        "orden": 3,
+        "nombre": "Certificado del SEGIP original",
+        "detalle": "Certificado del SEGIP original (y Resolución Administrativa en caso de adición de alfanumérico o duplicidad de cédula de identidad).",
+        "obligatorio": true,
+        "notaCondicional": "Adjuntar Resolución Administrativa en caso de adición de alfanumérico o duplicidad de cédula de identidad."
+      },
+      {
+        "orden": 4,
+        "nombre": "Testimonio de Escritura Pública Unilateral de rectificación",
+        "detalle": "Testimonio de Escritura Pública Unilateral de rectificación de datos personales de identidad en cumplimiento de la Ley 247.",
+        "obligatorio": true,
+        "notaCondicional": null
+      },
+      {
+        "orden": 5,
+        "nombre": "Cédula de identidad de todos los intervinientes",
+        "detalle": "Cédula de identidad de todos los que intervienen en el Testimonio de corrección de datos de identidad (en caso de corrección de datos de un fallecido, adjuntar fotocopia de la declaratoria de herederos).",
+        "obligatorio": true,
+        "notaCondicional": "En caso de corrección de datos de un fallecido, adjuntar fotocopia de la declaratoria de herederos."
+      }
+    ],
+    "pasos": [
+      {
+        "orden": 1,
+        "titulo": "Ventanilla de Informaciones",
+        "descripcion": "Acudir a la Ventanilla de Informaciones para la verificación de la documentación y recibir orientación.",
+        "plazoDias": null
+      },
+      {
+        "orden": 2,
+        "titulo": "Ventanilla de Inscripción Rápida - Interés legítimo",
+        "descripcion": "Presentar cédula de identidad para acreditar interés legítimo (en caso de apoderado, adjuntar Testimonio original del Poder Notariado).",
+        "plazoDias": null
+      },
+      {
+        "orden": 3,
+        "titulo": "Ventanilla de Inscripción Rápida - Registro y pago",
+        "descripcion": "Verificación de requisitos, registro del documento en el sistema, emisión del comprobante de ingreso de trámite y pago de aranceles y valores.",
+        "plazoDias": null
+      },
+      {
+        "orden": 4,
+        "titulo": "Ventanilla de Inscripción Rápida - Conformidad",
+        "descripcion": "Revisión de la pre-impresión del registro por parte del usuario para verificar o corregir datos y firma en señal de conformidad.",
+        "plazoDias": null
+      },
+      {
+        "orden": 5,
+        "titulo": "Ventanilla de Devoluciones - Entrega",
+        "descripcion": "Transcurridos tres (3) días hábiles, recoger el Folio Real con los datos corregidos y el Testimonio de Escritura Pública con el sello de registro de DDRR.",
+        "plazoDias": 3
+      }
+    ]
+  }
+]

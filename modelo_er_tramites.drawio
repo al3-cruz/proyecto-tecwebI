@@ -1,0 +1,265 @@
+<mxfile host="65bd71144e">
+    <diagram id="er-tramites" name="Modelo ER - Trámites y Compraventa">
+        <mxGraphModel dx="3011" dy="381" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="usuario" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="Usuario" vertex="1">
+                    <mxGeometry height="160" width="200" x="40" y="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="usuario_pk" parent="usuario" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontStyle=1;fontColor=#000000;strokeColor=#000000;" value="PK  id" vertex="1">
+                    <mxGeometry height="26" width="200" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="usuario_email" parent="usuario" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="email" vertex="1">
+                    <mxGeometry height="26" width="200" y="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="usuario_pass" parent="usuario" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="passwordHash" vertex="1">
+                    <mxGeometry height="26" width="200" y="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="usuario_created" parent="usuario" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="createdAt" vertex="1">
+                    <mxGeometry height="26" width="200" y="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="usuario_deleted" parent="usuario" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="deletedAt" vertex="1">
+                    <mxGeometry height="26" width="200" y="134" as="geometry"/>
+                </mxCell>
+                <mxCell id="rol" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="Rol" vertex="1">
+                    <mxGeometry height="110" width="180" x="300" y="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="rol_pk" parent="rol" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontStyle=1;fontColor=#000000;strokeColor=#000000;" value="PK  id" vertex="1">
+                    <mxGeometry height="26" width="180" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="rol_codigo" parent="rol" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="codigo (ADMIN, ...)" vertex="1">
+                    <mxGeometry height="26" width="180" y="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="rol_nombre" parent="rol" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="nombre" vertex="1">
+                    <mxGeometry height="26" width="180" y="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="permiso" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="Permiso" vertex="1">
+                    <mxGeometry height="110" width="200" x="560" y="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="permiso_pk" parent="permiso" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontStyle=1;fontColor=#000000;strokeColor=#000000;" value="PK  id" vertex="1">
+                    <mxGeometry height="26" width="200" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="permiso_codigo" parent="permiso" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="codigo (tramites:leer, ...)" vertex="1">
+                    <mxGeometry height="26" width="200" y="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="permiso_desc" parent="permiso" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="descripcion" vertex="1">
+                    <mxGeometry height="26" width="200" y="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="usuariorol" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="UsuarioRol" vertex="1">
+                    <mxGeometry height="90" width="180" x="60" y="245" as="geometry"/>
+                </mxCell>
+                <mxCell id="ur_usuario" parent="usuariorol" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="FK  usuarioId" vertex="1">
+                    <mxGeometry height="30" width="180" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ur_rol" parent="usuariorol" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="FK  rolId" vertex="1">
+                    <mxGeometry height="30" width="180" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="rolpermiso" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="RolPermiso" vertex="1">
+                    <mxGeometry height="90" width="180" x="540" y="245" as="geometry"/>
+                </mxCell>
+                <mxCell id="rp_rol" parent="rolpermiso" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="FK  rolId" vertex="1">
+                    <mxGeometry height="30" width="180" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="rp_permiso" parent="rolpermiso" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="FK  permisoId" vertex="1">
+                    <mxGeometry height="30" width="180" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="paItCdFnNVY8Pr62of6V-1" edge="1" parent="1" source="tramite" style="edgeStyle=none;html=1;" target="direccion">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="paItCdFnNVY8Pr62of6V-5" edge="1" parent="1" source="tramite" style="edgeStyle=none;html=1;endArrow=ERone;endFill=0;startArrow=ERmany;startFill=0;" target="paItCdFnNVY8Pr62of6V-2">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="tramite" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="Tramite" vertex="1">
+                    <mxGeometry height="190" width="220" x="40" y="380" as="geometry"/>
+                </mxCell>
+                <mxCell id="tramite_pk" parent="tramite" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontStyle=1;fontColor=#000000;strokeColor=#000000;" value="PK  id" vertex="1">
+                    <mxGeometry height="26" width="220" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="tramite_titulo" parent="tramite" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="titulo" vertex="1">
+                    <mxGeometry height="26" width="220" y="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="tramite_finalidad" parent="tramite" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="finalidad" vertex="1">
+                    <mxGeometry height="26" width="220" y="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="tramite_modalidad" parent="tramite" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="modalidad" vertex="1">
+                    <mxGeometry height="26" width="220" y="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="tramite_plazo" parent="tramite" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="plazo" vertex="1">
+                    <mxGeometry height="26" width="220" y="134" as="geometry"/>
+                </mxCell>
+                <mxCell id="tramite_base" parent="tramite" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="baseLegal" vertex="1">
+                    <mxGeometry height="26" width="220" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="reqtramite" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="RequisitoTramite" vertex="1">
+                    <mxGeometry height="160" width="200" x="800" y="310" as="geometry"/>
+                </mxCell>
+                <mxCell id="rt_pk" parent="reqtramite" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontStyle=1;fontColor=#000000;strokeColor=#000000;" value="PK  id" vertex="1">
+                    <mxGeometry height="26" width="200" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="rt_fk" parent="reqtramite" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="FK  tramiteId" vertex="1">
+                    <mxGeometry height="26" width="200" y="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="rt_nombre" parent="reqtramite" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="nombre" vertex="1">
+                    <mxGeometry height="26" width="200" y="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="rt_detalle" parent="reqtramite" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="detalle" vertex="1">
+                    <mxGeometry height="26" width="200" y="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="rt_orden" parent="reqtramite" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="orden" vertex="1">
+                    <mxGeometry height="26" width="200" y="134" as="geometry"/>
+                </mxCell>
+                <mxCell id="pasoproc" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="PasoProcedimiento" vertex="1">
+                    <mxGeometry height="160" width="200" x="-250" y="395" as="geometry"/>
+                </mxCell>
+                <mxCell id="pp_pk" parent="pasoproc" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontStyle=1;fontColor=#000000;strokeColor=#000000;" value="PK  id" vertex="1">
+                    <mxGeometry height="26" width="200" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pp_fk" parent="pasoproc" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="FK  tramiteId" vertex="1">
+                    <mxGeometry height="26" width="200" y="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="pp_nombre" parent="pasoproc" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="nombre" vertex="1">
+                    <mxGeometry height="26" width="200" y="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="pp_desc" parent="pasoproc" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="descripcion" vertex="1">
+                    <mxGeometry height="26" width="200" y="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="pp_orden" parent="pasoproc" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="orden" vertex="1">
+                    <mxGeometry height="26" width="200" y="134" as="geometry"/>
+                </mxCell>
+                <mxCell id="direccion" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="Direccion" vertex="1">
+                    <mxGeometry height="160" width="200" x="560" y="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="dir_pk" parent="direccion" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontStyle=1;fontColor=#000000;strokeColor=#000000;" value="PK  id" vertex="1">
+                    <mxGeometry height="26" width="200" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="dir_depto" parent="direccion" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="departamento" vertex="1">
+                    <mxGeometry height="26" width="200" y="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="dir_muni" parent="direccion" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="municipio" vertex="1">
+                    <mxGeometry height="26" width="200" y="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="dir_calle" parent="direccion" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="calle" vertex="1">
+                    <mxGeometry height="26" width="200" y="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="dir_coord" parent="direccion" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="coordenadas" vertex="1">
+                    <mxGeometry height="26" width="200" y="134" as="geometry"/>
+                </mxCell>
+                <mxCell id="tramitecv" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="TramiteCompraventa" vertex="1">
+                    <mxGeometry height="212" width="240" x="-200" y="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="tcv_pk" parent="tramitecv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontStyle=1;fontColor=#000000;strokeColor=#000000;" value="PK  id" vertex="1">
+                    <mxGeometry height="26" width="240" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="tcv_fk_tramite" parent="tramitecv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="FK  tramiteId" vertex="1">
+                    <mxGeometry height="26" width="240" y="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="tcv_folio" parent="tramitecv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="folioReal" vertex="1">
+                    <mxGeometry height="26" width="240" y="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="tcv_participantes" parent="tramitecv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="participantes" vertex="1">
+                    <mxGeometry height="26" width="240" y="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="tcv_estado" parent="tramitecv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="estado" vertex="1">
+                    <mxGeometry height="26" width="240" y="134" as="geometry"/>
+                </mxCell>
+                <mxCell id="tcv_fechas" parent="tramitecv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="fechas (inicio, fin, ...)" vertex="1">
+                    <mxGeometry height="26" width="240" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="tcv_numero" parent="tramitecv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="numero / anio" vertex="1">
+                    <mxGeometry height="26" width="240" y="186" as="geometry"/>
+                </mxCell>
+                <mxCell id="reqcv" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="RequisitoCompraventa" vertex="1">
+                    <mxGeometry height="160" width="220" x="670" y="665" as="geometry"/>
+                </mxCell>
+                <mxCell id="rcv_pk" parent="reqcv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontStyle=1;fontColor=#000000;strokeColor=#000000;" value="PK  id" vertex="1">
+                    <mxGeometry height="26" width="220" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="rcv_fk" parent="reqcv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="FK  tramiteCompraventaId" vertex="1">
+                    <mxGeometry height="26" width="220" y="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="rcv_tipo" parent="reqcv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="tipo" vertex="1">
+                    <mxGeometry height="26" width="220" y="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="rcv_orig" parent="reqcv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="originales" vertex="1">
+                    <mxGeometry height="26" width="220" y="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="rcv_foto" parent="reqcv" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="fotocopias / verificacion" vertex="1">
+                    <mxGeometry height="26" width="220" y="134" as="geometry"/>
+                </mxCell>
+                <mxCell id="secuencia" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="SecuenciaTramiteCompraventa" vertex="1">
+                    <mxGeometry height="110" width="220" x="340" y="890" as="geometry"/>
+                </mxCell>
+                <mxCell id="seq_pk" parent="secuencia" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontStyle=1;fontColor=#000000;strokeColor=#000000;" value="PK  anio" vertex="1">
+                    <mxGeometry height="40" width="220" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="seq_ultimo" parent="secuencia" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="ultimoNumero" vertex="1">
+                    <mxGeometry height="40" width="220" y="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="audit" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="AuditLog" vertex="1">
+                    <mxGeometry height="190" width="240" x="-360" y="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="audit_pk" parent="audit" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontStyle=1;fontColor=#000000;strokeColor=#000000;" value="PK  id" vertex="1">
+                    <mxGeometry height="26" width="240" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="audit_entidad" parent="audit" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="entidad" vertex="1">
+                    <mxGeometry height="26" width="240" y="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="audit_accion" parent="audit" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="accion" vertex="1">
+                    <mxGeometry height="26" width="240" y="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="audit_usuario" parent="audit" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="FK  usuarioId" vertex="1">
+                    <mxGeometry height="26" width="240" y="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="audit_antes" parent="audit" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="datosAnteriores" vertex="1">
+                    <mxGeometry height="26" width="240" y="134" as="geometry"/>
+                </mxCell>
+                <mxCell id="audit_nuevos" parent="audit" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="datosNuevos" vertex="1">
+                    <mxGeometry height="26" width="240" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel1" edge="1" parent="1" source="usuario" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;strokeColor=#000000;fontColor=#000000;" target="usuariorol">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel2" edge="1" parent="1" source="rol" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;strokeColor=#000000;fontColor=#000000;" target="usuariorol">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel3" edge="1" parent="1" source="rol" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;strokeColor=#000000;fontColor=#000000;" target="rolpermiso">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel4" edge="1" parent="1" source="permiso" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;strokeColor=#000000;fontColor=#000000;" target="rolpermiso">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel5" edge="1" parent="1" source="usuario" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;strokeColor=#000000;fontColor=#000000;" target="audit">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel6" edge="1" parent="1" source="tramite" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;strokeColor=#000000;fontColor=#000000;" target="reqtramite">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel7" edge="1" parent="1" source="tramite" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;strokeColor=#000000;fontColor=#000000;" target="pasoproc">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel8" edge="1" parent="1" source="tramite" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;strokeColor=#000000;fontColor=#000000;" target="tramitecv">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel9" edge="1" parent="1" source="tramitecv" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;strokeColor=#000000;fontColor=#000000;" target="reqcv">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel10" edge="1" parent="1" source="secuencia" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;strokeColor=#000000;fontColor=#000000;dashed=1;" target="tramitecv">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="titulo" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=16;fontColor=#000000;" value="Modelo Entidad-Relación · Sistema de Trámites (Compraventa)" vertex="1">
+                    <mxGeometry height="25" width="500" x="40" y="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="paItCdFnNVY8Pr62of6V-2" parent="1" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;strokeColor=#000000;fillColor=none;fontColor=#000000;" value="Oficinas" vertex="1">
+                    <mxGeometry height="90" width="180" x="930" y="89" as="geometry"/>
+                </mxCell>
+                <mxCell id="paItCdFnNVY8Pr62of6V-3" parent="paItCdFnNVY8Pr62of6V-2" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="PK id " vertex="1">
+                    <mxGeometry height="30" width="180" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="paItCdFnNVY8Pr62of6V-4" parent="paItCdFnNVY8Pr62of6V-2" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=left;spacingLeft=6;fontColor=#000000;strokeColor=#000000;" value="Ingresar tramite" vertex="1">
+                    <mxGeometry height="30" width="180" y="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

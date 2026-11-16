@@ -1,0 +1,639 @@
+{
+  "info": {
+    "_postman_id": "70a27a8b-32f9-4bf1-933f-3d44999c07c8",
+    "name": "Propiedad al Día API",
+    "description": "Pruebas CRUD y validaciones para Propiedad al Día. Ejecuta las solicitudes en orden para reutilizar los IDs creados.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3001/api/v1" },
+    { "key": "usuarioId", "value": "1" },
+    { "key": "tramiteId", "value": "1" },
+    { "key": "direccionId", "value": "1" },
+    { "key": "observacionId", "value": "1" },
+    { "key": "tareaId", "value": "1" },
+    { "key": "eventoId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Listar usuarios",
+          "request": { "method": "GET", "url": "{{baseUrl}}/usuarios" }
+        },
+        {
+          "name": "Obtener usuario 1",
+          "request": { "method": "GET", "url": "{{baseUrl}}/usuarios/1" }
+        },
+        {
+          "name": "Crear usuario válido",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('uniqueCi', String(Date.now()));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Creado (201)', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('usuarioId', String(pm.response.json().id));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ci\": \"{{uniqueCi}}\",\n  \"nombreCompleto\": \"María Postman\",\n  \"correo\": \"maria.postman@example.com\",\n  \"telefono\": \"70000001\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/usuarios"
+          }
+        },
+        {
+          "name": "Rechazar usuario inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Validación (400)', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ci\": \"1\",\n  \"nombreCompleto\": \"\",\n  \"correo\": \"correo-invalido\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/usuarios"
+          }
+        },
+        {
+          "name": "Reemplazar usuario 1 (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ci\": \"12345678\",\n  \"nombreCompleto\": \"Juan Pérez Choque\",\n  \"correo\": \"juan.perez@email.com\",\n  \"telefono\": \"71234567\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/usuarios/1"
+          }
+        },
+        {
+          "name": "Actualizar usuario 1 (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telefono\": \"71234568\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/usuarios/1"
+          }
+        },
+        {
+          "name": "Eliminar usuario creado",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/usuarios/{{usuarioId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Trámites",
+      "item": [
+        {
+          "name": "Listar trámites",
+          "request": { "method": "GET", "url": "{{baseUrl}}/tramites" }
+        },
+        {
+          "name": "Buscar trámites por texto",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/tramites?q=herencia"
+          }
+        },
+        {
+          "name": "Filtrar trámites por modalidad",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/tramites?modalidad=Presencial"
+          }
+        },
+        {
+          "name": "Obtener trámite 1",
+          "request": { "method": "GET", "url": "{{baseUrl}}/tramites/1" }
+        },
+        {
+          "name": "Crear trámite válido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Creado (201)', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('tramiteId', String(pm.response.json().id));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigo\": 53,\n  \"titulo\": \"Trámite de prueba Postman\",\n  \"finalidad\": \"Validar la creación de un trámite de catálogo.\",\n  \"plazoEntregaDias\": 5,\n  \"modalidad\": \"Presencial\",\n  \"baseLegal\": \"Normativa registral vigente.\",\n  \"requisitos\": [{ \"nombre\": \"Documento de identidad\", \"detalle\": \"Presentar documento vigente.\", \"obligatorio\": true, \"orden\": 1 }],\n  \"pasos\": [{ \"orden\": 1, \"titulo\": \"Presentar solicitud\", \"descripcion\": \"Ingresar la solicitud en la oficina competente.\" }],\n  \"oficinaIds\": [1]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/tramites"
+          }
+        },
+        {
+          "name": "Rechazar trámite con código duplicado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Código duplicado (400)', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigo\": 1,\n  \"titulo\": \"Código duplicado\",\n  \"finalidad\": \"Este registro debe ser rechazado.\",\n  \"plazoEntregaDias\": 3,\n  \"modalidad\": \"Presencial\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/tramites"
+          }
+        },
+        {
+          "name": "Reemplazar trámite 1 (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigo\": 1,\n  \"titulo\": \"Corrección de datos de identidad - Ley 247\",\n  \"institucionResponsable\": \"Registro Público de Derechos Reales\",\n  \"finalidad\": \"Corregir los datos de identidad del titular.\",\n  \"plazoEntregaDias\": 5,\n  \"modalidad\": \"Presencial\",\n  \"baseLegal\": \"Ley N.º 247\",\n  \"requisitos\": [],\n  \"pasos\": [],\n  \"oficinaIds\": [1]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/tramites/1"
+          }
+        },
+        {
+          "name": "Actualizar trámite 1 (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"modalidad\": \"Mixto\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/tramites/1"
+          }
+        },
+        {
+          "name": "Agregar requisito al trámite 1",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Requisito adicional\",\n  \"detalle\": \"Presentar el documento original para cotejo.\",\n  \"obligatorio\": false,\n  \"orden\": 99\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/tramites/1/requisitos"
+          }
+        },
+        {
+          "name": "Eliminar trámite creado",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/tramites/{{tramiteId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Direcciones",
+      "item": [
+        {
+          "name": "Listar direcciones",
+          "request": { "method": "GET", "url": "{{baseUrl}}/direcciones" }
+        },
+        {
+          "name": "Filtrar direcciones por usuario",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/direcciones?usuarioId=1"
+          }
+        },
+        {
+          "name": "Obtener dirección 1",
+          "request": { "method": "GET", "url": "{{baseUrl}}/direcciones/1" }
+        },
+        {
+          "name": "Crear dirección válida",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Creado (201)', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('direccionId', String(pm.response.json().id));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarioId\": 1,\n  \"departamento\": \"La Paz\",\n  \"provincia\": \"Murillo\",\n  \"municipio\": \"La Paz\",\n  \"zonaOComunidad\": \"Centro\",\n  \"calleOAvenida\": \"Avenida Postman\",\n  \"numeroPuerta\": \"456\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/direcciones"
+          }
+        },
+        {
+          "name": "Rechazar dirección con usuario inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Relación inexistente (404)', () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarioId\": 999999,\n  \"departamento\": \"La Paz\",\n  \"provincia\": \"Murillo\",\n  \"municipio\": \"La Paz\",\n  \"zonaOComunidad\": \"Centro\",\n  \"calleOAvenida\": \"Calle inexistente\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/direcciones"
+          }
+        },
+        {
+          "name": "Reemplazar dirección 1 (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarioId\": 1,\n  \"departamento\": \"Chuquisaca\",\n  \"provincia\": \"Oropeza\",\n  \"municipio\": \"Sucre\",\n  \"zonaOComunidad\": \"Zona Central\",\n  \"calleOAvenida\": \"Calle Calvo\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/direcciones/1"
+          }
+        },
+        {
+          "name": "Actualizar dirección 1 (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroPuerta\": \"124\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/direcciones/1"
+          }
+        },
+        {
+          "name": "Eliminar dirección creada",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/direcciones/{{direccionId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Observaciones",
+      "item": [
+        {
+          "name": "Listar observaciones",
+          "request": { "method": "GET", "url": "{{baseUrl}}/observaciones" }
+        },
+        {
+          "name": "Filtrar observaciones por trámite",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/observaciones?tramiteId=1"
+          }
+        },
+        {
+          "name": "Obtener observación 1",
+          "request": { "method": "GET", "url": "{{baseUrl}}/observaciones/1" }
+        },
+        {
+          "name": "Crear observación válida",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Creado (201)', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('observacionId', String(pm.response.json().id));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tramiteId\": 1,\n  \"descripcion\": \"Verificar documentación de Postman\",\n  \"resuelta\": false\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/observaciones"
+          }
+        },
+        {
+          "name": "Rechazar observación con trámite inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Relación inexistente (404)', () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tramiteId\": 999999,\n  \"descripcion\": \"No se debe crear esta observación\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/observaciones"
+          }
+        },
+        {
+          "name": "Reemplazar observación 1 (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tramiteId\": 1,\n  \"descripcion\": \"Falta plano de fotogrametría\",\n  \"resuelta\": false\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/observaciones/1"
+          }
+        },
+        {
+          "name": "Actualizar observación 1 (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resuelta\": true\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/observaciones/1"
+          }
+        },
+        {
+          "name": "Eliminar observación creada",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/observaciones/{{observacionId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tareas",
+      "item": [
+        {
+          "name": "Listar tareas",
+          "request": { "method": "GET", "url": "{{baseUrl}}/tareas" }
+        },
+        {
+          "name": "Obtener tarea 1",
+          "request": { "method": "GET", "url": "{{baseUrl}}/tareas/1" }
+        },
+        {
+          "name": "Crear tarea válida",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Creado (201)', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('tareaId', String(pm.response.json().id));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Revisar expediente\",\n  \"descripcion\": \"Comprobar documentos del trámite\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/tareas"
+          }
+        },
+        {
+          "name": "Rechazar tarea incompleta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Validación (400)', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/tareas"
+          }
+        },
+        {
+          "name": "Reemplazar tarea 1 (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Terminar Laboratorio 6\",\n  \"descripcion\": \"Implementar el CRUD robusto y versionado en NestJS\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/tareas/1"
+          }
+        },
+        {
+          "name": "Actualizar tarea 1 (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descripcion\": \"Actualizar solo la descripción de la tarea\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/tareas/1"
+          }
+        },
+        {
+          "name": "Eliminar tarea creada",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/tareas/{{tareaId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Eventos",
+      "item": [
+        {
+          "name": "Listar eventos",
+          "request": { "method": "GET", "url": "{{baseUrl}}/eventos" }
+        },
+        {
+          "name": "Obtener evento 1",
+          "request": { "method": "GET", "url": "{{baseUrl}}/eventos/1" }
+        },
+        {
+          "name": "Crear evento válido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Creado (201)', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('eventoId', String(pm.response.json().id));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Jornada de prueba\",\n  \"fecha\": \"2026-12-20\",\n  \"ubicacion\": \"Oficina central\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/eventos"
+          }
+        },
+        {
+          "name": "Rechazar evento incompleto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Validación (400)', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/eventos"
+          }
+        },
+        {
+          "name": "Reemplazar evento 1 (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Defensa de Proyecto Integrador\",\n  \"fecha\": \"2026-12-15\",\n  \"ubicacion\": \"Auditorio Central de Ingeniería\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/eventos/1"
+          }
+        },
+        {
+          "name": "Actualizar evento 1 (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ubicacion\": \"Auditorio Central\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/eventos/1"
+          }
+        },
+        {
+          "name": "Eliminar evento creado",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/eventos/{{eventoId}}"
+          }
+        }
+      ]
+    }
+  ]
+}
