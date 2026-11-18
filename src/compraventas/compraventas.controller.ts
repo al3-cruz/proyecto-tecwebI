@@ -20,6 +20,8 @@ import {
 import { CurrentUser } from "../auth/current-user.decorator.js";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { PermissionsGuard } from "../auth/permissions.guard.js";
+import { Roles } from "../auth/roles.decorator.js";
+import { RolesGuard } from "../auth/roles.guard.js";
 import { RequirePermissions } from "../auth/require-permissions.decorator.js";
 import type { UsuarioAutenticado } from "../auth/interfaces/usuario-autenticado.interface.js";
 import { ActualizarTramiteDto } from "./dto/actualizar-tramite.dto.js";
@@ -31,7 +33,7 @@ import { CompraventasService } from "./compraventas.service.js";
 @ApiTags("Trámites de compraventa DDRR")
 @ApiBearerAuth()
 @Controller("compraventas")
-@UseGuards(JwtAuthGuard, PermissionsGuard)
+@UseGuards(JwtAuthGuard, PermissionsGuard, RolesGuard)
 export class CompraventasController {
   constructor(private readonly compraventasService: CompraventasService) {}
 
@@ -84,6 +86,7 @@ export class CompraventasController {
   }
 
   @Patch(":id/requisitos/:requisitoId/verificar")
+  @Roles("ADMIN")
   @RequirePermissions("compraventas:actualizar")
   verificarRequisito(
     @Param("id", ParseIntPipe) id: number,
@@ -101,6 +104,7 @@ export class CompraventasController {
   }
 
   @Patch(":id/confirmar-preimpresion")
+  @Roles("ADMIN")
   @RequirePermissions("compraventas:actualizar")
   confirmarPreimpresion(
     @Param("id", ParseIntPipe) id: number,
@@ -114,6 +118,7 @@ export class CompraventasController {
   }
 
   @Patch(":id/avanzar-etapa")
+  @Roles("ADMIN")
   @RequirePermissions("compraventas:avanzar_etapa")
   avanzarEtapa(
     @Param("id", ParseIntPipe) id: number,

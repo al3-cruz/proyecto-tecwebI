@@ -97,7 +97,7 @@ curl -X POST http://localhost:3001/api/v1/auth/registro \
   -d '{"email":"persona@example.com","password":"UnaClaveSegura123"}'
 ```
 
-La respuesta de registro no contiene el hash de la contraseña. El email se normaliza a minúsculas y sin espacios externos; una cuenta duplicada produce `409`. Las contraseñas deben tener entre 12 y 72 caracteres. El hash nuevo se genera mediante Argon2id; los hashes bcrypt y scrypt heredados se verifican y actualizan al iniciar sesión. Los errores de login son genéricos (`401`).
+La respuesta de registro no contiene el hash de la contraseña. El email se normaliza a minúsculas y sin espacios externos; una cuenta duplicada produce `409`. Las contraseñas deben tener entre 8 y 72 caracteres e incluir mayúscula, minúscula, número y símbolo. El hash nuevo se genera mediante Argon2id; los hashes bcrypt y scrypt heredados se verifican y actualizan al iniciar sesión. Los errores de login son genéricos (`401`).
 
 Login:
 
@@ -177,7 +177,7 @@ El seed crea o actualiza la cuenta indicada por `SEED_ADMIN_EMAIL` y `SEED_ADMIN
 
 ## Direcciones y módulos relacionados
 
-`/api/v1/direcciones` administra direcciones personales guardadas en PostgreSQL. Admite filtrar por `usuarioId`; cada dirección requiere `municipioId` de una ubicación de tipo `MUNICIPIO` y devuelve la jerarquía municipio, provincia y departamento. Las direcciones no se relacionan directamente con trámites; estos se vinculan con el catálogo `Oficina`.
+`/api/v1/direcciones` administra direcciones personales guardadas en PostgreSQL. Cada dirección requiere `municipioId` de una ubicación de tipo `MUNICIPIO` y devuelve la jerarquía municipio, provincia y departamento. La lista se limita a las direcciones del usuario autenticado; el cliente no puede elegir el propietario mediante `usuarioId`. Las direcciones no se relacionan directamente con trámites; estos se vinculan con el catálogo `Oficina`.
 
 `GET /api/v1/ubicaciones` lista los departamentos. Envía `padreId` para obtener los hijos de una ubicación y recorrer la jerarquía de departamentos, provincias y municipios.
 
@@ -189,7 +189,7 @@ GET /api/v1/direcciones/CHQ-SUCRE-CENTRAL/ruta-gps?origenLatitud=-19.0333&origen
 
 `modo` es opcional y acepta `driving` o `foot` (por defecto, `driving`). La respuesta incluye distancia, duración, geometría GeoJSON, pasos de navegación y un enlace de Google Maps. Si OSRM no está disponible o no puede calcular esa ruta, la API devuelve la distancia Haversine, `duracionSegundos: null`, geometría nula y el enlace directo a Google Maps.
 
-El módulo de observaciones valida que el trámite asociado exista, pero las observaciones siguen almacenándose en memoria. Los módulos de usuarios de perfil, tareas y eventos también conservan almacenamiento en memoria; son independientes de las cuentas de autenticación de `auth`.
+El módulo de observaciones valida que el trámite asociado exista, pero las observaciones siguen almacenándose en memoria. Los módulos de usuarios de perfil, tareas y eventos también conservan almacenamiento en memoria; son independientes de las cuentas de autenticación de `auth`. En particular, `/api/v1/usuarios` todavía mezcla operaciones: `GET /usuarios` y `PATCH /usuarios/:id/roles` consultan la tabla persistida `Usuario`, mientras `GET /usuarios/:id`, `POST /usuarios`, `PUT /usuarios/:id`, `PATCH /usuarios/:id` y `DELETE /usuarios/:id` usan el servicio en memoria que maneja CI y nombre completo. No presentes esas últimas rutas como persistentes; conviene consolidar o separar ese CRUD antes de un despliegue real.
 
 Todas las rutas de `/api/v1/usuarios` requieren JWT y rol `ADMIN`, incluida la consulta, creación, modificación y eliminación de usuarios. El registro público se realiza mediante `POST /api/v1/auth/registro`. Las rutas de `direcciones`, `observaciones`, `tareas`, `eventos` y `ubicaciones` requieren JWT; Swagger muestra el candado para estas operaciones. Revisa Swagger para el contrato vigente de cada recurso.
 
@@ -202,19 +202,19 @@ El módulo `/api/v1/compraventas` gestiona trámites de transferencia de propied
 | `POST`   | `/api/v1/compraventas`                                       | `compraventas:crear`         | Crea un trámite propio y sus requisitos; genera un código `DDRR-CV-AAAA-NNNN`  |
 | `GET`    | `/api/v1/compraventas`                                       | `compraventas:leer`          | Lista los trámites propios; `ADMIN` puede consultar todos                      |
 | `GET`    | `/api/v1/compraventas/:id`                                   | `compraventas:leer`          | Obtiene un trámite propio y sus requisitos; `ADMIN` puede consultar cualquiera |
-| `PATCH`  | `/api/v1/compraventas/:id`                                   | `compraventas:actualizar`    | Actualiza arancel, pago u observaciones del trámite propio                     |
-| `PATCH`  | `/api/v1/compraventas/:id/requisitos/:requisitoId/verificar` | `compraventas:actualizar`    | Registra originales, fotocopias y verificación                                 |
-| `PATCH`  | `/api/v1/compraventas/:id/confirmar-preimpresion`            | `compraventas:actualizar`    | Confirma la revisión de la pre-impresión                                       |
-| `PATCH`  | `/api/v1/compraventas/:id/avanzar-etapa`                     | `compraventas:avanzar_etapa` | Avanza el flujo o marca el trámite propio como observado                       |
+| `PATCH`  | `/api/v1/compraventas/:id`                                   | JWT + `compraventas:actualizar`; ADMIN para arancel/pago | Añade observaciones propias; solo ADMIN modifica o registra el pago del arancel |
+| `PATCH`  | `/api/v1/compraventas/:id/requisitos/:requisitoId/verificar` | JWT + rol `ADMIN`           | Registra originales, fotocopias y verificación                                 |
+| `PATCH`  | `/api/v1/compraventas/:id/confirmar-preimpresion`            | JWT + rol `ADMIN`           | Confirma la revisión de la pre-impresión                                       |
+| `PATCH`  | `/api/v1/compraventas/:id/avanzar-etapa`                     | JWT + rol `ADMIN`           | Avanza el flujo o marca un trámite como observado                              |
 | `DELETE` | `/api/v1/compraventas/:id`                                   | `compraventas:eliminar`      | Elimina lógicamente un trámite; reservado a `ADMIN`                            |
 
 Un trámite registra folio real, datos del vendedor y comprador, condición de bien ganancial, apoderado opcional y monto del arancel. Las observaciones se guardan como mensajes inmutables en la bitácora junto con el autor y la fecha; la bitácora también documenta los motivos de observación y los comentarios enviados durante los cambios de etapa. Se crean cinco requisitos base; si hay apoderado, también se exige el poder notarial. Los códigos usan una secuencia por año.
 
-El flujo es `VENTANILLA_INFORMACIONES` → `INSCRIPCION_RAPIDA` → `PRE_IMPRESION_REVISION` → `EN_PROCESO_REGISTRO` → `LISTO_PARA_DEVOLUCION` → `ENTREGADO`. Para avanzar se valida el cumplimiento correspondiente: originales y al menos dos fotocopias por requisito antes de inscripción rápida; arancel pagado antes de pre-impresión; pre-impresión confirmada antes del registro; y confirmación de entrega del Folio Real actualizado y Testimonio sellado al entregar. La fecha estimada se calcula con tres días hábiles (lunes a viernes, sin calendario de feriados). Un trámite observado conserva la etapa anterior y solo puede volver a ella. No se puede eliminar un trámite en proceso de registro o ya entregado.
+El flujo es `VENTANILLA_INFORMACIONES` → `INSCRIPCION_RAPIDA` → `PRE_IMPRESION_REVISION` → `EN_PROCESO_REGISTRO` → `LISTO_PARA_DEVOLUCION` → `ENTREGADO`. Solo `ADMIN` puede verificar requisitos, registrar pagos o avanzar etapas; ciudadanos pueden consultar sus propios trámites y añadir observaciones, pero no certificar actuaciones oficiales. Para avanzar se valida el cumplimiento correspondiente: originales y al menos dos fotocopias por requisito antes de inscripción rápida; arancel pagado antes de pre-impresión; pre-impresión confirmada antes del registro; y confirmación de entrega del Folio Real actualizado y Testimonio sellado al entregar. La fecha estimada se calcula con tres días hábiles (lunes a viernes, sin calendario de feriados). Un trámite observado conserva la etapa anterior y solo puede volver a ella. No se puede eliminar un trámite en proceso de registro o ya entregado.
 
 ## Roles, permisos y auditoría
 
-El seed crea o actualiza los roles `ADMIN`, `PROFESIONAL` y `CIUDADANO`. Las fichas del catálogo usan permisos `tramites:*`, y sus escrituras también exigen rol `ADMIN`. Las operaciones personales de compraventa usan permisos separados `compraventas:*`; `CIUDADANO` y `PROFESIONAL` pueden iniciar y gestionar sus propios trámites, pero no eliminarlos. Las cuentas registradas reciben `CIUDADANO`. Solo `ADMIN` recibe permisos de administración y eliminación.
+El seed crea o actualiza los roles `ADMIN`, `PROFESIONAL` y `CIUDADANO`. El catálogo permite lectura a usuarios autenticados; sus operaciones de escritura y las estadísticas globales se autorizan por rol `ADMIN`. Aunque el seed conserva permisos `tramites:*` para el catálogo, esos permisos no se consultan actualmente en el controlador. Las operaciones personales de compraventa usan permisos `compraventas:*`; `CIUDADANO` y `PROFESIONAL` pueden iniciar y consultar sus propios trámites, pero las acciones de pago, verificación y avance de etapas quedan reservadas a `ADMIN`. Las cuentas registradas reciben `CIUDADANO`. Solo `ADMIN` recibe permisos de administración y eliminación.
 
 | Método  | Ruta                         | Acceso            | Descripción                                         |
 | ------- | ---------------------------- | ----------------- | --------------------------------------------------- |
@@ -225,11 +225,17 @@ El seed crea o actualiza los roles `ADMIN`, `PROFESIONAL` y `CIUDADANO`. Las fic
 
 Los permisos se asocian a los roles mediante la relación explícita `RolPermiso`; la asignación reemplaza sus filas de enlace en una transacción.
 
+Las rutas de `/api/v1/direcciones` operan únicamente sobre direcciones del usuario autenticado: el servidor toma el propietario del JWT, ignora `usuarioId` suministrado por el cliente y responde `404` cuando el recurso no pertenece al solicitante. Las cuentas eliminadas lógicamente ya no pueden usar sus JWT; el guard valida que el usuario siga activo en la base de datos.
+
+## Alcance de persistencia
+
+Las cuentas de autenticación, direcciones y trámites de compraventa se guardan en PostgreSQL. En cambio, los CRUD de demostración de perfiles de usuario, observaciones, tareas y eventos todavía mantienen sus datos en memoria y los pierden al reiniciar. El perfil de usuario con CI y nombre completo es distinto de `Usuario`, que representa las cuentas autenticables; actualmente el controlador `/api/v1/usuarios` expone operaciones de ambas clases, como se detalla arriba.
+
 ## Instituciones
 
 Todas las rutas de `/api/v1/instituciones` requieren un JWT. Los usuarios autenticados pueden consultar `GET /api/v1/instituciones`; crear una institución con `POST` o eliminarla con `DELETE /api/v1/instituciones/:id` requiere rol `ADMIN`. No se permite eliminar una institución que ya esté asociada a fichas del catálogo.
 
-El borrado de trámites, trámites de compraventa, direcciones y cuentas persistidas es lógico: las filas se conservan con `deletedAt` y se excluyen automáticamente de las consultas normales. La extensión de Prisma registra en `AuditLog` las escrituras (`CREATE`, `UPDATE`, `DELETE` y `RESTORE`), incluyendo el usuario autenticado cuando está disponible y los datos anteriores/nuevos. Los campos sensibles, como hashes de contraseñas y tokens, se redactan en el registro.
+El borrado de trámites, trámites de compraventa, direcciones y cuentas persistidas es lógico: las filas se conservan con `deletedAt` y se excluyen automáticamente de las consultas normales. Los códigos únicos de trámites permanecen reservados incluso después del borrado lógico para preservar la identidad histórica y evitar reutilizaciones ambiguas. La extensión de Prisma registra en `AuditLog` las escrituras (`CREATE`, `UPDATE`, `DELETE` y `RESTORE`), incluyendo el usuario autenticado cuando está disponible y los datos anteriores/nuevos. Los campos sensibles, como hashes de contraseñas y tokens, se redactan en el registro.
 
 ## `PUT` y `PATCH`
 

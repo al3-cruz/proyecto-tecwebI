@@ -3,6 +3,7 @@ import { TareasController } from "./tareas.controller";
 import { TareasService } from "./tareas.service";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { JwtService } from "@nestjs/jwt";
+import { PrismaService } from "../prisma/prisma.service.js";
 
 describe("TareasController", () => {
   let controller: TareasController;
@@ -14,6 +15,7 @@ describe("TareasController", () => {
         TareasService,
         { provide: JwtAuthGuard, useValue: { canActivate: jest.fn() } },
         { provide: JwtService, useValue: { verifyAsync: jest.fn() } },
+        { provide: PrismaService, useValue: { usuario: { findFirst: jest.fn() } } },
       ],
     }).compile();
 

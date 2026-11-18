@@ -26,6 +26,8 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
+import { CurrentUser } from "../auth/current-user.decorator.js";
+import type { UsuarioAutenticado } from "../auth/interfaces/usuario-autenticado.interface.js";
 import { DireccionesService } from "./direcciones.service";
 import { CreateDireccionDto } from "./dto/create-direccion.dto";
 import { UpdateDireccionDto } from "./dto/update-direccion.dto";
@@ -44,12 +46,8 @@ export class DireccionesController {
   @Get()
   @ApiOperation({ summary: "Listar direcciones y sus municipios" })
   @ApiOkResponse({ description: "Lista de direcciones." })
-  @ApiQuery({ name: "usuarioId", required: false, type: Number })
-  findAll(
-    @Query("usuarioId", new ParseIntPipe({ optional: true }))
-    usuarioId?: number,
-  ) {
-    return this.direccionesService.findAll(usuarioId);
+  findAll(@CurrentUser() usuario: UsuarioAutenticado) {
+    return this.direccionesService.findAll(usuario.sub);
   }
 
   @Get(":codigoOficina/ruta-gps")
@@ -95,16 +93,22 @@ export class DireccionesController {
   @ApiParam({ name: "id", type: Number })
   @ApiOkResponse({ description: "Dirección con su jerarquía de ubicación." })
   @ApiNotFoundResponse({ description: "La dirección no existe." })
-  findOne(@Param("id", ParseIntPipe) id: number) {
-    return this.direccionesService.findOne(id);
+  findOne(
+    @Param("id", ParseIntPipe) id: number,
+    @CurrentUser() usuario: UsuarioAutenticado,
+  ) {
+    return this.direccionesService.findOne(id, usuario.sub);
   }
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: "Crear una dirección de usuario" })
   @ApiCreatedResponse({ description: "Dirección creada." })
-  create(@Body() createDireccionDto: CreateDireccionDto) {
-    return this.direccionesService.create(createDireccionDto);
+  create(
+    @Body() createDireccionDto: CreateDireccionDto,
+    @CurrentUser() usuario: UsuarioAutenticado,
+  ) {
+    return this.direccionesService.create(createDireccionDto, usuario.sub);
   }
 
   @Put(":id")
@@ -117,8 +121,13 @@ export class DireccionesController {
   updateFull(
     @Param("id", ParseIntPipe) id: number,
     @Body() createDireccionDto: CreateDireccionDto,
+    @CurrentUser() usuario: UsuarioAutenticado,
   ) {
-    return this.direccionesService.replace(id, createDireccionDto);
+    return this.direccionesService.replace(
+      id,
+      createDireccionDto,
+      usuario.sub,
+    );
   }
 
   @Patch(":id")
@@ -131,8 +140,13 @@ export class DireccionesController {
   updatePartial(
     @Param("id", ParseIntPipe) id: number,
     @Body() updateDireccionDto: UpdateDireccionDto,
+    @CurrentUser() usuario: UsuarioAutenticado,
   ) {
-    return this.direccionesService.update(id, updateDireccionDto);
+    return this.direccionesService.update(
+      id,
+      updateDireccionDto,
+      usuario.sub,
+    );
   }
 
   @Delete(":id")
@@ -141,7 +155,10 @@ export class DireccionesController {
   @ApiParam({ name: "id", type: Number })
   @ApiNoContentResponse({ description: "Dirección eliminada." })
   @ApiNotFoundResponse({ description: "La dirección no existe." })
-  remove(@Param("id", ParseIntPipe) id: number) {
-    return this.direccionesService.remove(id);
+  remove(
+    @Param("id", ParseIntPipe) id: number,
+    @CurrentUser() usuario: UsuarioAutenticado,
+  ) {
+    return this.direccionesService.remove(id, usuario.sub);
   }
 }

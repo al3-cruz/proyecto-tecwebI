@@ -10,13 +10,6 @@ import {
 import { Type } from "class-transformer";
 
 export class CreateDireccionDto {
-  @ApiPropertyOptional({ example: 1, minimum: 1 })
-  @IsOptional()
-  @Type(() => Number)
-  @IsInt()
-  @Min(1)
-  usuarioId?: number;
-
   @ApiProperty({
     description: "ID de la ubicación de tipo municipio",
     example: 3,

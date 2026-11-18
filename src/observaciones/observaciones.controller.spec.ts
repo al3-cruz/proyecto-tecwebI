@@ -3,6 +3,7 @@ import { ObservacionesController } from "./observaciones.controller";
 import { ObservacionesService } from "./observaciones.service";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
 import { JwtService } from "@nestjs/jwt";
+import { PrismaService } from "../prisma/prisma.service.js";
 
 describe("ObservacionesController", () => {
   let controller: ObservacionesController;
@@ -13,6 +14,7 @@ describe("ObservacionesController", () => {
       providers: [
         { provide: JwtAuthGuard, useValue: { canActivate: jest.fn() } },
         { provide: JwtService, useValue: { verifyAsync: jest.fn() } },
+        { provide: PrismaService, useValue: { usuario: { findFirst: jest.fn() } } },
         {
           provide: ObservacionesService,
           useValue: {

@@ -11,6 +11,7 @@ describe("DireccionesService", () => {
     direccion: {
       findMany: jest.fn(),
       findUnique: jest.fn(),
+      findFirst: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
@@ -67,13 +68,13 @@ describe("DireccionesService", () => {
       municipioId: 3,
       zonaOComunidad: "Centro",
       calleOAvenida: "Avenida central",
-    });
+    }, 7);
 
     expect(prismaMock.direccion.create).toHaveBeenCalledWith(
       expect.objectContaining({
         data: expect.objectContaining({
           municipioId: 3,
-          usuarioId: null,
+          usuarioId: 7,
         }),
       }),
     );
@@ -86,11 +87,11 @@ describe("DireccionesService", () => {
       municipioId: 3,
       zonaOComunidad: "Centro",
       calleOAvenida: "Avenida nueva",
-    });
+    }, 7);
 
     expect(prismaMock.direccion.update).toHaveBeenCalledWith(
       expect.objectContaining({
-        where: { id: 5 },
+        where: { id: 5, usuarioId: 7 },
         data: expect.objectContaining({
           numeroPuerta: null,
           municipioId: 3,
@@ -100,10 +101,13 @@ describe("DireccionesService", () => {
   });
 
   it("maps a missing address to 404", async () => {
-    prismaMock.direccion.findUnique.mockResolvedValue(null);
+    prismaMock.direccion.findFirst.mockResolvedValue(null);
 
-    await expect(service.findOne(404)).rejects.toBeInstanceOf(
+    await expect(service.findOne(404, 7)).rejects.toBeInstanceOf(
       NotFoundException,
+    );
+    expect(prismaMock.direccion.findFirst).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id: 404, usuarioId: 7 } }),
     );
   });
 
@@ -120,7 +124,7 @@ describe("DireccionesService", () => {
         municipioId: 3,
         zonaOComunidad: "Centro",
         calleOAvenida: "Calle prueba",
-      }),
+      }, 7),
     ).rejects.toBeInstanceOf(BadRequestException);
   });
 
@@ -133,7 +137,7 @@ describe("DireccionesService", () => {
     );
 
     await expect(
-      service.update(999, { municipioId: 3 }),
+      service.update(999, { municipioId: 3 }, 7),
     ).rejects.toBeInstanceOf(NotFoundException);
   });
 

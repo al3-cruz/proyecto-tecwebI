@@ -1,4 +1,8 @@
-import { BadRequestException, NotFoundException } from "@nestjs/common";
+import {
+  BadRequestException,
+  ForbiddenException,
+  NotFoundException,
+} from "@nestjs/common";
 import {
   EstadoTramite,
   TipoRequisitoCompraventa,
@@ -170,7 +174,7 @@ describe("CompraventasService", () => {
         1,
         { estado: EstadoTramite.INSCRIPCION_RAPIDA },
         7,
-        false,
+        true,
       ),
     ).rejects.toBeInstanceOf(BadRequestException);
     expect(tx.tramiteCompraventa.update).not.toHaveBeenCalled();
@@ -189,7 +193,7 @@ describe("CompraventasService", () => {
         1,
         { estado: EstadoTramite.INSCRIPCION_RAPIDA },
         7,
-        false,
+        true,
       ),
     ).rejects.toBeInstanceOf(BadRequestException);
     expect(tx.tramiteCompraventa.update).not.toHaveBeenCalled();
@@ -236,6 +240,41 @@ describe("CompraventasService", () => {
         data: {},
       }),
     );
+  });
+
+  it("does not allow a citizen to set the tariff or mark it paid", async () => {
+    tx.tramiteCompraventa.findFirst.mockResolvedValue({
+      id: 1,
+      estado: EstadoTramite.INSCRIPCION_RAPIDA,
+      arancelPagado: false,
+      requisitos: [],
+    });
+
+    await expect(
+      service.actualizar(1, { arancelPagado: true }, 7, false),
+    ).rejects.toBeInstanceOf(ForbiddenException);
+    expect(tx.tramiteCompraventa.update).not.toHaveBeenCalled();
+  });
+
+  it("does not allow a citizen to verify requirements or advance stages", async () => {
+    await expect(
+      service.avanzarEtapa(
+        1,
+        { estado: EstadoTramite.INSCRIPCION_RAPIDA },
+        7,
+        false,
+      ),
+    ).rejects.toBeInstanceOf(ForbiddenException);
+    await expect(
+      service.verificarRequisito(
+        1,
+        2,
+        { presentoOriginal: true, cantidadFotocopias: 2, verificado: true },
+        7,
+        false,
+      ),
+    ).rejects.toBeInstanceOf(ForbiddenException);
+    expect(prismaMock.$transaction).not.toHaveBeenCalled();
   });
 
   it("blocks deletion after registry processing has started", async () => {

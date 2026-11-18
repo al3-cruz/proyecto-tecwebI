@@ -85,10 +85,10 @@ export type DireccionConMunicipio = Prisma.DireccionGetPayload<{
 export class DireccionesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(usuarioId?: number): Promise<DireccionConMunicipio[]> {
+  async findAll(usuarioId: number): Promise<DireccionConMunicipio[]> {
     try {
       return await this.prisma.direccion.findMany({
-        where: usuarioId === undefined ? undefined : { usuarioId },
+        where: { usuarioId },
         include: direccionInclude,
         orderBy: { id: "asc" },
       });
@@ -97,10 +97,13 @@ export class DireccionesService {
     }
   }
 
-  async findOne(id: number): Promise<DireccionConMunicipio> {
+  async findOne(
+    id: number,
+    usuarioId: number,
+  ): Promise<DireccionConMunicipio> {
     try {
-      const direccion = await this.prisma.direccion.findUnique({
-        where: { id },
+      const direccion = await this.prisma.direccion.findFirst({
+        where: { id, usuarioId },
         include: direccionInclude,
       });
       if (!direccion) {
@@ -204,12 +207,15 @@ export class DireccionesService {
     };
   }
 
-  async create(dto: CreateDireccionDto): Promise<DireccionConMunicipio> {
+  async create(
+    dto: CreateDireccionDto,
+    usuarioId: number,
+  ): Promise<DireccionConMunicipio> {
     try {
       await this.assertMunicipio(dto.municipioId);
       return await this.prisma.direccion.create({
         data: {
-          usuarioId: dto.usuarioId ?? null,
+          usuarioId,
           municipioId: dto.municipioId,
           zonaOComunidad: dto.zonaOComunidad,
           calleOAvenida: dto.calleOAvenida,
@@ -225,13 +231,13 @@ export class DireccionesService {
   async replace(
     id: number,
     dto: CreateDireccionDto,
+    usuarioId: number,
   ): Promise<DireccionConMunicipio> {
     try {
       await this.assertMunicipio(dto.municipioId);
       return await this.prisma.direccion.update({
-        where: { id },
+        where: { id, usuarioId },
         data: {
-          usuarioId: dto.usuarioId ?? null,
           municipioId: dto.municipioId,
           zonaOComunidad: dto.zonaOComunidad,
           calleOAvenida: dto.calleOAvenida,
@@ -247,12 +253,12 @@ export class DireccionesService {
   async update(
     id: number,
     dto: UpdateDireccionDto,
+    usuarioId: number,
   ): Promise<DireccionConMunicipio> {
     if (dto.municipioId !== undefined) {
       await this.assertMunicipio(dto.municipioId);
     }
     const data: Prisma.DireccionUncheckedUpdateInput = {};
-    if (dto.usuarioId !== undefined) data.usuarioId = dto.usuarioId;
     if (dto.municipioId !== undefined) data.municipioId = dto.municipioId;
     if (dto.zonaOComunidad !== undefined) {
       data.zonaOComunidad = dto.zonaOComunidad;
@@ -261,7 +267,7 @@ export class DireccionesService {
     if (dto.numeroPuerta !== undefined) data.numeroPuerta = dto.numeroPuerta;
     try {
       return await this.prisma.direccion.update({
-        where: { id },
+        where: { id, usuarioId },
         data,
         include: direccionInclude,
       });
@@ -270,9 +276,9 @@ export class DireccionesService {
     }
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: number, usuarioId: number): Promise<void> {
     try {
-      await this.prisma.direccion.delete({ where: { id } });
+      await this.prisma.direccion.delete({ where: { id, usuarioId } });
     } catch (error) {
       this.handlePrismaError(error);
     }

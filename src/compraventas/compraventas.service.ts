@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
@@ -146,6 +147,14 @@ export class CompraventasService {
           "Debe indicar al menos un campo para actualizar.",
         );
       }
+      if (
+        !esAdmin &&
+        (dto.montoArancel !== undefined || dto.arancelPagado !== undefined)
+      ) {
+        throw new ForbiddenException(
+          "Solo ADMIN puede modificar el arancel o registrar su pago.",
+        );
+      }
       if (dto.observaciones !== undefined && !dto.observaciones?.trim()) {
         throw new BadRequestException(
           "El mensaje de observación no puede estar vacío.",
@@ -202,6 +211,7 @@ export class CompraventasService {
     usuarioId: number,
     esAdmin: boolean,
   ) {
+    this.assertAdmin(esAdmin);
     return this.prisma.$transaction(async (tx) => {
       const tramite = await this.buscarEnTransaccion(
         tx,
@@ -248,6 +258,7 @@ export class CompraventasService {
     usuarioId: number,
     esAdmin: boolean,
   ): Promise<TramiteCompraventaConRequisitos> {
+    this.assertAdmin(esAdmin);
     return this.prisma.$transaction(async (tx) => {
       const tramite = await this.buscarEnTransaccion(
         tx,
@@ -274,6 +285,7 @@ export class CompraventasService {
     usuarioId: number,
     esAdmin: boolean,
   ): Promise<TramiteCompraventaConRequisitos> {
+    this.assertAdmin(esAdmin);
     return this.prisma.$transaction(async (tx) => {
       const tramite = await this.buscarEnTransaccion(
         tx,
@@ -455,5 +467,13 @@ export class CompraventasService {
       throw new NotFoundException(`El trámite ${id} no existe.`);
     }
     return tramite;
+  }
+
+  private assertAdmin(esAdmin: boolean): void {
+    if (!esAdmin) {
+      throw new ForbiddenException(
+        "Solo ADMIN puede ejecutar acciones oficiales del trámite.",
+      );
+    }
   }
 }

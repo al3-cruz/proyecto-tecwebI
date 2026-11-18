@@ -20,12 +20,9 @@ const PERMISOS_BASE = [
     descripcion: "Consultar trámites de compraventa propios.",
   },
   {
-    codigo: "compraventas:leer_todos",
-    descripcion: "Consultar todos los trámites de compraventa.",
-  },
-  {
     codigo: "compraventas:actualizar",
-    descripcion: "Actualizar trámites de compraventa propios.",
+    descripcion:
+      "Actualizar observaciones propias y datos permitidos del trámite.",
   },
   {
     codigo: "compraventas:avanzar_etapa",
@@ -45,7 +42,6 @@ const permisosCiudadano = [
   { codigo: "compraventas:crear" },
   { codigo: "compraventas:leer" },
   { codigo: "compraventas:actualizar" },
-  { codigo: "compraventas:avanzar_etapa" },
 ];
 
 export async function seedRoles(prisma: PrismaClient): Promise<void> {
@@ -57,6 +53,9 @@ export async function seedRoles(prisma: PrismaClient): Promise<void> {
         update: { descripcion: permiso.descripcion },
       });
     }
+    await tx.permiso.deleteMany({
+      where: { codigo: "compraventas:leer_todos" },
+    });
 
     const permisos = await tx.permiso.findMany({
       where: { codigo: { in: PERMISOS_BASE.map(({ codigo }) => codigo) } },
