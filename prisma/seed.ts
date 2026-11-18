@@ -1,8 +1,10 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../src/generated/prisma/client';
+import { seedUbicaciones } from './seeds/ubicaciones.seed';
 import { seedRoles } from './seeds/roles.seed';
-import { seedTiposTramite } from './seeds/tipos-tramite.seed';
 import { seedUsuarios } from './seeds/usuarios.seed';
+import { seedTiposTramite } from './seeds/tipos-tramite.seed';
+import { seedPlanes } from './seeds/planes.seed';
 
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {
@@ -16,10 +18,20 @@ const prisma = new PrismaClient({
 });
 
 async function seed(): Promise<void> {
+  console.info('🌱 Iniciando Seed...');
+
+  // 1. Ubicaciones y Planes (Catálogos base)
+  const municipioSucreId = await seedUbicaciones(prisma);
+  await seedPlanes(prisma);
+
+  // 2. Seguridad
   await seedRoles(prisma);
   const adminId = await seedUsuarios(prisma);
-  await seedTiposTramite(prisma, adminId);
-  console.info('Prisma seed completed successfully.');
+
+  // 3. Trámites (usa el ID del municipio para la oficina)
+  await seedTiposTramite(prisma, adminId, municipioSucreId);
+
+  console.info(' Prisma seed completed successfully.');
 }
 
 seed()

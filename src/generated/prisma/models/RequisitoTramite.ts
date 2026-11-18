@@ -45,6 +45,7 @@ export type RequisitoTramiteMinAggregateOutputType = {
   obligatorio: boolean | null
   orden: number | null
   notaCondicional: string | null
+  archivoUrl: string | null
   tramiteId: number | null
 }
 
@@ -55,6 +56,7 @@ export type RequisitoTramiteMaxAggregateOutputType = {
   obligatorio: boolean | null
   orden: number | null
   notaCondicional: string | null
+  archivoUrl: string | null
   tramiteId: number | null
 }
 
@@ -65,6 +67,7 @@ export type RequisitoTramiteCountAggregateOutputType = {
   obligatorio: number
   orden: number
   notaCondicional: number
+  archivoUrl: number
   tramiteId: number
   _all: number
 }
@@ -89,6 +92,7 @@ export type RequisitoTramiteMinAggregateInputType = {
   obligatorio?: true
   orden?: true
   notaCondicional?: true
+  archivoUrl?: true
   tramiteId?: true
 }
 
@@ -99,6 +103,7 @@ export type RequisitoTramiteMaxAggregateInputType = {
   obligatorio?: true
   orden?: true
   notaCondicional?: true
+  archivoUrl?: true
   tramiteId?: true
 }
 
@@ -109,6 +114,7 @@ export type RequisitoTramiteCountAggregateInputType = {
   obligatorio?: true
   orden?: true
   notaCondicional?: true
+  archivoUrl?: true
   tramiteId?: true
   _all?: true
 }
@@ -206,6 +212,7 @@ export type RequisitoTramiteGroupByOutputType = {
   obligatorio: boolean
   orden: number
   notaCondicional: string | null
+  archivoUrl: string | null
   tramiteId: number
   _count: RequisitoTramiteCountAggregateOutputType | null
   _avg: RequisitoTramiteAvgAggregateOutputType | null
@@ -239,6 +246,7 @@ export type RequisitoTramiteWhereInput = {
   obligatorio?: Prisma.BoolFilter<"RequisitoTramite"> | boolean
   orden?: Prisma.IntFilter<"RequisitoTramite"> | number
   notaCondicional?: Prisma.StringNullableFilter<"RequisitoTramite"> | string | null
+  archivoUrl?: Prisma.StringNullableFilter<"RequisitoTramite"> | string | null
   tramiteId?: Prisma.IntFilter<"RequisitoTramite"> | number
   tramite?: Prisma.XOR<Prisma.TramiteScalarRelationFilter, Prisma.TramiteWhereInput>
 }
@@ -250,6 +258,7 @@ export type RequisitoTramiteOrderByWithRelationInput = {
   obligatorio?: Prisma.SortOrder
   orden?: Prisma.SortOrder
   notaCondicional?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
   tramite?: Prisma.TramiteOrderByWithRelationInput
 }
@@ -264,6 +273,7 @@ export type RequisitoTramiteWhereUniqueInput = Prisma.AtLeast<{
   obligatorio?: Prisma.BoolFilter<"RequisitoTramite"> | boolean
   orden?: Prisma.IntFilter<"RequisitoTramite"> | number
   notaCondicional?: Prisma.StringNullableFilter<"RequisitoTramite"> | string | null
+  archivoUrl?: Prisma.StringNullableFilter<"RequisitoTramite"> | string | null
   tramiteId?: Prisma.IntFilter<"RequisitoTramite"> | number
   tramite?: Prisma.XOR<Prisma.TramiteScalarRelationFilter, Prisma.TramiteWhereInput>
 }, "id">
@@ -275,6 +285,7 @@ export type RequisitoTramiteOrderByWithAggregationInput = {
   obligatorio?: Prisma.SortOrder
   orden?: Prisma.SortOrder
   notaCondicional?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
   _count?: Prisma.RequisitoTramiteCountOrderByAggregateInput
   _avg?: Prisma.RequisitoTramiteAvgOrderByAggregateInput
@@ -293,6 +304,7 @@ export type RequisitoTramiteScalarWhereWithAggregatesInput = {
   obligatorio?: Prisma.BoolWithAggregatesFilter<"RequisitoTramite"> | boolean
   orden?: Prisma.IntWithAggregatesFilter<"RequisitoTramite"> | number
   notaCondicional?: Prisma.StringNullableWithAggregatesFilter<"RequisitoTramite"> | string | null
+  archivoUrl?: Prisma.StringNullableWithAggregatesFilter<"RequisitoTramite"> | string | null
   tramiteId?: Prisma.IntWithAggregatesFilter<"RequisitoTramite"> | number
 }
 
@@ -302,6 +314,7 @@ export type RequisitoTramiteCreateInput = {
   obligatorio?: boolean
   orden: number
   notaCondicional?: string | null
+  archivoUrl?: string | null
   tramite: Prisma.TramiteCreateNestedOneWithoutRequisitosInput
 }
 
@@ -312,6 +325,7 @@ export type RequisitoTramiteUncheckedCreateInput = {
   obligatorio?: boolean
   orden: number
   notaCondicional?: string | null
+  archivoUrl?: string | null
   tramiteId: number
 }
 
@@ -321,6 +335,7 @@ export type RequisitoTramiteUpdateInput = {
   obligatorio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.IntFieldUpdateOperationsInput | number
   notaCondicional?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tramite?: Prisma.TramiteUpdateOneRequiredWithoutRequisitosNestedInput
 }
 
@@ -331,6 +346,7 @@ export type RequisitoTramiteUncheckedUpdateInput = {
   obligatorio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.IntFieldUpdateOperationsInput | number
   notaCondicional?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tramiteId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -341,6 +357,7 @@ export type RequisitoTramiteCreateManyInput = {
   obligatorio?: boolean
   orden: number
   notaCondicional?: string | null
+  archivoUrl?: string | null
   tramiteId: number
 }
 
@@ -350,6 +367,7 @@ export type RequisitoTramiteUpdateManyMutationInput = {
   obligatorio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.IntFieldUpdateOperationsInput | number
   notaCondicional?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RequisitoTramiteUncheckedUpdateManyInput = {
@@ -359,6 +377,7 @@ export type RequisitoTramiteUncheckedUpdateManyInput = {
   obligatorio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.IntFieldUpdateOperationsInput | number
   notaCondicional?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tramiteId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -379,6 +398,7 @@ export type RequisitoTramiteCountOrderByAggregateInput = {
   obligatorio?: Prisma.SortOrder
   orden?: Prisma.SortOrder
   notaCondicional?: Prisma.SortOrder
+  archivoUrl?: Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
 }
 
@@ -395,6 +415,7 @@ export type RequisitoTramiteMaxOrderByAggregateInput = {
   obligatorio?: Prisma.SortOrder
   orden?: Prisma.SortOrder
   notaCondicional?: Prisma.SortOrder
+  archivoUrl?: Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
 }
 
@@ -405,6 +426,7 @@ export type RequisitoTramiteMinOrderByAggregateInput = {
   obligatorio?: Prisma.SortOrder
   orden?: Prisma.SortOrder
   notaCondicional?: Prisma.SortOrder
+  archivoUrl?: Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
 }
 
@@ -462,6 +484,7 @@ export type RequisitoTramiteCreateWithoutTramiteInput = {
   obligatorio?: boolean
   orden: number
   notaCondicional?: string | null
+  archivoUrl?: string | null
 }
 
 export type RequisitoTramiteUncheckedCreateWithoutTramiteInput = {
@@ -471,6 +494,7 @@ export type RequisitoTramiteUncheckedCreateWithoutTramiteInput = {
   obligatorio?: boolean
   orden: number
   notaCondicional?: string | null
+  archivoUrl?: string | null
 }
 
 export type RequisitoTramiteCreateOrConnectWithoutTramiteInput = {
@@ -509,6 +533,7 @@ export type RequisitoTramiteScalarWhereInput = {
   obligatorio?: Prisma.BoolFilter<"RequisitoTramite"> | boolean
   orden?: Prisma.IntFilter<"RequisitoTramite"> | number
   notaCondicional?: Prisma.StringNullableFilter<"RequisitoTramite"> | string | null
+  archivoUrl?: Prisma.StringNullableFilter<"RequisitoTramite"> | string | null
   tramiteId?: Prisma.IntFilter<"RequisitoTramite"> | number
 }
 
@@ -519,6 +544,7 @@ export type RequisitoTramiteCreateManyTramiteInput = {
   obligatorio?: boolean
   orden: number
   notaCondicional?: string | null
+  archivoUrl?: string | null
 }
 
 export type RequisitoTramiteUpdateWithoutTramiteInput = {
@@ -527,6 +553,7 @@ export type RequisitoTramiteUpdateWithoutTramiteInput = {
   obligatorio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.IntFieldUpdateOperationsInput | number
   notaCondicional?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RequisitoTramiteUncheckedUpdateWithoutTramiteInput = {
@@ -536,6 +563,7 @@ export type RequisitoTramiteUncheckedUpdateWithoutTramiteInput = {
   obligatorio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.IntFieldUpdateOperationsInput | number
   notaCondicional?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RequisitoTramiteUncheckedUpdateManyWithoutTramiteInput = {
@@ -545,6 +573,7 @@ export type RequisitoTramiteUncheckedUpdateManyWithoutTramiteInput = {
   obligatorio?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.IntFieldUpdateOperationsInput | number
   notaCondicional?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -556,6 +585,7 @@ export type RequisitoTramiteSelect<ExtArgs extends runtime.Types.Extensions.Inte
   obligatorio?: boolean
   orden?: boolean
   notaCondicional?: boolean
+  archivoUrl?: boolean
   tramiteId?: boolean
   tramite?: boolean | Prisma.TramiteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisitoTramite"]>
@@ -567,6 +597,7 @@ export type RequisitoTramiteSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   obligatorio?: boolean
   orden?: boolean
   notaCondicional?: boolean
+  archivoUrl?: boolean
   tramiteId?: boolean
   tramite?: boolean | Prisma.TramiteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisitoTramite"]>
@@ -578,6 +609,7 @@ export type RequisitoTramiteSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   obligatorio?: boolean
   orden?: boolean
   notaCondicional?: boolean
+  archivoUrl?: boolean
   tramiteId?: boolean
   tramite?: boolean | Prisma.TramiteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisitoTramite"]>
@@ -589,10 +621,11 @@ export type RequisitoTramiteSelectScalar = {
   obligatorio?: boolean
   orden?: boolean
   notaCondicional?: boolean
+  archivoUrl?: boolean
   tramiteId?: boolean
 }
 
-export type RequisitoTramiteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "detalle" | "obligatorio" | "orden" | "notaCondicional" | "tramiteId", ExtArgs["result"]["requisitoTramite"]>
+export type RequisitoTramiteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "detalle" | "obligatorio" | "orden" | "notaCondicional" | "archivoUrl" | "tramiteId", ExtArgs["result"]["requisitoTramite"]>
 export type RequisitoTramiteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tramite?: boolean | Prisma.TramiteDefaultArgs<ExtArgs>
 }
@@ -615,6 +648,7 @@ export type $RequisitoTramitePayload<ExtArgs extends runtime.Types.Extensions.In
     obligatorio: boolean
     orden: number
     notaCondicional: string | null
+    archivoUrl: string | null
     tramiteId: number
   }, ExtArgs["result"]["requisitoTramite"]>
   composites: {}
@@ -1046,6 +1080,7 @@ export interface RequisitoTramiteFieldRefs {
   readonly obligatorio: Prisma.FieldRef<"RequisitoTramite", 'Boolean'>
   readonly orden: Prisma.FieldRef<"RequisitoTramite", 'Int'>
   readonly notaCondicional: Prisma.FieldRef<"RequisitoTramite", 'String'>
+  readonly archivoUrl: Prisma.FieldRef<"RequisitoTramite", 'String'>
   readonly tramiteId: Prisma.FieldRef<"RequisitoTramite", 'Int'>
 }
     

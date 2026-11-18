@@ -46,6 +46,7 @@ export type PasoProcedimientoMinAggregateOutputType = {
   titulo: string | null
   descripcion: string | null
   plazoDias: number | null
+  esGratuito: boolean | null
   tramiteId: number | null
 }
 
@@ -55,6 +56,7 @@ export type PasoProcedimientoMaxAggregateOutputType = {
   titulo: string | null
   descripcion: string | null
   plazoDias: number | null
+  esGratuito: boolean | null
   tramiteId: number | null
 }
 
@@ -64,6 +66,7 @@ export type PasoProcedimientoCountAggregateOutputType = {
   titulo: number
   descripcion: number
   plazoDias: number
+  esGratuito: number
   tramiteId: number
   _all: number
 }
@@ -89,6 +92,7 @@ export type PasoProcedimientoMinAggregateInputType = {
   titulo?: true
   descripcion?: true
   plazoDias?: true
+  esGratuito?: true
   tramiteId?: true
 }
 
@@ -98,6 +102,7 @@ export type PasoProcedimientoMaxAggregateInputType = {
   titulo?: true
   descripcion?: true
   plazoDias?: true
+  esGratuito?: true
   tramiteId?: true
 }
 
@@ -107,6 +112,7 @@ export type PasoProcedimientoCountAggregateInputType = {
   titulo?: true
   descripcion?: true
   plazoDias?: true
+  esGratuito?: true
   tramiteId?: true
   _all?: true
 }
@@ -203,6 +209,7 @@ export type PasoProcedimientoGroupByOutputType = {
   titulo: string
   descripcion: string
   plazoDias: number | null
+  esGratuito: boolean
   tramiteId: number
   _count: PasoProcedimientoCountAggregateOutputType | null
   _avg: PasoProcedimientoAvgAggregateOutputType | null
@@ -235,6 +242,7 @@ export type PasoProcedimientoWhereInput = {
   titulo?: Prisma.StringFilter<"PasoProcedimiento"> | string
   descripcion?: Prisma.StringFilter<"PasoProcedimiento"> | string
   plazoDias?: Prisma.IntNullableFilter<"PasoProcedimiento"> | number | null
+  esGratuito?: Prisma.BoolFilter<"PasoProcedimiento"> | boolean
   tramiteId?: Prisma.IntFilter<"PasoProcedimiento"> | number
   tramite?: Prisma.XOR<Prisma.TramiteScalarRelationFilter, Prisma.TramiteWhereInput>
 }
@@ -245,6 +253,7 @@ export type PasoProcedimientoOrderByWithRelationInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   plazoDias?: Prisma.SortOrderInput | Prisma.SortOrder
+  esGratuito?: Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
   tramite?: Prisma.TramiteOrderByWithRelationInput
 }
@@ -258,6 +267,7 @@ export type PasoProcedimientoWhereUniqueInput = Prisma.AtLeast<{
   titulo?: Prisma.StringFilter<"PasoProcedimiento"> | string
   descripcion?: Prisma.StringFilter<"PasoProcedimiento"> | string
   plazoDias?: Prisma.IntNullableFilter<"PasoProcedimiento"> | number | null
+  esGratuito?: Prisma.BoolFilter<"PasoProcedimiento"> | boolean
   tramiteId?: Prisma.IntFilter<"PasoProcedimiento"> | number
   tramite?: Prisma.XOR<Prisma.TramiteScalarRelationFilter, Prisma.TramiteWhereInput>
 }, "id">
@@ -268,6 +278,7 @@ export type PasoProcedimientoOrderByWithAggregationInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   plazoDias?: Prisma.SortOrderInput | Prisma.SortOrder
+  esGratuito?: Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
   _count?: Prisma.PasoProcedimientoCountOrderByAggregateInput
   _avg?: Prisma.PasoProcedimientoAvgOrderByAggregateInput
@@ -285,6 +296,7 @@ export type PasoProcedimientoScalarWhereWithAggregatesInput = {
   titulo?: Prisma.StringWithAggregatesFilter<"PasoProcedimiento"> | string
   descripcion?: Prisma.StringWithAggregatesFilter<"PasoProcedimiento"> | string
   plazoDias?: Prisma.IntNullableWithAggregatesFilter<"PasoProcedimiento"> | number | null
+  esGratuito?: Prisma.BoolWithAggregatesFilter<"PasoProcedimiento"> | boolean
   tramiteId?: Prisma.IntWithAggregatesFilter<"PasoProcedimiento"> | number
 }
 
@@ -293,6 +305,7 @@ export type PasoProcedimientoCreateInput = {
   titulo: string
   descripcion: string
   plazoDias?: number | null
+  esGratuito?: boolean
   tramite: Prisma.TramiteCreateNestedOneWithoutPasosInput
 }
 
@@ -302,6 +315,7 @@ export type PasoProcedimientoUncheckedCreateInput = {
   titulo: string
   descripcion: string
   plazoDias?: number | null
+  esGratuito?: boolean
   tramiteId: number
 }
 
@@ -310,6 +324,7 @@ export type PasoProcedimientoUpdateInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   plazoDias?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esGratuito?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tramite?: Prisma.TramiteUpdateOneRequiredWithoutPasosNestedInput
 }
 
@@ -319,6 +334,7 @@ export type PasoProcedimientoUncheckedUpdateInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   plazoDias?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esGratuito?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tramiteId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -328,6 +344,7 @@ export type PasoProcedimientoCreateManyInput = {
   titulo: string
   descripcion: string
   plazoDias?: number | null
+  esGratuito?: boolean
   tramiteId: number
 }
 
@@ -336,6 +353,7 @@ export type PasoProcedimientoUpdateManyMutationInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   plazoDias?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esGratuito?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type PasoProcedimientoUncheckedUpdateManyInput = {
@@ -344,6 +362,7 @@ export type PasoProcedimientoUncheckedUpdateManyInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   plazoDias?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esGratuito?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tramiteId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -363,6 +382,7 @@ export type PasoProcedimientoCountOrderByAggregateInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   plazoDias?: Prisma.SortOrder
+  esGratuito?: Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
 }
 
@@ -379,6 +399,7 @@ export type PasoProcedimientoMaxOrderByAggregateInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   plazoDias?: Prisma.SortOrder
+  esGratuito?: Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
 }
 
@@ -388,6 +409,7 @@ export type PasoProcedimientoMinOrderByAggregateInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   plazoDias?: Prisma.SortOrder
+  esGratuito?: Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
 }
 
@@ -440,19 +462,12 @@ export type PasoProcedimientoUncheckedUpdateManyWithoutTramiteNestedInput = {
   deleteMany?: Prisma.PasoProcedimientoScalarWhereInput | Prisma.PasoProcedimientoScalarWhereInput[]
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type PasoProcedimientoCreateWithoutTramiteInput = {
   orden: number
   titulo: string
   descripcion: string
   plazoDias?: number | null
+  esGratuito?: boolean
 }
 
 export type PasoProcedimientoUncheckedCreateWithoutTramiteInput = {
@@ -461,6 +476,7 @@ export type PasoProcedimientoUncheckedCreateWithoutTramiteInput = {
   titulo: string
   descripcion: string
   plazoDias?: number | null
+  esGratuito?: boolean
 }
 
 export type PasoProcedimientoCreateOrConnectWithoutTramiteInput = {
@@ -498,6 +514,7 @@ export type PasoProcedimientoScalarWhereInput = {
   titulo?: Prisma.StringFilter<"PasoProcedimiento"> | string
   descripcion?: Prisma.StringFilter<"PasoProcedimiento"> | string
   plazoDias?: Prisma.IntNullableFilter<"PasoProcedimiento"> | number | null
+  esGratuito?: Prisma.BoolFilter<"PasoProcedimiento"> | boolean
   tramiteId?: Prisma.IntFilter<"PasoProcedimiento"> | number
 }
 
@@ -507,6 +524,7 @@ export type PasoProcedimientoCreateManyTramiteInput = {
   titulo: string
   descripcion: string
   plazoDias?: number | null
+  esGratuito?: boolean
 }
 
 export type PasoProcedimientoUpdateWithoutTramiteInput = {
@@ -514,6 +532,7 @@ export type PasoProcedimientoUpdateWithoutTramiteInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   plazoDias?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esGratuito?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type PasoProcedimientoUncheckedUpdateWithoutTramiteInput = {
@@ -522,6 +541,7 @@ export type PasoProcedimientoUncheckedUpdateWithoutTramiteInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   plazoDias?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esGratuito?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type PasoProcedimientoUncheckedUpdateManyWithoutTramiteInput = {
@@ -530,6 +550,7 @@ export type PasoProcedimientoUncheckedUpdateManyWithoutTramiteInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   plazoDias?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  esGratuito?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -540,6 +561,7 @@ export type PasoProcedimientoSelect<ExtArgs extends runtime.Types.Extensions.Int
   titulo?: boolean
   descripcion?: boolean
   plazoDias?: boolean
+  esGratuito?: boolean
   tramiteId?: boolean
   tramite?: boolean | Prisma.TramiteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pasoProcedimiento"]>
@@ -550,6 +572,7 @@ export type PasoProcedimientoSelectCreateManyAndReturn<ExtArgs extends runtime.T
   titulo?: boolean
   descripcion?: boolean
   plazoDias?: boolean
+  esGratuito?: boolean
   tramiteId?: boolean
   tramite?: boolean | Prisma.TramiteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pasoProcedimiento"]>
@@ -560,6 +583,7 @@ export type PasoProcedimientoSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   titulo?: boolean
   descripcion?: boolean
   plazoDias?: boolean
+  esGratuito?: boolean
   tramiteId?: boolean
   tramite?: boolean | Prisma.TramiteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pasoProcedimiento"]>
@@ -570,10 +594,11 @@ export type PasoProcedimientoSelectScalar = {
   titulo?: boolean
   descripcion?: boolean
   plazoDias?: boolean
+  esGratuito?: boolean
   tramiteId?: boolean
 }
 
-export type PasoProcedimientoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orden" | "titulo" | "descripcion" | "plazoDias" | "tramiteId", ExtArgs["result"]["pasoProcedimiento"]>
+export type PasoProcedimientoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orden" | "titulo" | "descripcion" | "plazoDias" | "esGratuito" | "tramiteId", ExtArgs["result"]["pasoProcedimiento"]>
 export type PasoProcedimientoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tramite?: boolean | Prisma.TramiteDefaultArgs<ExtArgs>
 }
@@ -595,6 +620,7 @@ export type $PasoProcedimientoPayload<ExtArgs extends runtime.Types.Extensions.I
     titulo: string
     descripcion: string
     plazoDias: number | null
+    esGratuito: boolean
     tramiteId: number
   }, ExtArgs["result"]["pasoProcedimiento"]>
   composites: {}
@@ -1025,6 +1051,7 @@ export interface PasoProcedimientoFieldRefs {
   readonly titulo: Prisma.FieldRef<"PasoProcedimiento", 'String'>
   readonly descripcion: Prisma.FieldRef<"PasoProcedimiento", 'String'>
   readonly plazoDias: Prisma.FieldRef<"PasoProcedimiento", 'Int'>
+  readonly esGratuito: Prisma.FieldRef<"PasoProcedimiento", 'Boolean'>
   readonly tramiteId: Prisma.FieldRef<"PasoProcedimiento", 'Int'>
 }
     

@@ -2,25 +2,27 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { Prisma } from '../generated/prisma/client';
-import { PrismaService } from '../prisma/prisma.service';
+} from "@nestjs/common";
+import { Prisma } from "../generated/prisma/client";
+import { PrismaService } from "../prisma/prisma.service";
 import {
   CreateRequisitoTramiteDto,
   CreateTramiteDto,
-} from './dto/create-tramite.dto';
-import { UpdateTramiteDto } from './dto/update-tramite.dto';
-import { FilterTramiteDto } from './dto/filter-tramite.dto';
-import { VerificarRequisitosDto } from './dto/verificar-requisitos.dto';
+} from "./dto/create-tramite.dto";
+import { UpdateTramiteDto } from "./dto/update-tramite.dto";
+import { FilterTramiteDto } from "./dto/filter-tramite.dto";
+import { VerificarRequisitosDto } from "./dto/verificar-requisitos.dto";
 import {
   sumarDiasHabiles,
   verificarRequisitos,
-} from './tramites-logica.helper';
+} from "./tramites-logica.helper";
 
 const tramiteInclude = {
-  requisitos: { orderBy: { orden: 'asc' } },
-  pasos: { orderBy: { orden: 'asc' } },
+  requisitos: { orderBy: { orden: "asc" } },
+  pasos: { orderBy: { orden: "asc" } },
   oficinas: true,
+  documentosEntregables: { orderBy: { id: "asc" } },
+  institucion: { select: { id: true, nombre: true } },
 } satisfies Prisma.TramiteInclude;
 
 export type TramiteConRelaciones = Prisma.TramiteGetPayload<{
@@ -43,21 +45,19 @@ export class TramitesService {
 
   async findAll(
     filtros: FilterTramiteDto,
-    usuarioId: number,
   ): Promise<ResultadoPaginado<TramiteConRelaciones>> {
     const { page, limit } = filtros;
     const search = filtros.search?.trim();
     const where: Prisma.TramiteWhereInput = {
-      usuarioId,
       ...(search
         ? {
             OR: [
-              { titulo: { contains: search, mode: 'insensitive' } },
-              { finalidad: { contains: search, mode: 'insensitive' } },
+              { titulo: { contains: search, mode: "insensitive" } },
+              { finalidad: { contains: search, mode: "insensitive" } },
               {
                 requisitos: {
                   some: {
-                    detalle: { contains: search, mode: 'insensitive' },
+                    detalle: { contains: search, mode: "insensitive" },
                   },
                 },
               },
@@ -78,7 +78,7 @@ export class TramitesService {
         this.prisma.tramite.findMany({
           where,
           include: tramiteInclude,
-          orderBy: { codigo: 'asc' },
+          orderBy: { codigo: "asc" },
           skip: (page - 1) * limit,
           take: limit,
         }),
@@ -102,11 +102,10 @@ export class TramitesService {
   async verificarRequisitos(
     id: number,
     dto: VerificarRequisitosDto,
-    usuarioId: number,
   ): Promise<
     ReturnType<typeof verificarRequisitos> & { fechaEstimadaEntrega: string }
   > {
-    const tramite = await this.findOne(id, usuarioId);
+    const tramite = await this.findOne(id);
     const resultado = verificarRequisitos(
       tramite.requisitos,
       dto.requisitosCumplidosIds,
@@ -124,7 +123,7 @@ export class TramitesService {
     };
   }
 
-  async obtenerEstadisticas(usuarioId: number): Promise<{
+  async obtenerEstadisticas(): Promise<{
     totalTramites: number;
     promedioPlazoDias: number;
     porModalidad: Array<{ modalidad: string; total: number }>;
@@ -138,42 +137,42 @@ export class TramitesService {
     try {
       const [totalTramites, promedio, modalidades, oficinas] =
         await Promise.all([
-          this.prisma.tramite.count({ where: { usuarioId } }),
+          this.prisma.tramite.count(),
           this.prisma.tramite.aggregate({
-            where: { usuarioId },
             _avg: { plazoEntregaDias: true },
           }),
           this.prisma.tramite.groupBy({
-            by: ['modalidad'],
-            where: { usuarioId },
+            by: ["modalidad"],
             _count: { _all: true },
-            orderBy: { modalidad: 'asc' },
+            orderBy: { modalidad: "asc" },
           }),
-          this.prisma.direccion.findMany({
+          this.prisma.oficina.findMany({
             select: {
               id: true,
               codigoOficina: true,
-              nombreOficina: true,
+              nombre: true,
               _count: {
                 select: {
-                  tramites: { where: { usuarioId } },
+                  tramites: true,
                 },
               },
             },
-            orderBy: { id: 'asc' },
+            orderBy: { id: "asc" },
           }),
         ]);
 
       return {
         totalTramites,
-        promedioPlazoDias: Math.round(promedio._avg.plazoEntregaDias ?? 0),
+        promedioPlazoDias: Math.round(promedio._avg?.plazoEntregaDias ?? 0),
         porModalidad: modalidades.map(({ modalidad, _count }) => ({
           modalidad,
-          total: _count._all,
+          total: typeof _count === "object" ? (_count?._all ?? 0) : 0,
         })),
-        porOficina: oficinas.map(({ _count, ...oficina }) => ({
-          ...oficina,
-          totalTramites: _count.tramites,
+        porOficina: oficinas.map((oficina) => ({
+          id: oficina.id,
+          codigoOficina: oficina.codigoOficina,
+          nombreOficina: oficina.nombre,
+          totalTramites: oficina._count.tramites,
         })),
       };
     } catch (error) {
@@ -181,17 +180,13 @@ export class TramitesService {
     }
   }
 
-  async relacionados(
-    id: number,
-    usuarioId: number,
-  ): Promise<TramiteConRelaciones[]> {
-    const tramite = await this.findOne(id, usuarioId);
+  async relacionados(id: number): Promise<TramiteConRelaciones[]> {
+    const tramite = await this.findOne(id);
     const oficinaIds = tramite.oficinas.map((oficina) => oficina.id);
 
     try {
       return await this.prisma.tramite.findMany({
         where: {
-          usuarioId,
           id: { not: id },
           OR: [
             { modalidad: tramite.modalidad },
@@ -201,7 +196,7 @@ export class TramitesService {
           ],
         },
         include: tramiteInclude,
-        orderBy: { codigo: 'asc' },
+        orderBy: { codigo: "asc" },
         take: 4,
       });
     } catch (error) {
@@ -209,13 +204,10 @@ export class TramitesService {
     }
   }
 
-  async findOne(
-    id: number,
-    usuarioId: number,
-  ): Promise<TramiteConRelaciones> {
+  async findOne(id: number): Promise<TramiteConRelaciones> {
     try {
       const tramite = await this.prisma.tramite.findFirst({
-        where: { id, usuarioId },
+        where: { id },
         include: tramiteInclude,
       });
       if (!tramite) {
@@ -236,20 +228,24 @@ export class TramitesService {
     try {
       return await this.prisma.tramite.create({
         data: {
-          usuarioId,
+          tramitadorId: usuarioId,
           codigo: dto.codigo,
           codigoOficial: dto.codigoOficial ?? null,
           titulo: dto.titulo,
-          institucionResponsable:
-            dto.institucionResponsable ?? 'Registro Público de Derechos Reales',
-          oficina: dto.oficina ?? null,
+          institucionId: dto.institucionId,
           finalidad: dto.finalidad,
           plazoEntregaDias: dto.plazoEntregaDias,
           modalidad: dto.modalidad,
           notaRequisitos: dto.notaRequisitos ?? null,
-          documentosEntregables: dto.documentosEntregables ?? [],
+          documentosEntregables: {
+            create: (dto.documentosEntregables ?? []).map((nombre) => ({
+              nombre,
+            })),
+          },
           baseLegal: dto.baseLegal ?? null,
-          fechaActualizacionOficial: dto.fechaActualizacionOficial ?? null,
+          fechaActualizacionOficial: dto.fechaActualizacionOficial
+            ? new Date(dto.fechaActualizacionOficial)
+            : null,
           requisitos: { create: dto.requisitos ?? [] },
           pasos: { create: dto.pasos ?? [] },
           oficinas: {
@@ -268,26 +264,29 @@ export class TramitesService {
   async replace(
     id: number,
     dto: CreateTramiteDto,
-    usuarioId: number,
   ): Promise<TramiteConRelaciones> {
     try {
-      await this.assertOwned(id, usuarioId);
       return await this.prisma.tramite.update({
         where: { id },
         data: {
           codigo: dto.codigo,
           codigoOficial: dto.codigoOficial ?? null,
           titulo: dto.titulo,
-          institucionResponsable:
-            dto.institucionResponsable ?? 'Registro Público de Derechos Reales',
-          oficina: dto.oficina ?? null,
+          institucion: { connect: { id: dto.institucionId } },
           finalidad: dto.finalidad,
           plazoEntregaDias: dto.plazoEntregaDias,
           modalidad: dto.modalidad,
           notaRequisitos: dto.notaRequisitos ?? null,
-          documentosEntregables: dto.documentosEntregables ?? [],
+          documentosEntregables: {
+            deleteMany: {},
+            create: (dto.documentosEntregables ?? []).map((nombre) => ({
+              nombre,
+            })),
+          },
           baseLegal: dto.baseLegal ?? null,
-          fechaActualizacionOficial: dto.fechaActualizacionOficial ?? null,
+          fechaActualizacionOficial: dto.fechaActualizacionOficial
+            ? new Date(dto.fechaActualizacionOficial)
+            : null,
           requisitos: {
             deleteMany: {},
             create: dto.requisitos ?? [],
@@ -310,7 +309,6 @@ export class TramitesService {
   async update(
     id: number,
     dto: UpdateTramiteDto,
-    usuarioId: number,
   ): Promise<TramiteConRelaciones> {
     const data: Prisma.TramiteUpdateInput = {};
     if (dto.codigo !== undefined) data.codigo = dto.codigo;
@@ -318,10 +316,9 @@ export class TramitesService {
       data.codigoOficial = dto.codigoOficial;
     }
     if (dto.titulo !== undefined) data.titulo = dto.titulo;
-    if (dto.institucionResponsable !== undefined) {
-      data.institucionResponsable = dto.institucionResponsable;
+    if (dto.institucionId !== undefined) {
+      data.institucion = { connect: { id: dto.institucionId } };
     }
-    if (dto.oficina !== undefined) data.oficina = dto.oficina;
     if (dto.finalidad !== undefined) data.finalidad = dto.finalidad;
     if (dto.plazoEntregaDias !== undefined) {
       data.plazoEntregaDias = dto.plazoEntregaDias;
@@ -331,11 +328,16 @@ export class TramitesService {
       data.notaRequisitos = dto.notaRequisitos;
     }
     if (dto.documentosEntregables !== undefined) {
-      data.documentosEntregables = dto.documentosEntregables;
+      data.documentosEntregables = {
+        deleteMany: {},
+        create: dto.documentosEntregables.map((nombre) => ({ nombre })),
+      };
     }
     if (dto.baseLegal !== undefined) data.baseLegal = dto.baseLegal;
     if (dto.fechaActualizacionOficial !== undefined) {
-      data.fechaActualizacionOficial = dto.fechaActualizacionOficial;
+      data.fechaActualizacionOficial = dto.fechaActualizacionOficial
+        ? new Date(dto.fechaActualizacionOficial)
+        : null;
     }
     if (dto.requisitos !== undefined) {
       data.requisitos = { deleteMany: {}, create: dto.requisitos };
@@ -350,7 +352,6 @@ export class TramitesService {
     }
 
     try {
-      await this.assertOwned(id, usuarioId);
       return await this.prisma.tramite.update({
         where: { id },
         data,
@@ -364,10 +365,8 @@ export class TramitesService {
   async agregarRequisito(
     tramiteId: number,
     dto: CreateRequisitoTramiteDto,
-    usuarioId: number,
   ): Promise<Prisma.RequisitoTramiteGetPayload<object>> {
     try {
-      await this.assertOwned(tramiteId, usuarioId);
       return await this.prisma.requisitoTramite.create({
         data: {
           nombre: dto.nombre,
@@ -383,10 +382,10 @@ export class TramitesService {
     }
   }
 
-  async remove(id: number, usuarioId: number): Promise<void> {
+  async remove(id: number): Promise<void> {
     try {
       const result = await this.prisma.tramite.deleteMany({
-        where: { id, usuarioId },
+        where: { id },
       });
       if (result.count === 0) {
         throw new NotFoundException(
@@ -398,28 +397,16 @@ export class TramitesService {
     }
   }
 
-  private async assertOwned(id: number, usuarioId: number): Promise<void> {
-    const tramite = await this.prisma.tramite.findFirst({
-      where: { id, usuarioId },
-      select: { id: true },
-    });
-    if (!tramite) {
-      throw new NotFoundException(
-        `El trámite con ID ${id} no fue encontrado.`,
-      );
-    }
-  }
-
   private handlePrismaError(error: unknown): never {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === 'P2025') {
+      if (error.code === "P2025") {
         throw new NotFoundException(
-          'No se encontró el trámite, requisito u oficina solicitada.',
+          "No se encontró el trámite, requisito u oficina solicitada.",
         );
       }
-      if (error.code === 'P2002' || error.code === 'P2003') {
+      if (error.code === "P2002" || error.code === "P2003") {
         throw new BadRequestException(
-          'El código ya está registrado o alguna relación enviada no existe.',
+          "El código ya está registrado o alguna relación enviada no existe.",
         );
       }
     }

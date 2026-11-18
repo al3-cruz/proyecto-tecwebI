@@ -1,11 +1,24 @@
-import { BadRequestException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service.js';
-import { RolesService } from './roles.service.js';
+import { BadRequestException } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service.js";
+import { RolesService } from "./roles.service.js";
 
-describe('RolesService', () => {
+describe("RolesService", () => {
+  const tx = {
+    rol: {
+      findUnique: jest.fn(),
+      findUniqueOrThrow: jest.fn(),
+    },
+    rolPermiso: {
+      deleteMany: jest.fn(),
+      createMany: jest.fn(),
+    },
+  };
   const prisma = {
     rol: { findMany: jest.fn(), findUnique: jest.fn(), update: jest.fn() },
     permiso: { findMany: jest.fn() },
+    $transaction: jest.fn(
+      (callback: (transaction: typeof tx) => Promise<unknown>) => callback(tx),
+    ),
   };
   let service: RolesService;
 
@@ -14,7 +27,7 @@ describe('RolesService', () => {
     service = new RolesService(prisma as unknown as PrismaService);
   });
 
-  it('returns roles with their associated permissions', async () => {
+  it("returns roles with their associated permissions", async () => {
     prisma.rol.findMany.mockResolvedValue([]);
 
     await service.listar();
@@ -26,22 +39,35 @@ describe('RolesService', () => {
     );
   });
 
-  it('replaces role permissions by code using Prisma set', async () => {
-    prisma.rol.findUnique.mockResolvedValue({ id: 1 });
+  it("replaces role permissions through the explicit join model", async () => {
+    tx.rol.findUnique.mockResolvedValue({ id: 1 });
+    tx.rol.findUniqueOrThrow.mockResolvedValue({
+      id: 1,
+      codigo: "GESTOR",
+      nombre: "Gestor",
+      permisos: [
+        {
+          permiso: {
+            id: 4,
+            codigo: "tramites:leer",
+            descripcion: "Leer trámites",
+          },
+        },
+      ],
+    });
     prisma.permiso.findMany.mockResolvedValue([{ id: 4 }]);
-    prisma.rol.update.mockResolvedValue({ id: 1, permisos: [] });
 
-    await service.asignarPermisos(1, { codigos: ['tramites:leer'] });
+    await service.asignarPermisos(1, { codigos: ["tramites:leer"] });
 
-    expect(prisma.rol.update).toHaveBeenCalledWith(
-      expect.objectContaining({
-        where: { id: 1 },
-        data: { permisos: { set: [{ id: 4 }] } },
-      }),
-    );
+    expect(tx.rolPermiso.deleteMany).toHaveBeenCalledWith({
+      where: { rolId: 1 },
+    });
+    expect(tx.rolPermiso.createMany).toHaveBeenCalledWith({
+      data: [{ rolId: 1, permisoId: 4 }],
+    });
   });
 
-  it('rejects requests without exactly one permission selector', async () => {
+  it("rejects requests without exactly one permission selector", async () => {
     await expect(
       service.asignarPermisos(1, { codigos: [], permisosIds: [] }),
     ).rejects.toBeInstanceOf(BadRequestException);

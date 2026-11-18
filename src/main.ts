@@ -11,6 +11,20 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = Number(configService.get<string>('PORT', '3001'));
+  const corsOrigins = configService
+    .get<string>(
+      'CORS_ORIGINS',
+      'http://localhost:3000,http://localhost:5173',
+    )
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+  if (corsOrigins.includes('*')) {
+    throw new Error('CORS_ORIGINS no puede permitir todos los orígenes.');
+  }
+
+  app.enableCors({ origin: corsOrigins });
 
   app.useGlobalPipes(
     new ValidationPipe({

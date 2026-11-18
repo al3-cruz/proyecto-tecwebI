@@ -2,25 +2,29 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
+} from "@nestjs/common";
 import {
   EstadoTramite,
   Prisma,
   TipoRequisitoCompraventa,
-} from '../generated/prisma/client.js';
-import { PrismaService } from '../prisma/prisma.service.js';
-import { ActualizarTramiteDto } from './dto/actualizar-tramite.dto.js';
-import { AvanzarEtapaDto } from './dto/avanzar-etapa.dto.js';
-import { CrearTramiteDto } from './dto/crear-tramite.dto.js';
-import { VerificarRequisitoDto } from './dto/verificar-requisito.dto.js';
+} from "../generated/prisma/client.js";
+import { PrismaService } from "../prisma/prisma.service.js";
+import { ActualizarTramiteDto } from "./dto/actualizar-tramite.dto.js";
+import { AvanzarEtapaDto } from "./dto/avanzar-etapa.dto.js";
+import { CrearTramiteDto } from "./dto/crear-tramite.dto.js";
+import { VerificarRequisitoDto } from "./dto/verificar-requisito.dto.js";
 import {
   siguienteEtapa,
   sumarTresDiasHabiles,
   validarDatosApoderado,
-} from './compraventas-logica.helper.js';
+} from "./compraventas-logica.helper.js";
 
 const tramiteInclude = {
-  requisitos: { orderBy: { tipoRequisito: 'asc' } },
+  requisitos: { orderBy: { tipoRequisito: "asc" } },
+  bitacora: {
+    include: { autor: { select: { id: true, email: true } } },
+    orderBy: { createdAt: "asc" },
+  },
 } satisfies Prisma.TramiteCompraventaInclude;
 
 const REQUISITOS_BASE: TipoRequisitoCompraventa[] = [
@@ -53,7 +57,7 @@ export class CompraventasService {
       });
       const codigoTramite = `DDRR-CV-${secuencia.anio}-${String(
         secuencia.ultimo,
-      ).padStart(4, '0')}`;
+      ).padStart(4, "0")}`;
       const requisitos = dto.conApoderado
         ? [...REQUISITOS_BASE, TipoRequisitoCompraventa.PODER_NOTARIADO]
         : REQUISITOS_BASE;
@@ -74,11 +78,20 @@ export class CompraventasService {
           apoderadoDocumento: dto.apoderadoDocumento?.trim() ?? null,
           numeroPoderNotarial: dto.numeroPoderNotarial?.trim() ?? null,
           montoArancel: new Prisma.Decimal(dto.montoArancel),
-          observaciones: dto.observaciones?.trim() || null,
           usuarioId,
           requisitos: {
             create: requisitos.map((tipoRequisito) => ({ tipoRequisito })),
           },
+          ...(dto.observaciones?.trim()
+            ? {
+                bitacora: {
+                  create: {
+                    autorId: usuarioId,
+                    mensaje: dto.observaciones.trim(),
+                  },
+                },
+              }
+            : {}),
         },
         include: tramiteInclude,
       });
@@ -92,7 +105,7 @@ export class CompraventasService {
     return this.prisma.tramiteCompraventa.findMany({
       where: esAdmin ? undefined : { usuarioId },
       include: tramiteInclude,
-      orderBy: { fechaIngreso: 'desc' },
+      orderBy: { fechaIngreso: "desc" },
     });
   }
 
@@ -130,7 +143,12 @@ export class CompraventasService {
         dto.observaciones === undefined
       ) {
         throw new BadRequestException(
-          'Debe indicar al menos un campo para actualizar.',
+          "Debe indicar al menos un campo para actualizar.",
+        );
+      }
+      if (dto.observaciones !== undefined && !dto.observaciones?.trim()) {
+        throw new BadRequestException(
+          "El mensaje de observación no puede estar vacío.",
         );
       }
       if (
@@ -138,7 +156,7 @@ export class CompraventasService {
         tramite.estado !== EstadoTramite.INSCRIPCION_RAPIDA
       ) {
         throw new BadRequestException(
-          'El pago del arancel solo se puede registrar en Inscripción Rápida.',
+          "El pago del arancel solo se puede registrar en Inscripción Rápida.",
         );
       }
       if (
@@ -148,8 +166,18 @@ export class CompraventasService {
             tramite.estado !== EstadoTramite.INSCRIPCION_RAPIDA))
       ) {
         throw new BadRequestException(
-          'No se puede modificar el arancel después de su pago o entrega.',
+          "No se puede modificar el arancel después de su pago o entrega.",
         );
+      }
+
+      if (dto.observaciones !== undefined) {
+        await tx.mensajeTramite.create({
+          data: {
+            tramiteId: id,
+            autorId: usuarioId,
+            mensaje: dto.observaciones.trim(),
+          },
+        });
       }
 
       return tx.tramiteCompraventa.update({
@@ -161,9 +189,6 @@ export class CompraventasService {
           ...(dto.arancelPagado === undefined
             ? {}
             : { arancelPagado: dto.arancelPagado }),
-          ...(dto.observaciones === undefined
-            ? {}
-            : { observaciones: dto.observaciones?.trim() || null }),
         },
         include: tramiteInclude,
       });
@@ -186,7 +211,7 @@ export class CompraventasService {
       );
       if (tramite.estado !== EstadoTramite.VENTANILLA_INFORMACIONES) {
         throw new BadRequestException(
-          'Los requisitos solo se pueden verificar en Ventanilla de Informaciones.',
+          "Los requisitos solo se pueden verificar en Ventanilla de Informaciones.",
         );
       }
 
@@ -203,7 +228,7 @@ export class CompraventasService {
         (!dto.presentoOriginal || dto.cantidadFotocopias < 2)
       ) {
         throw new BadRequestException(
-          'Para verificar el requisito debe presentarse el original y al menos dos fotocopias.',
+          "Para verificar el requisito debe presentarse el original y al menos dos fotocopias.",
         );
       }
 
@@ -232,7 +257,7 @@ export class CompraventasService {
       );
       if (tramite.estado !== EstadoTramite.PRE_IMPRESION_REVISION) {
         throw new BadRequestException(
-          'La pre-impresión solo se puede confirmar durante su etapa de revisión.',
+          "La pre-impresión solo se puede confirmar durante su etapa de revisión.",
         );
       }
       return tx.tramiteCompraventa.update({
@@ -262,20 +287,26 @@ export class CompraventasService {
           tramite.estado === EstadoTramite.OBSERVADO
         ) {
           throw new BadRequestException(
-            'No se puede observar un trámite entregado o ya observado.',
+            "No se puede observar un trámite entregado o ya observado.",
           );
         }
         if (!dto.observaciones?.trim()) {
           throw new BadRequestException(
-            'Indique el motivo para marcar el trámite como observado.',
+            "Indique el motivo para marcar el trámite como observado.",
           );
         }
+        await tx.mensajeTramite.create({
+          data: {
+            tramiteId: id,
+            autorId: usuarioId,
+            mensaje: dto.observaciones.trim(),
+          },
+        });
         return tx.tramiteCompraventa.update({
           where: { id },
           data: {
             estado: EstadoTramite.OBSERVADO,
             estadoAnterior: tramite.estado,
-            observaciones: dto.observaciones.trim(),
           },
           include: tramiteInclude,
         });
@@ -284,17 +315,23 @@ export class CompraventasService {
       if (tramite.estado === EstadoTramite.OBSERVADO) {
         if (!tramite.estadoAnterior || dto.estado !== tramite.estadoAnterior) {
           throw new BadRequestException(
-            'Un trámite observado solo puede regresar a la etapa en la que fue observado.',
+            "Un trámite observado solo puede regresar a la etapa en la que fue observado.",
           );
+        }
+        if (dto.observaciones?.trim()) {
+          await tx.mensajeTramite.create({
+            data: {
+              tramiteId: id,
+              autorId: usuarioId,
+              mensaje: dto.observaciones.trim(),
+            },
+          });
         }
         return tx.tramiteCompraventa.update({
           where: { id },
           data: {
             estado: tramite.estadoAnterior,
             estadoAnterior: null,
-            ...(dto.observaciones === undefined
-              ? {}
-              : { observaciones: dto.observaciones.trim() || null }),
           },
           include: tramiteInclude,
         });
@@ -302,7 +339,7 @@ export class CompraventasService {
 
       if (siguienteEtapa(tramite.estado) !== dto.estado) {
         throw new BadRequestException(
-          'El trámite solo puede avanzar a la siguiente etapa del procedimiento.',
+          "El trámite solo puede avanzar a la siguiente etapa del procedimiento.",
         );
       }
 
@@ -324,7 +361,7 @@ export class CompraventasService {
           )
         ) {
           throw new BadRequestException(
-            'Todos los requisitos obligatorios deben estar verificados con original y dos fotocopias.',
+            "Todos los requisitos obligatorios deben estar verificados con original y dos fotocopias.",
           );
         }
       }
@@ -333,7 +370,7 @@ export class CompraventasService {
         !tramite.arancelPagado
       ) {
         throw new BadRequestException(
-          'Registre el pago del arancel antes de continuar a la pre-impresión.',
+          "Registre el pago del arancel antes de continuar a la pre-impresión.",
         );
       }
       if (
@@ -341,7 +378,7 @@ export class CompraventasService {
         !tramite.preImpresionConfirmada
       ) {
         throw new BadRequestException(
-          'El usuario debe confirmar la pre-impresión antes de iniciar el registro.',
+          "El usuario debe confirmar la pre-impresión antes de iniciar el registro.",
         );
       }
       if (
@@ -349,10 +386,19 @@ export class CompraventasService {
         (!dto.folioRealConfirmado || !dto.testimonioSelladoConfirmado)
       ) {
         throw new BadRequestException(
-          'Confirme la entrega del Folio Real actualizado y del Testimonio sellado.',
+          "Confirme la entrega del Folio Real actualizado y del Testimonio sellado.",
         );
       }
 
+      if (dto.observaciones?.trim()) {
+        await tx.mensajeTramite.create({
+          data: {
+            tramiteId: id,
+            autorId: usuarioId,
+            mensaje: dto.observaciones.trim(),
+          },
+        });
+      }
       return tx.tramiteCompraventa.update({
         where: { id },
         data: {
@@ -388,7 +434,7 @@ export class CompraventasService {
         tramite.estado === EstadoTramite.ENTREGADO
       ) {
         throw new BadRequestException(
-          'No se puede eliminar un trámite en proceso de registro o ya entregado.',
+          "No se puede eliminar un trámite en proceso de registro o ya entregado.",
         );
       }
       await tx.tramiteCompraventa.delete({ where: { id } });

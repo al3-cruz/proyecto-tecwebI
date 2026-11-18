@@ -57,7 +57,6 @@ export type TramiteCompraventaMinAggregateOutputType = {
   montoArancel: runtime.Decimal | null
   arancelPagado: boolean | null
   preImpresionConfirmada: boolean | null
-  observaciones: string | null
   estado: $Enums.EstadoTramite | null
   estadoAnterior: $Enums.EstadoTramite | null
   usuarioId: number | null
@@ -85,7 +84,6 @@ export type TramiteCompraventaMaxAggregateOutputType = {
   montoArancel: runtime.Decimal | null
   arancelPagado: boolean | null
   preImpresionConfirmada: boolean | null
-  observaciones: string | null
   estado: $Enums.EstadoTramite | null
   estadoAnterior: $Enums.EstadoTramite | null
   usuarioId: number | null
@@ -113,7 +111,6 @@ export type TramiteCompraventaCountAggregateOutputType = {
   montoArancel: number
   arancelPagado: number
   preImpresionConfirmada: number
-  observaciones: number
   estado: number
   estadoAnterior: number
   usuarioId: number
@@ -155,7 +152,6 @@ export type TramiteCompraventaMinAggregateInputType = {
   montoArancel?: true
   arancelPagado?: true
   preImpresionConfirmada?: true
-  observaciones?: true
   estado?: true
   estadoAnterior?: true
   usuarioId?: true
@@ -183,7 +179,6 @@ export type TramiteCompraventaMaxAggregateInputType = {
   montoArancel?: true
   arancelPagado?: true
   preImpresionConfirmada?: true
-  observaciones?: true
   estado?: true
   estadoAnterior?: true
   usuarioId?: true
@@ -211,7 +206,6 @@ export type TramiteCompraventaCountAggregateInputType = {
   montoArancel?: true
   arancelPagado?: true
   preImpresionConfirmada?: true
-  observaciones?: true
   estado?: true
   estadoAnterior?: true
   usuarioId?: true
@@ -326,7 +320,6 @@ export type TramiteCompraventaGroupByOutputType = {
   montoArancel: runtime.Decimal
   arancelPagado: boolean
   preImpresionConfirmada: boolean
-  observaciones: string | null
   estado: $Enums.EstadoTramite
   estadoAnterior: $Enums.EstadoTramite | null
   usuarioId: number
@@ -377,7 +370,6 @@ export type TramiteCompraventaWhereInput = {
   montoArancel?: Prisma.DecimalFilter<"TramiteCompraventa"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFilter<"TramiteCompraventa"> | boolean
   preImpresionConfirmada?: Prisma.BoolFilter<"TramiteCompraventa"> | boolean
-  observaciones?: Prisma.StringNullableFilter<"TramiteCompraventa"> | string | null
   estado?: Prisma.EnumEstadoTramiteFilter<"TramiteCompraventa"> | $Enums.EstadoTramite
   estadoAnterior?: Prisma.EnumEstadoTramiteNullableFilter<"TramiteCompraventa"> | $Enums.EstadoTramite | null
   usuarioId?: Prisma.IntFilter<"TramiteCompraventa"> | number
@@ -386,6 +378,7 @@ export type TramiteCompraventaWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"TramiteCompraventa"> | Date | string | null
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   requisitos?: Prisma.RequisitoCompraventaListRelationFilter
+  bitacora?: Prisma.MensajeTramiteListRelationFilter
 }
 
 export type TramiteCompraventaOrderByWithRelationInput = {
@@ -407,7 +400,6 @@ export type TramiteCompraventaOrderByWithRelationInput = {
   montoArancel?: Prisma.SortOrder
   arancelPagado?: Prisma.SortOrder
   preImpresionConfirmada?: Prisma.SortOrder
-  observaciones?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
   estadoAnterior?: Prisma.SortOrderInput | Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
@@ -416,6 +408,7 @@ export type TramiteCompraventaOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   usuario?: Prisma.UsuarioOrderByWithRelationInput
   requisitos?: Prisma.RequisitoCompraventaOrderByRelationAggregateInput
+  bitacora?: Prisma.MensajeTramiteOrderByRelationAggregateInput
 }
 
 export type TramiteCompraventaWhereUniqueInput = Prisma.AtLeast<{
@@ -440,7 +433,6 @@ export type TramiteCompraventaWhereUniqueInput = Prisma.AtLeast<{
   montoArancel?: Prisma.DecimalFilter<"TramiteCompraventa"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFilter<"TramiteCompraventa"> | boolean
   preImpresionConfirmada?: Prisma.BoolFilter<"TramiteCompraventa"> | boolean
-  observaciones?: Prisma.StringNullableFilter<"TramiteCompraventa"> | string | null
   estado?: Prisma.EnumEstadoTramiteFilter<"TramiteCompraventa"> | $Enums.EstadoTramite
   estadoAnterior?: Prisma.EnumEstadoTramiteNullableFilter<"TramiteCompraventa"> | $Enums.EstadoTramite | null
   usuarioId?: Prisma.IntFilter<"TramiteCompraventa"> | number
@@ -449,6 +441,7 @@ export type TramiteCompraventaWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"TramiteCompraventa"> | Date | string | null
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   requisitos?: Prisma.RequisitoCompraventaListRelationFilter
+  bitacora?: Prisma.MensajeTramiteListRelationFilter
 }, "id" | "codigoTramite">
 
 export type TramiteCompraventaOrderByWithAggregationInput = {
@@ -470,7 +463,6 @@ export type TramiteCompraventaOrderByWithAggregationInput = {
   montoArancel?: Prisma.SortOrder
   arancelPagado?: Prisma.SortOrder
   preImpresionConfirmada?: Prisma.SortOrder
-  observaciones?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
   estadoAnterior?: Prisma.SortOrderInput | Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
@@ -506,7 +498,6 @@ export type TramiteCompraventaScalarWhereWithAggregatesInput = {
   montoArancel?: Prisma.DecimalWithAggregatesFilter<"TramiteCompraventa"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolWithAggregatesFilter<"TramiteCompraventa"> | boolean
   preImpresionConfirmada?: Prisma.BoolWithAggregatesFilter<"TramiteCompraventa"> | boolean
-  observaciones?: Prisma.StringNullableWithAggregatesFilter<"TramiteCompraventa"> | string | null
   estado?: Prisma.EnumEstadoTramiteWithAggregatesFilter<"TramiteCompraventa"> | $Enums.EstadoTramite
   estadoAnterior?: Prisma.EnumEstadoTramiteNullableWithAggregatesFilter<"TramiteCompraventa"> | $Enums.EstadoTramite | null
   usuarioId?: Prisma.IntWithAggregatesFilter<"TramiteCompraventa"> | number
@@ -533,7 +524,6 @@ export type TramiteCompraventaCreateInput = {
   montoArancel: runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: string | null
   estado?: $Enums.EstadoTramite
   estadoAnterior?: $Enums.EstadoTramite | null
   createdAt?: Date | string
@@ -541,6 +531,7 @@ export type TramiteCompraventaCreateInput = {
   deletedAt?: Date | string | null
   usuario: Prisma.UsuarioCreateNestedOneWithoutCompraventasInput
   requisitos?: Prisma.RequisitoCompraventaCreateNestedManyWithoutTramiteInput
+  bitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutTramiteInput
 }
 
 export type TramiteCompraventaUncheckedCreateInput = {
@@ -562,7 +553,6 @@ export type TramiteCompraventaUncheckedCreateInput = {
   montoArancel: runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: string | null
   estado?: $Enums.EstadoTramite
   estadoAnterior?: $Enums.EstadoTramite | null
   usuarioId: number
@@ -570,6 +560,7 @@ export type TramiteCompraventaUncheckedCreateInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   requisitos?: Prisma.RequisitoCompraventaUncheckedCreateNestedManyWithoutTramiteInput
+  bitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutTramiteInput
 }
 
 export type TramiteCompraventaUpdateInput = {
@@ -590,7 +581,6 @@ export type TramiteCompraventaUpdateInput = {
   montoArancel?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preImpresionConfirmada?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite
   estadoAnterior?: Prisma.NullableEnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -598,6 +588,7 @@ export type TramiteCompraventaUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   usuario?: Prisma.UsuarioUpdateOneRequiredWithoutCompraventasNestedInput
   requisitos?: Prisma.RequisitoCompraventaUpdateManyWithoutTramiteNestedInput
+  bitacora?: Prisma.MensajeTramiteUpdateManyWithoutTramiteNestedInput
 }
 
 export type TramiteCompraventaUncheckedUpdateInput = {
@@ -619,7 +610,6 @@ export type TramiteCompraventaUncheckedUpdateInput = {
   montoArancel?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preImpresionConfirmada?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite
   estadoAnterior?: Prisma.NullableEnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite | null
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -627,6 +617,7 @@ export type TramiteCompraventaUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requisitos?: Prisma.RequisitoCompraventaUncheckedUpdateManyWithoutTramiteNestedInput
+  bitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutTramiteNestedInput
 }
 
 export type TramiteCompraventaCreateManyInput = {
@@ -648,7 +639,6 @@ export type TramiteCompraventaCreateManyInput = {
   montoArancel: runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: string | null
   estado?: $Enums.EstadoTramite
   estadoAnterior?: $Enums.EstadoTramite | null
   usuarioId: number
@@ -675,7 +665,6 @@ export type TramiteCompraventaUpdateManyMutationInput = {
   montoArancel?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preImpresionConfirmada?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite
   estadoAnterior?: Prisma.NullableEnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -702,7 +691,6 @@ export type TramiteCompraventaUncheckedUpdateManyInput = {
   montoArancel?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preImpresionConfirmada?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite
   estadoAnterior?: Prisma.NullableEnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite | null
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -740,7 +728,6 @@ export type TramiteCompraventaCountOrderByAggregateInput = {
   montoArancel?: Prisma.SortOrder
   arancelPagado?: Prisma.SortOrder
   preImpresionConfirmada?: Prisma.SortOrder
-  observaciones?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   estadoAnterior?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
@@ -774,7 +761,6 @@ export type TramiteCompraventaMaxOrderByAggregateInput = {
   montoArancel?: Prisma.SortOrder
   arancelPagado?: Prisma.SortOrder
   preImpresionConfirmada?: Prisma.SortOrder
-  observaciones?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   estadoAnterior?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
@@ -802,7 +788,6 @@ export type TramiteCompraventaMinOrderByAggregateInput = {
   montoArancel?: Prisma.SortOrder
   arancelPagado?: Prisma.SortOrder
   preImpresionConfirmada?: Prisma.SortOrder
-  observaciones?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   estadoAnterior?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
@@ -864,18 +849,6 @@ export type TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput = {
   deleteMany?: Prisma.TramiteCompraventaScalarWhereInput | Prisma.TramiteCompraventaScalarWhereInput[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
-export type DecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
-}
-
 export type EnumEstadoTramiteFieldUpdateOperationsInput = {
   set?: $Enums.EstadoTramite
 }
@@ -898,6 +871,20 @@ export type TramiteCompraventaUpdateOneRequiredWithoutRequisitosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TramiteCompraventaUpdateToOneWithWhereWithoutRequisitosInput, Prisma.TramiteCompraventaUpdateWithoutRequisitosInput>, Prisma.TramiteCompraventaUncheckedUpdateWithoutRequisitosInput>
 }
 
+export type TramiteCompraventaCreateNestedOneWithoutBitacoraInput = {
+  create?: Prisma.XOR<Prisma.TramiteCompraventaCreateWithoutBitacoraInput, Prisma.TramiteCompraventaUncheckedCreateWithoutBitacoraInput>
+  connectOrCreate?: Prisma.TramiteCompraventaCreateOrConnectWithoutBitacoraInput
+  connect?: Prisma.TramiteCompraventaWhereUniqueInput
+}
+
+export type TramiteCompraventaUpdateOneRequiredWithoutBitacoraNestedInput = {
+  create?: Prisma.XOR<Prisma.TramiteCompraventaCreateWithoutBitacoraInput, Prisma.TramiteCompraventaUncheckedCreateWithoutBitacoraInput>
+  connectOrCreate?: Prisma.TramiteCompraventaCreateOrConnectWithoutBitacoraInput
+  upsert?: Prisma.TramiteCompraventaUpsertWithoutBitacoraInput
+  connect?: Prisma.TramiteCompraventaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TramiteCompraventaUpdateToOneWithWhereWithoutBitacoraInput, Prisma.TramiteCompraventaUpdateWithoutBitacoraInput>, Prisma.TramiteCompraventaUncheckedUpdateWithoutBitacoraInput>
+}
+
 export type TramiteCompraventaCreateWithoutUsuarioInput = {
   codigoTramite: string
   folioReal: string
@@ -916,13 +903,13 @@ export type TramiteCompraventaCreateWithoutUsuarioInput = {
   montoArancel: runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: string | null
   estado?: $Enums.EstadoTramite
   estadoAnterior?: $Enums.EstadoTramite | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   requisitos?: Prisma.RequisitoCompraventaCreateNestedManyWithoutTramiteInput
+  bitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutTramiteInput
 }
 
 export type TramiteCompraventaUncheckedCreateWithoutUsuarioInput = {
@@ -944,13 +931,13 @@ export type TramiteCompraventaUncheckedCreateWithoutUsuarioInput = {
   montoArancel: runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: string | null
   estado?: $Enums.EstadoTramite
   estadoAnterior?: $Enums.EstadoTramite | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   requisitos?: Prisma.RequisitoCompraventaUncheckedCreateNestedManyWithoutTramiteInput
+  bitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutTramiteInput
 }
 
 export type TramiteCompraventaCreateOrConnectWithoutUsuarioInput = {
@@ -1001,7 +988,6 @@ export type TramiteCompraventaScalarWhereInput = {
   montoArancel?: Prisma.DecimalFilter<"TramiteCompraventa"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFilter<"TramiteCompraventa"> | boolean
   preImpresionConfirmada?: Prisma.BoolFilter<"TramiteCompraventa"> | boolean
-  observaciones?: Prisma.StringNullableFilter<"TramiteCompraventa"> | string | null
   estado?: Prisma.EnumEstadoTramiteFilter<"TramiteCompraventa"> | $Enums.EstadoTramite
   estadoAnterior?: Prisma.EnumEstadoTramiteNullableFilter<"TramiteCompraventa"> | $Enums.EstadoTramite | null
   usuarioId?: Prisma.IntFilter<"TramiteCompraventa"> | number
@@ -1028,13 +1014,13 @@ export type TramiteCompraventaCreateWithoutRequisitosInput = {
   montoArancel: runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: string | null
   estado?: $Enums.EstadoTramite
   estadoAnterior?: $Enums.EstadoTramite | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   usuario: Prisma.UsuarioCreateNestedOneWithoutCompraventasInput
+  bitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutTramiteInput
 }
 
 export type TramiteCompraventaUncheckedCreateWithoutRequisitosInput = {
@@ -1056,13 +1042,13 @@ export type TramiteCompraventaUncheckedCreateWithoutRequisitosInput = {
   montoArancel: runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: string | null
   estado?: $Enums.EstadoTramite
   estadoAnterior?: $Enums.EstadoTramite | null
   usuarioId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  bitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutTramiteInput
 }
 
 export type TramiteCompraventaCreateOrConnectWithoutRequisitosInput = {
@@ -1099,13 +1085,13 @@ export type TramiteCompraventaUpdateWithoutRequisitosInput = {
   montoArancel?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preImpresionConfirmada?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite
   estadoAnterior?: Prisma.NullableEnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   usuario?: Prisma.UsuarioUpdateOneRequiredWithoutCompraventasNestedInput
+  bitacora?: Prisma.MensajeTramiteUpdateManyWithoutTramiteNestedInput
 }
 
 export type TramiteCompraventaUncheckedUpdateWithoutRequisitosInput = {
@@ -1127,13 +1113,139 @@ export type TramiteCompraventaUncheckedUpdateWithoutRequisitosInput = {
   montoArancel?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preImpresionConfirmada?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite
   estadoAnterior?: Prisma.NullableEnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite | null
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutTramiteNestedInput
+}
+
+export type TramiteCompraventaCreateWithoutBitacoraInput = {
+  codigoTramite: string
+  folioReal: string
+  fechaIngreso?: Date | string
+  fechaEstimadaEntrega: Date | string
+  fechaEntregaReal?: Date | string | null
+  vendedorNombre: string
+  vendedorDocumento: string
+  compradorNombre: string
+  compradorDocumento: string
+  esBienGanancial?: boolean
+  conApoderado?: boolean
+  apoderadoNombre?: string | null
+  apoderadoDocumento?: string | null
+  numeroPoderNotarial?: string | null
+  montoArancel: runtime.Decimal | runtime.DecimalJsLike | number | string
+  arancelPagado?: boolean
+  preImpresionConfirmada?: boolean
+  estado?: $Enums.EstadoTramite
+  estadoAnterior?: $Enums.EstadoTramite | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  usuario: Prisma.UsuarioCreateNestedOneWithoutCompraventasInput
+  requisitos?: Prisma.RequisitoCompraventaCreateNestedManyWithoutTramiteInput
+}
+
+export type TramiteCompraventaUncheckedCreateWithoutBitacoraInput = {
+  id?: number
+  codigoTramite: string
+  folioReal: string
+  fechaIngreso?: Date | string
+  fechaEstimadaEntrega: Date | string
+  fechaEntregaReal?: Date | string | null
+  vendedorNombre: string
+  vendedorDocumento: string
+  compradorNombre: string
+  compradorDocumento: string
+  esBienGanancial?: boolean
+  conApoderado?: boolean
+  apoderadoNombre?: string | null
+  apoderadoDocumento?: string | null
+  numeroPoderNotarial?: string | null
+  montoArancel: runtime.Decimal | runtime.DecimalJsLike | number | string
+  arancelPagado?: boolean
+  preImpresionConfirmada?: boolean
+  estado?: $Enums.EstadoTramite
+  estadoAnterior?: $Enums.EstadoTramite | null
+  usuarioId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  requisitos?: Prisma.RequisitoCompraventaUncheckedCreateNestedManyWithoutTramiteInput
+}
+
+export type TramiteCompraventaCreateOrConnectWithoutBitacoraInput = {
+  where: Prisma.TramiteCompraventaWhereUniqueInput
+  create: Prisma.XOR<Prisma.TramiteCompraventaCreateWithoutBitacoraInput, Prisma.TramiteCompraventaUncheckedCreateWithoutBitacoraInput>
+}
+
+export type TramiteCompraventaUpsertWithoutBitacoraInput = {
+  update: Prisma.XOR<Prisma.TramiteCompraventaUpdateWithoutBitacoraInput, Prisma.TramiteCompraventaUncheckedUpdateWithoutBitacoraInput>
+  create: Prisma.XOR<Prisma.TramiteCompraventaCreateWithoutBitacoraInput, Prisma.TramiteCompraventaUncheckedCreateWithoutBitacoraInput>
+  where?: Prisma.TramiteCompraventaWhereInput
+}
+
+export type TramiteCompraventaUpdateToOneWithWhereWithoutBitacoraInput = {
+  where?: Prisma.TramiteCompraventaWhereInput
+  data: Prisma.XOR<Prisma.TramiteCompraventaUpdateWithoutBitacoraInput, Prisma.TramiteCompraventaUncheckedUpdateWithoutBitacoraInput>
+}
+
+export type TramiteCompraventaUpdateWithoutBitacoraInput = {
+  codigoTramite?: Prisma.StringFieldUpdateOperationsInput | string
+  folioReal?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaIngreso?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fechaEstimadaEntrega?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fechaEntregaReal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendedorNombre?: Prisma.StringFieldUpdateOperationsInput | string
+  vendedorDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  compradorNombre?: Prisma.StringFieldUpdateOperationsInput | string
+  compradorDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  esBienGanancial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  conApoderado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apoderadoNombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apoderadoDocumento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numeroPoderNotarial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  montoArancel?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  arancelPagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preImpresionConfirmada?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  estado?: Prisma.EnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite
+  estadoAnterior?: Prisma.NullableEnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutCompraventasNestedInput
+  requisitos?: Prisma.RequisitoCompraventaUpdateManyWithoutTramiteNestedInput
+}
+
+export type TramiteCompraventaUncheckedUpdateWithoutBitacoraInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoTramite?: Prisma.StringFieldUpdateOperationsInput | string
+  folioReal?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaIngreso?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fechaEstimadaEntrega?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fechaEntregaReal?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendedorNombre?: Prisma.StringFieldUpdateOperationsInput | string
+  vendedorDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  compradorNombre?: Prisma.StringFieldUpdateOperationsInput | string
+  compradorDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  esBienGanancial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  conApoderado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apoderadoNombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apoderadoDocumento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  numeroPoderNotarial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  montoArancel?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  arancelPagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preImpresionConfirmada?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  estado?: Prisma.EnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite
+  estadoAnterior?: Prisma.NullableEnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite | null
+  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requisitos?: Prisma.RequisitoCompraventaUncheckedUpdateManyWithoutTramiteNestedInput
 }
 
 export type TramiteCompraventaCreateManyUsuarioInput = {
@@ -1155,7 +1267,6 @@ export type TramiteCompraventaCreateManyUsuarioInput = {
   montoArancel: runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: string | null
   estado?: $Enums.EstadoTramite
   estadoAnterior?: $Enums.EstadoTramite | null
   createdAt?: Date | string
@@ -1181,13 +1292,13 @@ export type TramiteCompraventaUpdateWithoutUsuarioInput = {
   montoArancel?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preImpresionConfirmada?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite
   estadoAnterior?: Prisma.NullableEnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requisitos?: Prisma.RequisitoCompraventaUpdateManyWithoutTramiteNestedInput
+  bitacora?: Prisma.MensajeTramiteUpdateManyWithoutTramiteNestedInput
 }
 
 export type TramiteCompraventaUncheckedUpdateWithoutUsuarioInput = {
@@ -1209,13 +1320,13 @@ export type TramiteCompraventaUncheckedUpdateWithoutUsuarioInput = {
   montoArancel?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preImpresionConfirmada?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite
   estadoAnterior?: Prisma.NullableEnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requisitos?: Prisma.RequisitoCompraventaUncheckedUpdateManyWithoutTramiteNestedInput
+  bitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutTramiteNestedInput
 }
 
 export type TramiteCompraventaUncheckedUpdateManyWithoutUsuarioInput = {
@@ -1237,7 +1348,6 @@ export type TramiteCompraventaUncheckedUpdateManyWithoutUsuarioInput = {
   montoArancel?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   arancelPagado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preImpresionConfirmada?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite
   estadoAnterior?: Prisma.NullableEnumEstadoTramiteFieldUpdateOperationsInput | $Enums.EstadoTramite | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1252,10 +1362,12 @@ export type TramiteCompraventaUncheckedUpdateManyWithoutUsuarioInput = {
 
 export type TramiteCompraventaCountOutputType = {
   requisitos: number
+  bitacora: number
 }
 
 export type TramiteCompraventaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   requisitos?: boolean | TramiteCompraventaCountOutputTypeCountRequisitosArgs
+  bitacora?: boolean | TramiteCompraventaCountOutputTypeCountBitacoraArgs
 }
 
 /**
@@ -1273,6 +1385,13 @@ export type TramiteCompraventaCountOutputTypeDefaultArgs<ExtArgs extends runtime
  */
 export type TramiteCompraventaCountOutputTypeCountRequisitosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.RequisitoCompraventaWhereInput
+}
+
+/**
+ * TramiteCompraventaCountOutputType without action
+ */
+export type TramiteCompraventaCountOutputTypeCountBitacoraArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MensajeTramiteWhereInput
 }
 
 
@@ -1295,7 +1414,6 @@ export type TramiteCompraventaSelect<ExtArgs extends runtime.Types.Extensions.In
   montoArancel?: boolean
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: boolean
   estado?: boolean
   estadoAnterior?: boolean
   usuarioId?: boolean
@@ -1304,6 +1422,7 @@ export type TramiteCompraventaSelect<ExtArgs extends runtime.Types.Extensions.In
   deletedAt?: boolean
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   requisitos?: boolean | Prisma.TramiteCompraventa$requisitosArgs<ExtArgs>
+  bitacora?: boolean | Prisma.TramiteCompraventa$bitacoraArgs<ExtArgs>
   _count?: boolean | Prisma.TramiteCompraventaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tramiteCompraventa"]>
 
@@ -1326,7 +1445,6 @@ export type TramiteCompraventaSelectCreateManyAndReturn<ExtArgs extends runtime.
   montoArancel?: boolean
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: boolean
   estado?: boolean
   estadoAnterior?: boolean
   usuarioId?: boolean
@@ -1355,7 +1473,6 @@ export type TramiteCompraventaSelectUpdateManyAndReturn<ExtArgs extends runtime.
   montoArancel?: boolean
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: boolean
   estado?: boolean
   estadoAnterior?: boolean
   usuarioId?: boolean
@@ -1384,7 +1501,6 @@ export type TramiteCompraventaSelectScalar = {
   montoArancel?: boolean
   arancelPagado?: boolean
   preImpresionConfirmada?: boolean
-  observaciones?: boolean
   estado?: boolean
   estadoAnterior?: boolean
   usuarioId?: boolean
@@ -1393,10 +1509,11 @@ export type TramiteCompraventaSelectScalar = {
   deletedAt?: boolean
 }
 
-export type TramiteCompraventaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "codigoTramite" | "folioReal" | "fechaIngreso" | "fechaEstimadaEntrega" | "fechaEntregaReal" | "vendedorNombre" | "vendedorDocumento" | "compradorNombre" | "compradorDocumento" | "esBienGanancial" | "conApoderado" | "apoderadoNombre" | "apoderadoDocumento" | "numeroPoderNotarial" | "montoArancel" | "arancelPagado" | "preImpresionConfirmada" | "observaciones" | "estado" | "estadoAnterior" | "usuarioId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["tramiteCompraventa"]>
+export type TramiteCompraventaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "codigoTramite" | "folioReal" | "fechaIngreso" | "fechaEstimadaEntrega" | "fechaEntregaReal" | "vendedorNombre" | "vendedorDocumento" | "compradorNombre" | "compradorDocumento" | "esBienGanancial" | "conApoderado" | "apoderadoNombre" | "apoderadoDocumento" | "numeroPoderNotarial" | "montoArancel" | "arancelPagado" | "preImpresionConfirmada" | "estado" | "estadoAnterior" | "usuarioId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["tramiteCompraventa"]>
 export type TramiteCompraventaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   requisitos?: boolean | Prisma.TramiteCompraventa$requisitosArgs<ExtArgs>
+  bitacora?: boolean | Prisma.TramiteCompraventa$bitacoraArgs<ExtArgs>
   _count?: boolean | Prisma.TramiteCompraventaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TramiteCompraventaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1411,6 +1528,7 @@ export type $TramiteCompraventaPayload<ExtArgs extends runtime.Types.Extensions.
   objects: {
     usuario: Prisma.$UsuarioPayload<ExtArgs>
     requisitos: Prisma.$RequisitoCompraventaPayload<ExtArgs>[]
+    bitacora: Prisma.$MensajeTramitePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1431,7 +1549,6 @@ export type $TramiteCompraventaPayload<ExtArgs extends runtime.Types.Extensions.
     montoArancel: runtime.Decimal
     arancelPagado: boolean
     preImpresionConfirmada: boolean
-    observaciones: string | null
     estado: $Enums.EstadoTramite
     estadoAnterior: $Enums.EstadoTramite | null
     usuarioId: number
@@ -1834,6 +1951,7 @@ export interface Prisma__TramiteCompraventaClient<T, Null = never, ExtArgs exten
   readonly [Symbol.toStringTag]: "PrismaPromise"
   usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   requisitos<T extends Prisma.TramiteCompraventa$requisitosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TramiteCompraventa$requisitosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequisitoCompraventaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bitacora<T extends Prisma.TramiteCompraventa$bitacoraArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TramiteCompraventa$bitacoraArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MensajeTramitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1881,7 +1999,6 @@ export interface TramiteCompraventaFieldRefs {
   readonly montoArancel: Prisma.FieldRef<"TramiteCompraventa", 'Decimal'>
   readonly arancelPagado: Prisma.FieldRef<"TramiteCompraventa", 'Boolean'>
   readonly preImpresionConfirmada: Prisma.FieldRef<"TramiteCompraventa", 'Boolean'>
-  readonly observaciones: Prisma.FieldRef<"TramiteCompraventa", 'String'>
   readonly estado: Prisma.FieldRef<"TramiteCompraventa", 'EstadoTramite'>
   readonly estadoAnterior: Prisma.FieldRef<"TramiteCompraventa", 'EstadoTramite'>
   readonly usuarioId: Prisma.FieldRef<"TramiteCompraventa", 'Int'>
@@ -2310,6 +2427,30 @@ export type TramiteCompraventa$requisitosArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.RequisitoCompraventaScalarFieldEnum | Prisma.RequisitoCompraventaScalarFieldEnum[]
+}
+
+/**
+ * TramiteCompraventa.bitacora
+ */
+export type TramiteCompraventa$bitacoraArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MensajeTramite
+   */
+  select?: Prisma.MensajeTramiteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MensajeTramite
+   */
+  omit?: Prisma.MensajeTramiteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MensajeTramiteInclude<ExtArgs> | null
+  where?: Prisma.MensajeTramiteWhereInput
+  orderBy?: Prisma.MensajeTramiteOrderByWithRelationInput | Prisma.MensajeTramiteOrderByWithRelationInput[]
+  cursor?: Prisma.MensajeTramiteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MensajeTramiteScalarFieldEnum | Prisma.MensajeTramiteScalarFieldEnum[]
 }
 
 /**

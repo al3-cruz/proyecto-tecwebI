@@ -1,14 +1,14 @@
-import { ExecutionContext, ForbiddenException } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import { PrismaService } from '../prisma/prisma.service.js';
-import type { UsuarioAutenticado } from './interfaces/usuario-autenticado.interface.js';
-import { PermissionsGuard } from './permissions.guard.js';
+import { ExecutionContext, ForbiddenException } from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
+import { PrismaService } from "../prisma/prisma.service.js";
+import type { UsuarioAutenticado } from "./interfaces/usuario-autenticado.interface.js";
+import { PermissionsGuard } from "./permissions.guard.js";
 
-describe('PermissionsGuard', () => {
-  const permissions = ['tramites:crear'];
+describe("PermissionsGuard", () => {
+  const permissions = ["tramites:crear"];
   const user: UsuarioAutenticado = {
     sub: 5,
-    email: 'person@example.com',
+    email: "person@example.com",
   };
   const request = { user };
   const context = {
@@ -33,23 +33,23 @@ describe('PermissionsGuard', () => {
     );
   });
 
-  it('loads current roles and allows a granted permission', async () => {
+  it("loads current roles and allows a granted permission", async () => {
     prismaMock.usuario.findUnique.mockResolvedValue({
       roles: [
         {
-          codigo: 'CIUDADANO',
-          permisos: [{ codigo: 'tramites:crear' }],
+          codigo: "CIUDADANO",
+          permisos: [{ permiso: { codigo: "tramites:crear" } }],
         },
       ],
     });
 
     await expect(guard.canActivate(context)).resolves.toBe(true);
-    expect(request.user.roles).toEqual(['CIUDADANO']);
+    expect(request.user.roles).toEqual(["CIUDADANO"]);
   });
 
-  it('denies a permission absent from the current database roles', async () => {
+  it("denies a permission absent from the current database roles", async () => {
     prismaMock.usuario.findUnique.mockResolvedValue({
-      roles: [{ codigo: 'CIUDADANO', permisos: [] }],
+      roles: [{ codigo: "CIUDADANO", permisos: [] }],
     });
 
     await expect(guard.canActivate(context)).rejects.toBeInstanceOf(

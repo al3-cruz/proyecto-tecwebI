@@ -2,63 +2,89 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service.js';
-import { AsignarPermisosDto } from './dto/asignar-permisos.dto.js';
+} from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service.js";
+import { AsignarPermisosDto } from "./dto/asignar-permisos.dto.js";
 
 @Injectable()
 export class RolesService {
   constructor(private readonly prisma: PrismaService) {}
 
   listar() {
-    return this.prisma.rol.findMany({
-      select: {
-        id: true,
-        codigo: true,
-        nombre: true,
-        permisos: {
-          select: { id: true, codigo: true, descripcion: true },
-          orderBy: { id: 'asc' },
+    return this.prisma.rol
+      .findMany({
+        select: {
+          id: true,
+          codigo: true,
+          nombre: true,
+          permisos: {
+            select: {
+              permiso: {
+                select: { id: true, codigo: true, descripcion: true },
+              },
+            },
+            orderBy: { permisoId: "asc" },
+          },
         },
-      },
-      orderBy: { id: 'asc' },
-    });
+        orderBy: { id: "asc" },
+      })
+      .then((roles) =>
+        roles.map(({ permisos, ...rol }) => ({
+          ...rol,
+          permisos: permisos.map(({ permiso }) => permiso),
+        })),
+      );
   }
 
   async asignarPermisos(id: number, dto: AsignarPermisosDto) {
     const permissionSelector = this.getPermissionSelector(dto);
-    const rol = await this.prisma.rol.findUnique({
-      where: { id },
-      select: { id: true },
-    });
-    if (!rol) {
-      throw new NotFoundException(`El rol ${id} no existe.`);
-    }
-
     const permisos = await this.prisma.permiso.findMany({
       where: permissionSelector.where,
       select: { id: true },
     });
     if (permisos.length !== permissionSelector.count) {
-      throw new BadRequestException('Uno o más permisos no existen.');
+      throw new BadRequestException("Uno o más permisos no existen.");
     }
 
-    return this.prisma.rol.update({
-      where: { id },
-      data: {
-        permisos: {
-          set: permisos.map(({ id: permissionId }) => ({ id: permissionId })),
+    return this.prisma.$transaction(async (tx) => {
+      const rol = await tx.rol.findUnique({
+        where: { id },
+        select: { id: true },
+      });
+      if (!rol) {
+        throw new NotFoundException(`El rol ${id} no existe.`);
+      }
+
+      await tx.rolPermiso.deleteMany({ where: { rolId: id } });
+      if (permisos.length > 0) {
+        await tx.rolPermiso.createMany({
+          data: permisos.map(({ id: permisoId }) => ({
+            rolId: id,
+            permisoId,
+          })),
+        });
+      }
+
+      const actualizado = await tx.rol.findUniqueOrThrow({
+        where: { id },
+        select: {
+          id: true,
+          codigo: true,
+          nombre: true,
+          permisos: {
+            select: {
+              permiso: {
+                select: { id: true, codigo: true, descripcion: true },
+              },
+            },
+            orderBy: { permisoId: "asc" },
+          },
         },
-      },
-      select: {
-        id: true,
-        codigo: true,
-        nombre: true,
-        permisos: {
-          select: { id: true, codigo: true, descripcion: true },
-          orderBy: { id: 'asc' },
-        },
-      },
+      });
+      return {
+        ...actualizado,
+        permisos: actualizado.permisos.map(({ permiso }) => permiso),
+      };
     });
   }
 
@@ -71,7 +97,7 @@ export class RolesService {
     const hasCodes = dto.codigos !== undefined;
     if (hasIds === hasCodes) {
       throw new BadRequestException(
-        'Proporcione exactamente uno de estos campos: permisosIds o codigos.',
+        "Proporcione exactamente uno de estos campos: permisosIds o codigos.",
       );
     }
     if (dto.permisosIds) {

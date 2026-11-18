@@ -1,10 +1,10 @@
-import { BadRequestException } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import { TramitesService } from './tramites.service';
-import { PrismaService } from '../prisma/prisma.service';
-import { Prisma } from '../generated/prisma/client';
+import { BadRequestException } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
+import { TramitesService } from "./tramites.service";
+import { PrismaService } from "../prisma/prisma.service";
+import { Prisma } from "../generated/prisma/client";
 
-describe('TramitesService', () => {
+describe("TramitesService", () => {
   let service: TramitesService;
   const prismaMock = {
     tramite: {
@@ -20,7 +20,7 @@ describe('TramitesService', () => {
     requisitoTramite: {
       create: jest.fn(),
     },
-    direccion: {
+    oficina: {
       findMany: jest.fn(),
     },
   };
@@ -37,24 +37,29 @@ describe('TramitesService', () => {
     service = module.get<TramitesService>(TramitesService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 
-  it('replaces fields, requirements, steps, and office links in one update', async () => {
+  it("replaces fields, requirements, steps, and office links in one update", async () => {
     prismaMock.tramite.findFirst.mockResolvedValue({ id: 1 });
     prismaMock.tramite.update.mockResolvedValue({ id: 1, codigo: 1 });
 
-    await service.replace(1, {
-      codigo: 1,
-      titulo: 'Corrección de identidad',
-      finalidad: 'Actualizar los datos registrales.',
-      plazoEntregaDias: 5,
-      modalidad: 'PRESENCIAL',
-      requisitos: [],
-      pasos: [],
-      oficinaIds: [2],
-    }, 7);
+    await service.replace(
+      1,
+      {
+        codigo: 1,
+        titulo: "Corrección de identidad",
+        finalidad: "Actualizar los datos registrales.",
+        institucionId: 1,
+        plazoEntregaDias: 5,
+        modalidad: "PRESENCIAL",
+        requisitos: [],
+        pasos: [],
+        oficinaIds: [2],
+      },
+      7,
+    );
 
     expect(prismaMock.tramite.update).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -69,61 +74,64 @@ describe('TramitesService', () => {
     );
   });
 
-  it('turns a missing or other owner record into a 404', async () => {
+  it("returns 404 when a catalog entry does not exist", async () => {
     prismaMock.tramite.findFirst.mockResolvedValue(null);
 
-    await expect(service.findOne(999, 7)).rejects.toThrow('no fue encontrado');
+    await expect(service.findOne(999)).rejects.toThrow("no fue encontrado");
     expect(prismaMock.tramite.findFirst).toHaveBeenCalledWith(
-      expect.objectContaining({ where: { id: 999, usuarioId: 7 } }),
+      expect.objectContaining({ where: { id: 999 } }),
     );
   });
 
-  it('maps Prisma uniqueness conflicts to a 400 response', async () => {
+  it("maps Prisma uniqueness conflicts to a 400 response", async () => {
     prismaMock.tramite.create.mockRejectedValue(
-      new Prisma.PrismaClientKnownRequestError('Unique conflict', {
-        code: 'P2002',
-        clientVersion: '7.10.1',
+      new Prisma.PrismaClientKnownRequestError("Unique conflict", {
+        code: "P2002",
+        clientVersion: "7.10.1",
       }),
     );
 
     await expect(
-      service.create({
-        codigo: 1,
-        titulo: 'Trámite duplicado',
-        finalidad: 'Prueba',
-        plazoEntregaDias: 1,
-        modalidad: 'PRESENCIAL',
-      }, 7),
+      service.create(
+        {
+          codigo: 1,
+          institucionId: 1,
+          titulo: "Trámite duplicado",
+          finalidad: "Prueba",
+          plazoEntregaDias: 1,
+          modalidad: "PRESENCIAL",
+        },
+        7,
+      ),
     ).rejects.toBeInstanceOf(BadRequestException);
   });
 
-  it('paginates and combines title, purpose, requirement, office, and deadline filters', async () => {
+  it("paginates the shared catalog and combines its filters", async () => {
     prismaMock.tramite.findMany.mockResolvedValue([]);
     prismaMock.tramite.count.mockResolvedValue(0);
 
     const result = await service.findAll({
       page: 2,
       limit: 5,
-      search: 'herencia',
-      modalidad: 'PRESENCIAL',
+      search: "herencia",
+      modalidad: "PRESENCIAL",
       oficinaId: 3,
       plazoMaximoDias: 12,
-    }, 7);
+    });
 
     const expectedWhere = {
-      usuarioId: 7,
       OR: [
-        { titulo: { contains: 'herencia', mode: 'insensitive' } },
-        { finalidad: { contains: 'herencia', mode: 'insensitive' } },
+        { titulo: { contains: "herencia", mode: "insensitive" } },
+        { finalidad: { contains: "herencia", mode: "insensitive" } },
         {
           requisitos: {
             some: {
-              detalle: { contains: 'herencia', mode: 'insensitive' },
+              detalle: { contains: "herencia", mode: "insensitive" },
             },
           },
         },
       ],
-      modalidad: 'PRESENCIAL',
+      modalidad: "PRESENCIAL",
       oficinas: { some: { id: 3 } },
       plazoEntregaDias: { lte: 12 },
     };
@@ -140,84 +148,87 @@ describe('TramitesService', () => {
     expect(result.meta).toEqual({ total: 0, page: 2, limit: 5, lastPage: 0 });
   });
 
-  it('verifies mandatory requirements and estimates delivery date', async () => {
+  it("verifies mandatory requirements and estimates delivery date", async () => {
     prismaMock.tramite.findFirst.mockResolvedValue({
       id: 4,
       plazoEntregaDias: 2,
       requisitos: [
-        { id: 11, detalle: 'Documento obligatorio', obligatorio: true },
-        { id: 12, detalle: 'Documento opcional', obligatorio: false },
+        { id: 11, detalle: "Documento obligatorio", obligatorio: true },
+        { id: 12, detalle: "Documento opcional", obligatorio: false },
       ],
       pasos: [],
       oficinas: [],
     });
 
     await expect(
-      service.verificarRequisitos(4, {
-        requisitosCumplidosIds: [12],
-        fechaInicio: '2026-11-12',
-      }, 7),
+      service.verificarRequisitos(
+        4,
+        {
+          requisitosCumplidosIds: [12],
+          fechaInicio: "2026-11-12",
+        },
+        7,
+      ),
     ).resolves.toEqual({
       aptoParaIniciar: false,
       requisitosObligatoriosFaltantes: [
-        { id: 11, descripcion: 'Documento obligatorio' },
+        { id: 11, descripcion: "Documento obligatorio" },
       ],
       requisitosOpcionalesFaltantes: [],
       porcentajeCumplimiento: 50,
-      fechaEstimadaEntrega: '2026-11-16',
+      fechaEstimadaEntrega: "2026-11-16",
     });
   });
 
-  it('returns at most four related procedures ordered by code', async () => {
+  it("returns at most four related procedures ordered by code", async () => {
     prismaMock.tramite.findFirst.mockResolvedValue({
       id: 1,
-      modalidad: 'MIXTA',
+      modalidad: "MIXTA",
       requisitos: [],
       pasos: [],
       oficinas: [{ id: 5 }],
     });
     prismaMock.tramite.findMany.mockResolvedValue([]);
 
-    await service.relacionados(1, 7);
+    await service.relacionados(1);
 
     expect(prismaMock.tramite.findMany).toHaveBeenCalledWith(
       expect.objectContaining({
         where: {
-          usuarioId: 7,
           id: { not: 1 },
           OR: [
-            { modalidad: 'MIXTA' },
+            { modalidad: "MIXTA" },
             { oficinas: { some: { id: { in: [5] } } } },
           ],
         },
-        orderBy: { codigo: 'asc' },
+        orderBy: { codigo: "asc" },
         take: 4,
       }),
     );
   });
 
-  it('creates a procedure with its owner taken from the authenticated user', async () => {
-    prismaMock.tramite.create.mockResolvedValue({ id: 1, usuarioId: 7 });
+  it("creates a catalog entry with its administrator as tramitador", async () => {
+    prismaMock.tramite.create.mockResolvedValue({ id: 1, tramitadorId: 7 });
 
     await service.create(
       {
         codigo: 1,
-        codigoOficial: '1',
-        titulo: 'Trámite nuevo',
-        oficina: 'Ventanilla de Inscripción Rápida',
-        finalidad: 'Prueba',
+        codigoOficial: "1",
+        institucionId: 1,
+        titulo: "Trámite nuevo",
+        finalidad: "Prueba",
         plazoEntregaDias: 1,
-        modalidad: 'PRESENCIAL',
-        notaRequisitos: 'Original y dos fotocopias.',
-        documentosEntregables: ['Folio Real actualizado.'],
-        fechaActualizacionOficial: '27 de octubre de 2025',
+        modalidad: "PRESENCIAL",
+        notaRequisitos: "Original y dos fotocopias.",
+        documentosEntregables: ["Folio Real actualizado."],
+        fechaActualizacionOficial: "2025-10-27",
         requisitos: [
           {
-            nombre: 'Declaratoria',
-            detalle: 'Documento de declaratoria.',
+            nombre: "Declaratoria",
+            detalle: "Documento de declaratoria.",
             obligatorio: false,
             orden: 1,
-            notaCondicional: 'Solo en caso de fallecimiento.',
+            notaCondicional: "Solo en caso de fallecimiento.",
           },
         ],
       },
@@ -227,18 +238,20 @@ describe('TramitesService', () => {
     expect(prismaMock.tramite.create).toHaveBeenCalledWith(
       expect.objectContaining({
         data: expect.objectContaining({
-          usuarioId: 7,
-          codigoOficial: '1',
-          oficina: 'Ventanilla de Inscripción Rápida',
-          modalidad: 'PRESENCIAL',
-          notaRequisitos: 'Original y dos fotocopias.',
-          documentosEntregables: ['Folio Real actualizado.'],
-          fechaActualizacionOficial: '27 de octubre de 2025',
+          tramitadorId: 7,
+          institucionId: 1,
+          codigoOficial: "1",
+          modalidad: "PRESENCIAL",
+          notaRequisitos: "Original y dos fotocopias.",
+          documentosEntregables: {
+            create: [{ nombre: "Folio Real actualizado." }],
+          },
+          fechaActualizacionOficial: new Date("2025-10-27"),
           requisitos: {
             create: [
               expect.objectContaining({
                 obligatorio: false,
-                notaCondicional: 'Solo en caso de fallecimiento.',
+                notaCondicional: "Solo en caso de fallecimiento.",
               }),
             ],
           },
@@ -247,13 +260,13 @@ describe('TramitesService', () => {
     );
   });
 
-  it('deletes only records owned by the authenticated user', async () => {
+  it("deletes the catalog entry by ID", async () => {
     prismaMock.tramite.deleteMany.mockResolvedValue({ count: 1 });
 
-    await service.remove(10, 7);
+    await service.remove(10);
 
     expect(prismaMock.tramite.deleteMany).toHaveBeenCalledWith({
-      where: { id: 10, usuarioId: 7 },
+      where: { id: 10 },
     });
   });
 });

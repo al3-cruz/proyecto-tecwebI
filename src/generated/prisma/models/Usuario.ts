@@ -38,7 +38,9 @@ export type UsuarioMinAggregateOutputType = {
   id: number | null
   email: string | null
   passwordHash: string | null
+  telefono: string | null
   createdAt: Date | null
+  updatedAt: Date | null
   deletedAt: Date | null
 }
 
@@ -46,7 +48,9 @@ export type UsuarioMaxAggregateOutputType = {
   id: number | null
   email: string | null
   passwordHash: string | null
+  telefono: string | null
   createdAt: Date | null
+  updatedAt: Date | null
   deletedAt: Date | null
 }
 
@@ -54,7 +58,9 @@ export type UsuarioCountAggregateOutputType = {
   id: number
   email: number
   passwordHash: number
+  telefono: number
   createdAt: number
+  updatedAt: number
   deletedAt: number
   _all: number
 }
@@ -72,7 +78,9 @@ export type UsuarioMinAggregateInputType = {
   id?: true
   email?: true
   passwordHash?: true
+  telefono?: true
   createdAt?: true
+  updatedAt?: true
   deletedAt?: true
 }
 
@@ -80,7 +88,9 @@ export type UsuarioMaxAggregateInputType = {
   id?: true
   email?: true
   passwordHash?: true
+  telefono?: true
   createdAt?: true
+  updatedAt?: true
   deletedAt?: true
 }
 
@@ -88,7 +98,9 @@ export type UsuarioCountAggregateInputType = {
   id?: true
   email?: true
   passwordHash?: true
+  telefono?: true
   createdAt?: true
+  updatedAt?: true
   deletedAt?: true
   _all?: true
 }
@@ -183,7 +195,9 @@ export type UsuarioGroupByOutputType = {
   id: number
   email: string
   passwordHash: string
+  telefono: string | null
   createdAt: Date
+  updatedAt: Date
   deletedAt: Date | null
   _count: UsuarioCountAggregateOutputType | null
   _avg: UsuarioAvgAggregateOutputType | null
@@ -214,11 +228,19 @@ export type UsuarioWhereInput = {
   id?: Prisma.IntFilter<"Usuario"> | number
   email?: Prisma.StringFilter<"Usuario"> | string
   passwordHash?: Prisma.StringFilter<"Usuario"> | string
+  telefono?: Prisma.StringNullableFilter<"Usuario"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
-  tramites?: Prisma.TramiteListRelationFilter
   roles?: Prisma.RolListRelationFilter
+  direcciones?: Prisma.DireccionListRelationFilter
+  suscripcion?: Prisma.XOR<Prisma.SuscripcionNullableScalarRelationFilter, Prisma.SuscripcionWhereInput> | null
+  tramitesComoCliente?: Prisma.TramiteListRelationFilter
+  tramitesComoTramitador?: Prisma.TramiteListRelationFilter
   compraventas?: Prisma.TramiteCompraventaListRelationFilter
+  perfilProfesional?: Prisma.XOR<Prisma.PerfilProfesionalNullableScalarRelationFilter, Prisma.PerfilProfesionalWhereInput> | null
+  pagosRealizados?: Prisma.PagoListRelationFilter
+  mensajesBitacora?: Prisma.MensajeTramiteListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
 }
 
@@ -226,11 +248,19 @@ export type UsuarioOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  telefono?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  tramites?: Prisma.TramiteOrderByRelationAggregateInput
   roles?: Prisma.RolOrderByRelationAggregateInput
+  direcciones?: Prisma.DireccionOrderByRelationAggregateInput
+  suscripcion?: Prisma.SuscripcionOrderByWithRelationInput
+  tramitesComoCliente?: Prisma.TramiteOrderByRelationAggregateInput
+  tramitesComoTramitador?: Prisma.TramiteOrderByRelationAggregateInput
   compraventas?: Prisma.TramiteCompraventaOrderByRelationAggregateInput
+  perfilProfesional?: Prisma.PerfilProfesionalOrderByWithRelationInput
+  pagosRealizados?: Prisma.PagoOrderByRelationAggregateInput
+  mensajesBitacora?: Prisma.MensajeTramiteOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
 }
 
@@ -241,11 +271,19 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UsuarioWhereInput[]
   NOT?: Prisma.UsuarioWhereInput | Prisma.UsuarioWhereInput[]
   passwordHash?: Prisma.StringFilter<"Usuario"> | string
+  telefono?: Prisma.StringNullableFilter<"Usuario"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
-  tramites?: Prisma.TramiteListRelationFilter
   roles?: Prisma.RolListRelationFilter
+  direcciones?: Prisma.DireccionListRelationFilter
+  suscripcion?: Prisma.XOR<Prisma.SuscripcionNullableScalarRelationFilter, Prisma.SuscripcionWhereInput> | null
+  tramitesComoCliente?: Prisma.TramiteListRelationFilter
+  tramitesComoTramitador?: Prisma.TramiteListRelationFilter
   compraventas?: Prisma.TramiteCompraventaListRelationFilter
+  perfilProfesional?: Prisma.XOR<Prisma.PerfilProfesionalNullableScalarRelationFilter, Prisma.PerfilProfesionalWhereInput> | null
+  pagosRealizados?: Prisma.PagoListRelationFilter
+  mensajesBitacora?: Prisma.MensajeTramiteListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
 }, "id" | "email">
 
@@ -253,7 +291,9 @@ export type UsuarioOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  telefono?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UsuarioCountOrderByAggregateInput
   _avg?: Prisma.UsuarioAvgOrderByAggregateInput
@@ -269,18 +309,28 @@ export type UsuarioScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Usuario"> | number
   email?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
   passwordHash?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
+  telefono?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Usuario"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Usuario"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Usuario"> | Date | string | null
 }
 
 export type UsuarioCreateInput = {
   email: string
   passwordHash: string
+  telefono?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
-  tramites?: Prisma.TramiteCreateNestedManyWithoutUsuarioInput
   roles?: Prisma.RolCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteCreateNestedManyWithoutTramitadorInput
   compraventas?: Prisma.TramiteCompraventaCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutAutorInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
@@ -288,22 +338,38 @@ export type UsuarioUncheckedCreateInput = {
   id?: number
   email: string
   passwordHash: string
+  telefono?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
-  tramites?: Prisma.TramiteUncheckedCreateNestedManyWithoutUsuarioInput
   roles?: Prisma.RolUncheckedCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionUncheckedCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionUncheckedCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedCreateNestedManyWithoutTramitadorInput
   compraventas?: Prisma.TramiteCompraventaUncheckedCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoUncheckedCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutAutorInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UsuarioUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tramites?: Prisma.TramiteUpdateManyWithoutUsuarioNestedInput
   roles?: Prisma.RolUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUpdateManyWithoutTramitadorNestedInput
   compraventas?: Prisma.TramiteCompraventaUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUpdateManyWithoutAutorNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
@@ -311,11 +377,19 @@ export type UsuarioUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tramites?: Prisma.TramiteUncheckedUpdateManyWithoutUsuarioNestedInput
   roles?: Prisma.RolUncheckedUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUncheckedUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUncheckedUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedUpdateManyWithoutTramitadorNestedInput
   compraventas?: Prisma.TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUncheckedUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutAutorNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -323,14 +397,18 @@ export type UsuarioCreateManyInput = {
   id?: number
   email: string
   passwordHash: string
+  telefono?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
 }
 
 export type UsuarioUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -338,20 +416,19 @@ export type UsuarioUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-}
-
-export type UsuarioScalarRelationFilter = {
-  is?: Prisma.UsuarioWhereInput
-  isNot?: Prisma.UsuarioWhereInput
 }
 
 export type UsuarioCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  telefono?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
@@ -363,7 +440,9 @@ export type UsuarioMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  telefono?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
@@ -371,7 +450,9 @@ export type UsuarioMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  telefono?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
@@ -389,23 +470,22 @@ export type UsuarioOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type UsuarioScalarRelationFilter = {
+  is?: Prisma.UsuarioWhereInput
+  isNot?: Prisma.UsuarioWhereInput
+}
+
 export type UsuarioNullableScalarRelationFilter = {
   is?: Prisma.UsuarioWhereInput | null
   isNot?: Prisma.UsuarioWhereInput | null
 }
 
-export type UsuarioCreateNestedOneWithoutTramitesInput = {
-  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesInput, Prisma.UsuarioUncheckedCreateWithoutTramitesInput>
-  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutTramitesInput
-  connect?: Prisma.UsuarioWhereUniqueInput
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
-export type UsuarioUpdateOneRequiredWithoutTramitesNestedInput = {
-  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesInput, Prisma.UsuarioUncheckedCreateWithoutTramitesInput>
-  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutTramitesInput
-  upsert?: Prisma.UsuarioUpsertWithoutTramitesInput
-  connect?: Prisma.UsuarioWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutTramitesInput, Prisma.UsuarioUpdateWithoutTramitesInput>, Prisma.UsuarioUncheckedUpdateWithoutTramitesInput>
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type UsuarioCreateNestedManyWithoutRolesInput = {
@@ -446,6 +526,78 @@ export type UsuarioUncheckedUpdateManyWithoutRolesNestedInput = {
   deleteMany?: Prisma.UsuarioScalarWhereInput | Prisma.UsuarioScalarWhereInput[]
 }
 
+export type UsuarioCreateNestedOneWithoutPerfilProfesionalInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutPerfilProfesionalInput, Prisma.UsuarioUncheckedCreateWithoutPerfilProfesionalInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutPerfilProfesionalInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutPerfilProfesionalNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutPerfilProfesionalInput, Prisma.UsuarioUncheckedCreateWithoutPerfilProfesionalInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutPerfilProfesionalInput
+  upsert?: Prisma.UsuarioUpsertWithoutPerfilProfesionalInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutPerfilProfesionalInput, Prisma.UsuarioUpdateWithoutPerfilProfesionalInput>, Prisma.UsuarioUncheckedUpdateWithoutPerfilProfesionalInput>
+}
+
+export type UsuarioCreateNestedOneWithoutSuscripcionInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutSuscripcionInput, Prisma.UsuarioUncheckedCreateWithoutSuscripcionInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutSuscripcionInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutSuscripcionNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutSuscripcionInput, Prisma.UsuarioUncheckedCreateWithoutSuscripcionInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutSuscripcionInput
+  upsert?: Prisma.UsuarioUpsertWithoutSuscripcionInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutSuscripcionInput, Prisma.UsuarioUpdateWithoutSuscripcionInput>, Prisma.UsuarioUncheckedUpdateWithoutSuscripcionInput>
+}
+
+export type UsuarioCreateNestedOneWithoutPagosRealizadosInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutPagosRealizadosInput, Prisma.UsuarioUncheckedCreateWithoutPagosRealizadosInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutPagosRealizadosInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutPagosRealizadosNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutPagosRealizadosInput, Prisma.UsuarioUncheckedCreateWithoutPagosRealizadosInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutPagosRealizadosInput
+  upsert?: Prisma.UsuarioUpsertWithoutPagosRealizadosInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutPagosRealizadosInput, Prisma.UsuarioUpdateWithoutPagosRealizadosInput>, Prisma.UsuarioUncheckedUpdateWithoutPagosRealizadosInput>
+}
+
+export type UsuarioCreateNestedOneWithoutTramitesComoClienteInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesComoClienteInput, Prisma.UsuarioUncheckedCreateWithoutTramitesComoClienteInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutTramitesComoClienteInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioCreateNestedOneWithoutTramitesComoTramitadorInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesComoTramitadorInput, Prisma.UsuarioUncheckedCreateWithoutTramitesComoTramitadorInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutTramitesComoTramitadorInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneWithoutTramitesComoClienteNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesComoClienteInput, Prisma.UsuarioUncheckedCreateWithoutTramitesComoClienteInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutTramitesComoClienteInput
+  upsert?: Prisma.UsuarioUpsertWithoutTramitesComoClienteInput
+  disconnect?: Prisma.UsuarioWhereInput | boolean
+  delete?: Prisma.UsuarioWhereInput | boolean
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutTramitesComoClienteInput, Prisma.UsuarioUpdateWithoutTramitesComoClienteInput>, Prisma.UsuarioUncheckedUpdateWithoutTramitesComoClienteInput>
+}
+
+export type UsuarioUpdateOneRequiredWithoutTramitesComoTramitadorNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesComoTramitadorInput, Prisma.UsuarioUncheckedCreateWithoutTramitesComoTramitadorInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutTramitesComoTramitadorInput
+  upsert?: Prisma.UsuarioUpsertWithoutTramitesComoTramitadorInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutTramitesComoTramitadorInput, Prisma.UsuarioUpdateWithoutTramitesComoTramitadorInput>, Prisma.UsuarioUncheckedUpdateWithoutTramitesComoTramitadorInput>
+}
+
 export type UsuarioCreateNestedOneWithoutCompraventasInput = {
   create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCompraventasInput, Prisma.UsuarioUncheckedCreateWithoutCompraventasInput>
   connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCompraventasInput
@@ -458,6 +610,36 @@ export type UsuarioUpdateOneRequiredWithoutCompraventasNestedInput = {
   upsert?: Prisma.UsuarioUpsertWithoutCompraventasInput
   connect?: Prisma.UsuarioWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutCompraventasInput, Prisma.UsuarioUpdateWithoutCompraventasInput>, Prisma.UsuarioUncheckedUpdateWithoutCompraventasInput>
+}
+
+export type UsuarioCreateNestedOneWithoutMensajesBitacoraInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutMensajesBitacoraInput, Prisma.UsuarioUncheckedCreateWithoutMensajesBitacoraInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutMensajesBitacoraInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutMensajesBitacoraNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutMensajesBitacoraInput, Prisma.UsuarioUncheckedCreateWithoutMensajesBitacoraInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutMensajesBitacoraInput
+  upsert?: Prisma.UsuarioUpsertWithoutMensajesBitacoraInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutMensajesBitacoraInput, Prisma.UsuarioUpdateWithoutMensajesBitacoraInput>, Prisma.UsuarioUncheckedUpdateWithoutMensajesBitacoraInput>
+}
+
+export type UsuarioCreateNestedOneWithoutDireccionesInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutDireccionesInput, Prisma.UsuarioUncheckedCreateWithoutDireccionesInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutDireccionesInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneWithoutDireccionesNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutDireccionesInput, Prisma.UsuarioUncheckedCreateWithoutDireccionesInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutDireccionesInput
+  upsert?: Prisma.UsuarioUpsertWithoutDireccionesInput
+  disconnect?: Prisma.UsuarioWhereInput | boolean
+  delete?: Prisma.UsuarioWhereInput | boolean
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutDireccionesInput, Prisma.UsuarioUpdateWithoutDireccionesInput>, Prisma.UsuarioUncheckedUpdateWithoutDireccionesInput>
 }
 
 export type UsuarioCreateNestedOneWithoutAuditLogsInput = {
@@ -476,71 +658,21 @@ export type UsuarioUpdateOneWithoutAuditLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.UsuarioUpdateWithoutAuditLogsInput>, Prisma.UsuarioUncheckedUpdateWithoutAuditLogsInput>
 }
 
-export type UsuarioCreateWithoutTramitesInput = {
-  email: string
-  passwordHash: string
-  createdAt?: Date | string
-  deletedAt?: Date | string | null
-  roles?: Prisma.RolCreateNestedManyWithoutUsuariosInput
-  compraventas?: Prisma.TramiteCompraventaCreateNestedManyWithoutUsuarioInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-}
-
-export type UsuarioUncheckedCreateWithoutTramitesInput = {
-  id?: number
-  email: string
-  passwordHash: string
-  createdAt?: Date | string
-  deletedAt?: Date | string | null
-  roles?: Prisma.RolUncheckedCreateNestedManyWithoutUsuariosInput
-  compraventas?: Prisma.TramiteCompraventaUncheckedCreateNestedManyWithoutUsuarioInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UsuarioCreateOrConnectWithoutTramitesInput = {
-  where: Prisma.UsuarioWhereUniqueInput
-  create: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesInput, Prisma.UsuarioUncheckedCreateWithoutTramitesInput>
-}
-
-export type UsuarioUpsertWithoutTramitesInput = {
-  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutTramitesInput, Prisma.UsuarioUncheckedUpdateWithoutTramitesInput>
-  create: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesInput, Prisma.UsuarioUncheckedCreateWithoutTramitesInput>
-  where?: Prisma.UsuarioWhereInput
-}
-
-export type UsuarioUpdateToOneWithWhereWithoutTramitesInput = {
-  where?: Prisma.UsuarioWhereInput
-  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutTramitesInput, Prisma.UsuarioUncheckedUpdateWithoutTramitesInput>
-}
-
-export type UsuarioUpdateWithoutTramitesInput = {
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  roles?: Prisma.RolUpdateManyWithoutUsuariosNestedInput
-  compraventas?: Prisma.TramiteCompraventaUpdateManyWithoutUsuarioNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-}
-
-export type UsuarioUncheckedUpdateWithoutTramitesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  roles?: Prisma.RolUncheckedUpdateManyWithoutUsuariosNestedInput
-  compraventas?: Prisma.TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-}
-
 export type UsuarioCreateWithoutRolesInput = {
   email: string
   passwordHash: string
+  telefono?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
-  tramites?: Prisma.TramiteCreateNestedManyWithoutUsuarioInput
+  direcciones?: Prisma.DireccionCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteCreateNestedManyWithoutTramitadorInput
   compraventas?: Prisma.TramiteCompraventaCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutAutorInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
@@ -548,10 +680,18 @@ export type UsuarioUncheckedCreateWithoutRolesInput = {
   id?: number
   email: string
   passwordHash: string
+  telefono?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
-  tramites?: Prisma.TramiteUncheckedCreateNestedManyWithoutUsuarioInput
+  direcciones?: Prisma.DireccionUncheckedCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionUncheckedCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedCreateNestedManyWithoutTramitadorInput
   compraventas?: Prisma.TramiteCompraventaUncheckedCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoUncheckedCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutAutorInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -583,17 +723,477 @@ export type UsuarioScalarWhereInput = {
   id?: Prisma.IntFilter<"Usuario"> | number
   email?: Prisma.StringFilter<"Usuario"> | string
   passwordHash?: Prisma.StringFilter<"Usuario"> | string
+  telefono?: Prisma.StringNullableFilter<"Usuario"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Usuario"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
+}
+
+export type UsuarioCreateWithoutPerfilProfesionalInput = {
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaCreateNestedManyWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioUncheckedCreateWithoutPerfilProfesionalInput = {
+  id?: number
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolUncheckedCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionUncheckedCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionUncheckedCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedCreateNestedManyWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoUncheckedCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioCreateOrConnectWithoutPerfilProfesionalInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutPerfilProfesionalInput, Prisma.UsuarioUncheckedCreateWithoutPerfilProfesionalInput>
+}
+
+export type UsuarioUpsertWithoutPerfilProfesionalInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutPerfilProfesionalInput, Prisma.UsuarioUncheckedUpdateWithoutPerfilProfesionalInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutPerfilProfesionalInput, Prisma.UsuarioUncheckedCreateWithoutPerfilProfesionalInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutPerfilProfesionalInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutPerfilProfesionalInput, Prisma.UsuarioUncheckedUpdateWithoutPerfilProfesionalInput>
+}
+
+export type UsuarioUpdateWithoutPerfilProfesionalInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUpdateManyWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutPerfilProfesionalInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUncheckedUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUncheckedUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUncheckedUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUncheckedUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioCreateWithoutSuscripcionInput = {
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionCreateNestedManyWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioUncheckedCreateWithoutSuscripcionInput = {
+  id?: number
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolUncheckedCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionUncheckedCreateNestedManyWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoUncheckedCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioCreateOrConnectWithoutSuscripcionInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutSuscripcionInput, Prisma.UsuarioUncheckedCreateWithoutSuscripcionInput>
+}
+
+export type UsuarioUpsertWithoutSuscripcionInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutSuscripcionInput, Prisma.UsuarioUncheckedUpdateWithoutSuscripcionInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutSuscripcionInput, Prisma.UsuarioUncheckedCreateWithoutSuscripcionInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutSuscripcionInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutSuscripcionInput, Prisma.UsuarioUncheckedUpdateWithoutSuscripcionInput>
+}
+
+export type UsuarioUpdateWithoutSuscripcionInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUpdateManyWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutSuscripcionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUncheckedUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUncheckedUpdateManyWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUncheckedUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioCreateWithoutPagosRealizadosInput = {
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalCreateNestedOneWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioUncheckedCreateWithoutPagosRealizadosInput = {
+  id?: number
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolUncheckedCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionUncheckedCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionUncheckedCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedCreateNestedOneWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioCreateOrConnectWithoutPagosRealizadosInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutPagosRealizadosInput, Prisma.UsuarioUncheckedCreateWithoutPagosRealizadosInput>
+}
+
+export type UsuarioUpsertWithoutPagosRealizadosInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutPagosRealizadosInput, Prisma.UsuarioUncheckedUpdateWithoutPagosRealizadosInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutPagosRealizadosInput, Prisma.UsuarioUncheckedCreateWithoutPagosRealizadosInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutPagosRealizadosInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutPagosRealizadosInput, Prisma.UsuarioUncheckedUpdateWithoutPagosRealizadosInput>
+}
+
+export type UsuarioUpdateWithoutPagosRealizadosInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUpdateOneWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutPagosRealizadosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUncheckedUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUncheckedUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUncheckedUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedUpdateOneWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioCreateWithoutTramitesComoClienteInput = {
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionCreateNestedOneWithoutUsuarioInput
+  tramitesComoTramitador?: Prisma.TramiteCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioUncheckedCreateWithoutTramitesComoClienteInput = {
+  id?: number
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolUncheckedCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionUncheckedCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionUncheckedCreateNestedOneWithoutUsuarioInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoUncheckedCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioCreateOrConnectWithoutTramitesComoClienteInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesComoClienteInput, Prisma.UsuarioUncheckedCreateWithoutTramitesComoClienteInput>
+}
+
+export type UsuarioCreateWithoutTramitesComoTramitadorInput = {
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteCreateNestedManyWithoutClienteInput
+  compraventas?: Prisma.TramiteCompraventaCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioUncheckedCreateWithoutTramitesComoTramitadorInput = {
+  id?: number
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolUncheckedCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionUncheckedCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionUncheckedCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedCreateNestedManyWithoutClienteInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoUncheckedCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioCreateOrConnectWithoutTramitesComoTramitadorInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesComoTramitadorInput, Prisma.UsuarioUncheckedCreateWithoutTramitesComoTramitadorInput>
+}
+
+export type UsuarioUpsertWithoutTramitesComoClienteInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutTramitesComoClienteInput, Prisma.UsuarioUncheckedUpdateWithoutTramitesComoClienteInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesComoClienteInput, Prisma.UsuarioUncheckedCreateWithoutTramitesComoClienteInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutTramitesComoClienteInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutTramitesComoClienteInput, Prisma.UsuarioUncheckedUpdateWithoutTramitesComoClienteInput>
+}
+
+export type UsuarioUpdateWithoutTramitesComoClienteInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUpdateOneWithoutUsuarioNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutTramitesComoClienteInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUncheckedUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUncheckedUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUncheckedUpdateOneWithoutUsuarioNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUncheckedUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioUpsertWithoutTramitesComoTramitadorInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutTramitesComoTramitadorInput, Prisma.UsuarioUncheckedUpdateWithoutTramitesComoTramitadorInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutTramitesComoTramitadorInput, Prisma.UsuarioUncheckedCreateWithoutTramitesComoTramitadorInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutTramitesComoTramitadorInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutTramitesComoTramitadorInput, Prisma.UsuarioUncheckedUpdateWithoutTramitesComoTramitadorInput>
+}
+
+export type UsuarioUpdateWithoutTramitesComoTramitadorInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUpdateManyWithoutClienteNestedInput
+  compraventas?: Prisma.TramiteCompraventaUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutTramitesComoTramitadorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUncheckedUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUncheckedUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUncheckedUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedUpdateManyWithoutClienteNestedInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUncheckedUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UsuarioCreateWithoutCompraventasInput = {
   email: string
   passwordHash: string
+  telefono?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
-  tramites?: Prisma.TramiteCreateNestedManyWithoutUsuarioInput
   roles?: Prisma.RolCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteCreateNestedManyWithoutTramitadorInput
+  perfilProfesional?: Prisma.PerfilProfesionalCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutAutorInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
 }
 
@@ -601,10 +1201,18 @@ export type UsuarioUncheckedCreateWithoutCompraventasInput = {
   id?: number
   email: string
   passwordHash: string
+  telefono?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
-  tramites?: Prisma.TramiteUncheckedCreateNestedManyWithoutUsuarioInput
   roles?: Prisma.RolUncheckedCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionUncheckedCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionUncheckedCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedCreateNestedManyWithoutTramitadorInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoUncheckedCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutAutorInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -627,10 +1235,18 @@ export type UsuarioUpdateToOneWithWhereWithoutCompraventasInput = {
 export type UsuarioUpdateWithoutCompraventasInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tramites?: Prisma.TramiteUpdateManyWithoutUsuarioNestedInput
   roles?: Prisma.RolUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUpdateManyWithoutTramitadorNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUpdateManyWithoutAutorNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
@@ -638,32 +1254,236 @@ export type UsuarioUncheckedUpdateWithoutCompraventasInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tramites?: Prisma.TramiteUncheckedUpdateManyWithoutUsuarioNestedInput
   roles?: Prisma.RolUncheckedUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUncheckedUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUncheckedUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedUpdateManyWithoutTramitadorNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUncheckedUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioCreateWithoutMensajesBitacoraInput = {
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoCreateNestedManyWithoutUsuarioInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioUncheckedCreateWithoutMensajesBitacoraInput = {
+  id?: number
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolUncheckedCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionUncheckedCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionUncheckedCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoUncheckedCreateNestedManyWithoutUsuarioInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioCreateOrConnectWithoutMensajesBitacoraInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutMensajesBitacoraInput, Prisma.UsuarioUncheckedCreateWithoutMensajesBitacoraInput>
+}
+
+export type UsuarioUpsertWithoutMensajesBitacoraInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutMensajesBitacoraInput, Prisma.UsuarioUncheckedUpdateWithoutMensajesBitacoraInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutMensajesBitacoraInput, Prisma.UsuarioUncheckedCreateWithoutMensajesBitacoraInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutMensajesBitacoraInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutMensajesBitacoraInput, Prisma.UsuarioUncheckedUpdateWithoutMensajesBitacoraInput>
+}
+
+export type UsuarioUpdateWithoutMensajesBitacoraInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUpdateManyWithoutUsuarioNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutMensajesBitacoraInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUncheckedUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUncheckedUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUncheckedUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUncheckedUpdateManyWithoutUsuarioNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioCreateWithoutDireccionesInput = {
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolCreateNestedManyWithoutUsuariosInput
+  suscripcion?: Prisma.SuscripcionCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioUncheckedCreateWithoutDireccionesInput = {
+  id?: number
+  email: string
+  passwordHash: string
+  telefono?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.RolUncheckedCreateNestedManyWithoutUsuariosInput
+  suscripcion?: Prisma.SuscripcionUncheckedCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedCreateNestedManyWithoutTramitadorInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoUncheckedCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutAutorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UsuarioCreateOrConnectWithoutDireccionesInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutDireccionesInput, Prisma.UsuarioUncheckedCreateWithoutDireccionesInput>
+}
+
+export type UsuarioUpsertWithoutDireccionesInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutDireccionesInput, Prisma.UsuarioUncheckedUpdateWithoutDireccionesInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutDireccionesInput, Prisma.UsuarioUncheckedCreateWithoutDireccionesInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutDireccionesInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutDireccionesInput, Prisma.UsuarioUncheckedUpdateWithoutDireccionesInput>
+}
+
+export type UsuarioUpdateWithoutDireccionesInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUpdateManyWithoutUsuariosNestedInput
+  suscripcion?: Prisma.SuscripcionUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUpdateManyWithoutAutorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutDireccionesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.RolUncheckedUpdateManyWithoutUsuariosNestedInput
+  suscripcion?: Prisma.SuscripcionUncheckedUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedUpdateManyWithoutTramitadorNestedInput
+  compraventas?: Prisma.TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUncheckedUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutAutorNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UsuarioCreateWithoutAuditLogsInput = {
   email: string
   passwordHash: string
+  telefono?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
-  tramites?: Prisma.TramiteCreateNestedManyWithoutUsuarioInput
   roles?: Prisma.RolCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteCreateNestedManyWithoutTramitadorInput
   compraventas?: Prisma.TramiteCompraventaCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteCreateNestedManyWithoutAutorInput
 }
 
 export type UsuarioUncheckedCreateWithoutAuditLogsInput = {
   id?: number
   email: string
   passwordHash: string
+  telefono?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
-  tramites?: Prisma.TramiteUncheckedCreateNestedManyWithoutUsuarioInput
   roles?: Prisma.RolUncheckedCreateNestedManyWithoutUsuariosInput
+  direcciones?: Prisma.DireccionUncheckedCreateNestedManyWithoutUsuarioInput
+  suscripcion?: Prisma.SuscripcionUncheckedCreateNestedOneWithoutUsuarioInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedCreateNestedManyWithoutClienteInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedCreateNestedManyWithoutTramitadorInput
   compraventas?: Prisma.TramiteCompraventaUncheckedCreateNestedManyWithoutUsuarioInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedCreateNestedOneWithoutUsuarioInput
+  pagosRealizados?: Prisma.PagoUncheckedCreateNestedManyWithoutUsuarioInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedCreateNestedManyWithoutAutorInput
 }
 
 export type UsuarioCreateOrConnectWithoutAuditLogsInput = {
@@ -685,31 +1505,55 @@ export type UsuarioUpdateToOneWithWhereWithoutAuditLogsInput = {
 export type UsuarioUpdateWithoutAuditLogsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tramites?: Prisma.TramiteUpdateManyWithoutUsuarioNestedInput
   roles?: Prisma.RolUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUpdateManyWithoutTramitadorNestedInput
   compraventas?: Prisma.TramiteCompraventaUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUpdateManyWithoutAutorNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutAuditLogsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tramites?: Prisma.TramiteUncheckedUpdateManyWithoutUsuarioNestedInput
   roles?: Prisma.RolUncheckedUpdateManyWithoutUsuariosNestedInput
+  direcciones?: Prisma.DireccionUncheckedUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUncheckedUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedUpdateManyWithoutTramitadorNestedInput
   compraventas?: Prisma.TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUncheckedUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutAutorNestedInput
 }
 
 export type UsuarioUpdateWithoutRolesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tramites?: Prisma.TramiteUpdateManyWithoutUsuarioNestedInput
+  direcciones?: Prisma.DireccionUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUpdateManyWithoutTramitadorNestedInput
   compraventas?: Prisma.TramiteCompraventaUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUpdateManyWithoutAutorNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
 }
 
@@ -717,10 +1561,18 @@ export type UsuarioUncheckedUpdateWithoutRolesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tramites?: Prisma.TramiteUncheckedUpdateManyWithoutUsuarioNestedInput
+  direcciones?: Prisma.DireccionUncheckedUpdateManyWithoutUsuarioNestedInput
+  suscripcion?: Prisma.SuscripcionUncheckedUpdateOneWithoutUsuarioNestedInput
+  tramitesComoCliente?: Prisma.TramiteUncheckedUpdateManyWithoutClienteNestedInput
+  tramitesComoTramitador?: Prisma.TramiteUncheckedUpdateManyWithoutTramitadorNestedInput
   compraventas?: Prisma.TramiteCompraventaUncheckedUpdateManyWithoutUsuarioNestedInput
+  perfilProfesional?: Prisma.PerfilProfesionalUncheckedUpdateOneWithoutUsuarioNestedInput
+  pagosRealizados?: Prisma.PagoUncheckedUpdateManyWithoutUsuarioNestedInput
+  mensajesBitacora?: Prisma.MensajeTramiteUncheckedUpdateManyWithoutAutorNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -728,7 +1580,9 @@ export type UsuarioUncheckedUpdateManyWithoutRolesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -738,16 +1592,24 @@ export type UsuarioUncheckedUpdateManyWithoutRolesInput = {
  */
 
 export type UsuarioCountOutputType = {
-  tramites: number
   roles: number
+  direcciones: number
+  tramitesComoCliente: number
+  tramitesComoTramitador: number
   compraventas: number
+  pagosRealizados: number
+  mensajesBitacora: number
   auditLogs: number
 }
 
 export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tramites?: boolean | UsuarioCountOutputTypeCountTramitesArgs
   roles?: boolean | UsuarioCountOutputTypeCountRolesArgs
+  direcciones?: boolean | UsuarioCountOutputTypeCountDireccionesArgs
+  tramitesComoCliente?: boolean | UsuarioCountOutputTypeCountTramitesComoClienteArgs
+  tramitesComoTramitador?: boolean | UsuarioCountOutputTypeCountTramitesComoTramitadorArgs
   compraventas?: boolean | UsuarioCountOutputTypeCountCompraventasArgs
+  pagosRealizados?: boolean | UsuarioCountOutputTypeCountPagosRealizadosArgs
+  mensajesBitacora?: boolean | UsuarioCountOutputTypeCountMensajesBitacoraArgs
   auditLogs?: boolean | UsuarioCountOutputTypeCountAuditLogsArgs
 }
 
@@ -764,13 +1626,6 @@ export type UsuarioCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
 /**
  * UsuarioCountOutputType without action
  */
-export type UsuarioCountOutputTypeCountTramitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TramiteWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
 export type UsuarioCountOutputTypeCountRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.RolWhereInput
 }
@@ -778,8 +1633,43 @@ export type UsuarioCountOutputTypeCountRolesArgs<ExtArgs extends runtime.Types.E
 /**
  * UsuarioCountOutputType without action
  */
+export type UsuarioCountOutputTypeCountDireccionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DireccionWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountTramitesComoClienteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TramiteWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountTramitesComoTramitadorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TramiteWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
 export type UsuarioCountOutputTypeCountCompraventasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TramiteCompraventaWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountPagosRealizadosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PagoWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountMensajesBitacoraArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MensajeTramiteWhereInput
 }
 
 /**
@@ -794,11 +1684,19 @@ export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   email?: boolean
   passwordHash?: boolean
+  telefono?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   deletedAt?: boolean
-  tramites?: boolean | Prisma.Usuario$tramitesArgs<ExtArgs>
   roles?: boolean | Prisma.Usuario$rolesArgs<ExtArgs>
+  direcciones?: boolean | Prisma.Usuario$direccionesArgs<ExtArgs>
+  suscripcion?: boolean | Prisma.Usuario$suscripcionArgs<ExtArgs>
+  tramitesComoCliente?: boolean | Prisma.Usuario$tramitesComoClienteArgs<ExtArgs>
+  tramitesComoTramitador?: boolean | Prisma.Usuario$tramitesComoTramitadorArgs<ExtArgs>
   compraventas?: boolean | Prisma.Usuario$compraventasArgs<ExtArgs>
+  perfilProfesional?: boolean | Prisma.Usuario$perfilProfesionalArgs<ExtArgs>
+  pagosRealizados?: boolean | Prisma.Usuario$pagosRealizadosArgs<ExtArgs>
+  mensajesBitacora?: boolean | Prisma.Usuario$mensajesBitacoraArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Usuario$auditLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
@@ -807,7 +1705,9 @@ export type UsuarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   email?: boolean
   passwordHash?: boolean
+  telefono?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   deletedAt?: boolean
 }, ExtArgs["result"]["usuario"]>
 
@@ -815,7 +1715,9 @@ export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   email?: boolean
   passwordHash?: boolean
+  telefono?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   deletedAt?: boolean
 }, ExtArgs["result"]["usuario"]>
 
@@ -823,15 +1725,23 @@ export type UsuarioSelectScalar = {
   id?: boolean
   email?: boolean
   passwordHash?: boolean
+  telefono?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "createdAt" | "deletedAt", ExtArgs["result"]["usuario"]>
+export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "telefono" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["usuario"]>
 export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tramites?: boolean | Prisma.Usuario$tramitesArgs<ExtArgs>
   roles?: boolean | Prisma.Usuario$rolesArgs<ExtArgs>
+  direcciones?: boolean | Prisma.Usuario$direccionesArgs<ExtArgs>
+  suscripcion?: boolean | Prisma.Usuario$suscripcionArgs<ExtArgs>
+  tramitesComoCliente?: boolean | Prisma.Usuario$tramitesComoClienteArgs<ExtArgs>
+  tramitesComoTramitador?: boolean | Prisma.Usuario$tramitesComoTramitadorArgs<ExtArgs>
   compraventas?: boolean | Prisma.Usuario$compraventasArgs<ExtArgs>
+  perfilProfesional?: boolean | Prisma.Usuario$perfilProfesionalArgs<ExtArgs>
+  pagosRealizados?: boolean | Prisma.Usuario$pagosRealizadosArgs<ExtArgs>
+  mensajesBitacora?: boolean | Prisma.Usuario$mensajesBitacoraArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Usuario$auditLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -841,16 +1751,24 @@ export type UsuarioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Usuario"
   objects: {
-    tramites: Prisma.$TramitePayload<ExtArgs>[]
     roles: Prisma.$RolPayload<ExtArgs>[]
+    direcciones: Prisma.$DireccionPayload<ExtArgs>[]
+    suscripcion: Prisma.$SuscripcionPayload<ExtArgs> | null
+    tramitesComoCliente: Prisma.$TramitePayload<ExtArgs>[]
+    tramitesComoTramitador: Prisma.$TramitePayload<ExtArgs>[]
     compraventas: Prisma.$TramiteCompraventaPayload<ExtArgs>[]
+    perfilProfesional: Prisma.$PerfilProfesionalPayload<ExtArgs> | null
+    pagosRealizados: Prisma.$PagoPayload<ExtArgs>[]
+    mensajesBitacora: Prisma.$MensajeTramitePayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     email: string
     passwordHash: string
+    telefono: string | null
     createdAt: Date
+    updatedAt: Date
     deletedAt: Date | null
   }, ExtArgs["result"]["usuario"]>
   composites: {}
@@ -1246,9 +2164,15 @@ readonly fields: UsuarioFieldRefs;
  */
 export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tramites<T extends Prisma.Usuario$tramitesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$tramitesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TramitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   roles<T extends Prisma.Usuario$rolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  direcciones<T extends Prisma.Usuario$direccionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$direccionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DireccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  suscripcion<T extends Prisma.Usuario$suscripcionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$suscripcionArgs<ExtArgs>>): Prisma.Prisma__SuscripcionClient<runtime.Types.Result.GetResult<Prisma.$SuscripcionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tramitesComoCliente<T extends Prisma.Usuario$tramitesComoClienteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$tramitesComoClienteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TramitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tramitesComoTramitador<T extends Prisma.Usuario$tramitesComoTramitadorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$tramitesComoTramitadorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TramitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   compraventas<T extends Prisma.Usuario$compraventasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$compraventasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TramiteCompraventaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  perfilProfesional<T extends Prisma.Usuario$perfilProfesionalArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$perfilProfesionalArgs<ExtArgs>>): Prisma.Prisma__PerfilProfesionalClient<runtime.Types.Result.GetResult<Prisma.$PerfilProfesionalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  pagosRealizados<T extends Prisma.Usuario$pagosRealizadosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$pagosRealizadosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PagoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  mensajesBitacora<T extends Prisma.Usuario$mensajesBitacoraArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$mensajesBitacoraArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MensajeTramitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.Usuario$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1282,7 +2206,9 @@ export interface UsuarioFieldRefs {
   readonly id: Prisma.FieldRef<"Usuario", 'Int'>
   readonly email: Prisma.FieldRef<"Usuario", 'String'>
   readonly passwordHash: Prisma.FieldRef<"Usuario", 'String'>
+  readonly telefono: Prisma.FieldRef<"Usuario", 'String'>
   readonly createdAt: Prisma.FieldRef<"Usuario", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Usuario", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Usuario", 'DateTime'>
 }
     
@@ -1677,30 +2603,6 @@ export type UsuarioDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Usuario.tramites
- */
-export type Usuario$tramitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Tramite
-   */
-  select?: Prisma.TramiteSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Tramite
-   */
-  omit?: Prisma.TramiteOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TramiteInclude<ExtArgs> | null
-  where?: Prisma.TramiteWhereInput
-  orderBy?: Prisma.TramiteOrderByWithRelationInput | Prisma.TramiteOrderByWithRelationInput[]
-  cursor?: Prisma.TramiteWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TramiteScalarFieldEnum | Prisma.TramiteScalarFieldEnum[]
-}
-
-/**
  * Usuario.roles
  */
 export type Usuario$rolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1725,6 +2627,97 @@ export type Usuario$rolesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
+ * Usuario.direcciones
+ */
+export type Usuario$direccionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Direccion
+   */
+  select?: Prisma.DireccionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Direccion
+   */
+  omit?: Prisma.DireccionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DireccionInclude<ExtArgs> | null
+  where?: Prisma.DireccionWhereInput
+  orderBy?: Prisma.DireccionOrderByWithRelationInput | Prisma.DireccionOrderByWithRelationInput[]
+  cursor?: Prisma.DireccionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DireccionScalarFieldEnum | Prisma.DireccionScalarFieldEnum[]
+}
+
+/**
+ * Usuario.suscripcion
+ */
+export type Usuario$suscripcionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Suscripcion
+   */
+  select?: Prisma.SuscripcionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Suscripcion
+   */
+  omit?: Prisma.SuscripcionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SuscripcionInclude<ExtArgs> | null
+  where?: Prisma.SuscripcionWhereInput
+}
+
+/**
+ * Usuario.tramitesComoCliente
+ */
+export type Usuario$tramitesComoClienteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Tramite
+   */
+  select?: Prisma.TramiteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Tramite
+   */
+  omit?: Prisma.TramiteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TramiteInclude<ExtArgs> | null
+  where?: Prisma.TramiteWhereInput
+  orderBy?: Prisma.TramiteOrderByWithRelationInput | Prisma.TramiteOrderByWithRelationInput[]
+  cursor?: Prisma.TramiteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TramiteScalarFieldEnum | Prisma.TramiteScalarFieldEnum[]
+}
+
+/**
+ * Usuario.tramitesComoTramitador
+ */
+export type Usuario$tramitesComoTramitadorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Tramite
+   */
+  select?: Prisma.TramiteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Tramite
+   */
+  omit?: Prisma.TramiteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TramiteInclude<ExtArgs> | null
+  where?: Prisma.TramiteWhereInput
+  orderBy?: Prisma.TramiteOrderByWithRelationInput | Prisma.TramiteOrderByWithRelationInput[]
+  cursor?: Prisma.TramiteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TramiteScalarFieldEnum | Prisma.TramiteScalarFieldEnum[]
+}
+
+/**
  * Usuario.compraventas
  */
 export type Usuario$compraventasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1746,6 +2739,73 @@ export type Usuario$compraventasArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.TramiteCompraventaScalarFieldEnum | Prisma.TramiteCompraventaScalarFieldEnum[]
+}
+
+/**
+ * Usuario.perfilProfesional
+ */
+export type Usuario$perfilProfesionalArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PerfilProfesional
+   */
+  select?: Prisma.PerfilProfesionalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PerfilProfesional
+   */
+  omit?: Prisma.PerfilProfesionalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PerfilProfesionalInclude<ExtArgs> | null
+  where?: Prisma.PerfilProfesionalWhereInput
+}
+
+/**
+ * Usuario.pagosRealizados
+ */
+export type Usuario$pagosRealizadosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Pago
+   */
+  select?: Prisma.PagoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Pago
+   */
+  omit?: Prisma.PagoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PagoInclude<ExtArgs> | null
+  where?: Prisma.PagoWhereInput
+  orderBy?: Prisma.PagoOrderByWithRelationInput | Prisma.PagoOrderByWithRelationInput[]
+  cursor?: Prisma.PagoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PagoScalarFieldEnum | Prisma.PagoScalarFieldEnum[]
+}
+
+/**
+ * Usuario.mensajesBitacora
+ */
+export type Usuario$mensajesBitacoraArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MensajeTramite
+   */
+  select?: Prisma.MensajeTramiteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MensajeTramite
+   */
+  omit?: Prisma.MensajeTramiteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MensajeTramiteInclude<ExtArgs> | null
+  where?: Prisma.MensajeTramiteWhereInput
+  orderBy?: Prisma.MensajeTramiteOrderByWithRelationInput | Prisma.MensajeTramiteOrderByWithRelationInput[]
+  cursor?: Prisma.MensajeTramiteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MensajeTramiteScalarFieldEnum | Prisma.MensajeTramiteScalarFieldEnum[]
 }
 
 /**

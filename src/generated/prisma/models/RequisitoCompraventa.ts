@@ -44,6 +44,7 @@ export type RequisitoCompraventaMinAggregateOutputType = {
   presentoOriginal: boolean | null
   cantidadFotocopias: number | null
   verificado: boolean | null
+  archivoUrl: string | null
   tramiteId: number | null
 }
 
@@ -53,6 +54,7 @@ export type RequisitoCompraventaMaxAggregateOutputType = {
   presentoOriginal: boolean | null
   cantidadFotocopias: number | null
   verificado: boolean | null
+  archivoUrl: string | null
   tramiteId: number | null
 }
 
@@ -62,6 +64,7 @@ export type RequisitoCompraventaCountAggregateOutputType = {
   presentoOriginal: number
   cantidadFotocopias: number
   verificado: number
+  archivoUrl: number
   tramiteId: number
   _all: number
 }
@@ -85,6 +88,7 @@ export type RequisitoCompraventaMinAggregateInputType = {
   presentoOriginal?: true
   cantidadFotocopias?: true
   verificado?: true
+  archivoUrl?: true
   tramiteId?: true
 }
 
@@ -94,6 +98,7 @@ export type RequisitoCompraventaMaxAggregateInputType = {
   presentoOriginal?: true
   cantidadFotocopias?: true
   verificado?: true
+  archivoUrl?: true
   tramiteId?: true
 }
 
@@ -103,6 +108,7 @@ export type RequisitoCompraventaCountAggregateInputType = {
   presentoOriginal?: true
   cantidadFotocopias?: true
   verificado?: true
+  archivoUrl?: true
   tramiteId?: true
   _all?: true
 }
@@ -199,6 +205,7 @@ export type RequisitoCompraventaGroupByOutputType = {
   presentoOriginal: boolean
   cantidadFotocopias: number
   verificado: boolean
+  archivoUrl: string | null
   tramiteId: number
   _count: RequisitoCompraventaCountAggregateOutputType | null
   _avg: RequisitoCompraventaAvgAggregateOutputType | null
@@ -231,6 +238,7 @@ export type RequisitoCompraventaWhereInput = {
   presentoOriginal?: Prisma.BoolFilter<"RequisitoCompraventa"> | boolean
   cantidadFotocopias?: Prisma.IntFilter<"RequisitoCompraventa"> | number
   verificado?: Prisma.BoolFilter<"RequisitoCompraventa"> | boolean
+  archivoUrl?: Prisma.StringNullableFilter<"RequisitoCompraventa"> | string | null
   tramiteId?: Prisma.IntFilter<"RequisitoCompraventa"> | number
   tramite?: Prisma.XOR<Prisma.TramiteCompraventaScalarRelationFilter, Prisma.TramiteCompraventaWhereInput>
 }
@@ -241,6 +249,7 @@ export type RequisitoCompraventaOrderByWithRelationInput = {
   presentoOriginal?: Prisma.SortOrder
   cantidadFotocopias?: Prisma.SortOrder
   verificado?: Prisma.SortOrder
+  archivoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
   tramite?: Prisma.TramiteCompraventaOrderByWithRelationInput
 }
@@ -255,6 +264,7 @@ export type RequisitoCompraventaWhereUniqueInput = Prisma.AtLeast<{
   presentoOriginal?: Prisma.BoolFilter<"RequisitoCompraventa"> | boolean
   cantidadFotocopias?: Prisma.IntFilter<"RequisitoCompraventa"> | number
   verificado?: Prisma.BoolFilter<"RequisitoCompraventa"> | boolean
+  archivoUrl?: Prisma.StringNullableFilter<"RequisitoCompraventa"> | string | null
   tramiteId?: Prisma.IntFilter<"RequisitoCompraventa"> | number
   tramite?: Prisma.XOR<Prisma.TramiteCompraventaScalarRelationFilter, Prisma.TramiteCompraventaWhereInput>
 }, "id" | "tramiteId_tipoRequisito">
@@ -265,6 +275,7 @@ export type RequisitoCompraventaOrderByWithAggregationInput = {
   presentoOriginal?: Prisma.SortOrder
   cantidadFotocopias?: Prisma.SortOrder
   verificado?: Prisma.SortOrder
+  archivoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
   _count?: Prisma.RequisitoCompraventaCountOrderByAggregateInput
   _avg?: Prisma.RequisitoCompraventaAvgOrderByAggregateInput
@@ -282,6 +293,7 @@ export type RequisitoCompraventaScalarWhereWithAggregatesInput = {
   presentoOriginal?: Prisma.BoolWithAggregatesFilter<"RequisitoCompraventa"> | boolean
   cantidadFotocopias?: Prisma.IntWithAggregatesFilter<"RequisitoCompraventa"> | number
   verificado?: Prisma.BoolWithAggregatesFilter<"RequisitoCompraventa"> | boolean
+  archivoUrl?: Prisma.StringNullableWithAggregatesFilter<"RequisitoCompraventa"> | string | null
   tramiteId?: Prisma.IntWithAggregatesFilter<"RequisitoCompraventa"> | number
 }
 
@@ -290,6 +302,7 @@ export type RequisitoCompraventaCreateInput = {
   presentoOriginal?: boolean
   cantidadFotocopias?: number
   verificado?: boolean
+  archivoUrl?: string | null
   tramite: Prisma.TramiteCompraventaCreateNestedOneWithoutRequisitosInput
 }
 
@@ -299,6 +312,7 @@ export type RequisitoCompraventaUncheckedCreateInput = {
   presentoOriginal?: boolean
   cantidadFotocopias?: number
   verificado?: boolean
+  archivoUrl?: string | null
   tramiteId: number
 }
 
@@ -307,6 +321,7 @@ export type RequisitoCompraventaUpdateInput = {
   presentoOriginal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cantidadFotocopias?: Prisma.IntFieldUpdateOperationsInput | number
   verificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tramite?: Prisma.TramiteCompraventaUpdateOneRequiredWithoutRequisitosNestedInput
 }
 
@@ -316,6 +331,7 @@ export type RequisitoCompraventaUncheckedUpdateInput = {
   presentoOriginal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cantidadFotocopias?: Prisma.IntFieldUpdateOperationsInput | number
   verificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tramiteId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -325,6 +341,7 @@ export type RequisitoCompraventaCreateManyInput = {
   presentoOriginal?: boolean
   cantidadFotocopias?: number
   verificado?: boolean
+  archivoUrl?: string | null
   tramiteId: number
 }
 
@@ -333,6 +350,7 @@ export type RequisitoCompraventaUpdateManyMutationInput = {
   presentoOriginal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cantidadFotocopias?: Prisma.IntFieldUpdateOperationsInput | number
   verificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RequisitoCompraventaUncheckedUpdateManyInput = {
@@ -341,6 +359,7 @@ export type RequisitoCompraventaUncheckedUpdateManyInput = {
   presentoOriginal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cantidadFotocopias?: Prisma.IntFieldUpdateOperationsInput | number
   verificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tramiteId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -365,6 +384,7 @@ export type RequisitoCompraventaCountOrderByAggregateInput = {
   presentoOriginal?: Prisma.SortOrder
   cantidadFotocopias?: Prisma.SortOrder
   verificado?: Prisma.SortOrder
+  archivoUrl?: Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
 }
 
@@ -380,6 +400,7 @@ export type RequisitoCompraventaMaxOrderByAggregateInput = {
   presentoOriginal?: Prisma.SortOrder
   cantidadFotocopias?: Prisma.SortOrder
   verificado?: Prisma.SortOrder
+  archivoUrl?: Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
 }
 
@@ -389,6 +410,7 @@ export type RequisitoCompraventaMinOrderByAggregateInput = {
   presentoOriginal?: Prisma.SortOrder
   cantidadFotocopias?: Prisma.SortOrder
   verificado?: Prisma.SortOrder
+  archivoUrl?: Prisma.SortOrder
   tramiteId?: Prisma.SortOrder
 }
 
@@ -449,6 +471,7 @@ export type RequisitoCompraventaCreateWithoutTramiteInput = {
   presentoOriginal?: boolean
   cantidadFotocopias?: number
   verificado?: boolean
+  archivoUrl?: string | null
 }
 
 export type RequisitoCompraventaUncheckedCreateWithoutTramiteInput = {
@@ -457,6 +480,7 @@ export type RequisitoCompraventaUncheckedCreateWithoutTramiteInput = {
   presentoOriginal?: boolean
   cantidadFotocopias?: number
   verificado?: boolean
+  archivoUrl?: string | null
 }
 
 export type RequisitoCompraventaCreateOrConnectWithoutTramiteInput = {
@@ -494,6 +518,7 @@ export type RequisitoCompraventaScalarWhereInput = {
   presentoOriginal?: Prisma.BoolFilter<"RequisitoCompraventa"> | boolean
   cantidadFotocopias?: Prisma.IntFilter<"RequisitoCompraventa"> | number
   verificado?: Prisma.BoolFilter<"RequisitoCompraventa"> | boolean
+  archivoUrl?: Prisma.StringNullableFilter<"RequisitoCompraventa"> | string | null
   tramiteId?: Prisma.IntFilter<"RequisitoCompraventa"> | number
 }
 
@@ -503,6 +528,7 @@ export type RequisitoCompraventaCreateManyTramiteInput = {
   presentoOriginal?: boolean
   cantidadFotocopias?: number
   verificado?: boolean
+  archivoUrl?: string | null
 }
 
 export type RequisitoCompraventaUpdateWithoutTramiteInput = {
@@ -510,6 +536,7 @@ export type RequisitoCompraventaUpdateWithoutTramiteInput = {
   presentoOriginal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cantidadFotocopias?: Prisma.IntFieldUpdateOperationsInput | number
   verificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RequisitoCompraventaUncheckedUpdateWithoutTramiteInput = {
@@ -518,6 +545,7 @@ export type RequisitoCompraventaUncheckedUpdateWithoutTramiteInput = {
   presentoOriginal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cantidadFotocopias?: Prisma.IntFieldUpdateOperationsInput | number
   verificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RequisitoCompraventaUncheckedUpdateManyWithoutTramiteInput = {
@@ -526,6 +554,7 @@ export type RequisitoCompraventaUncheckedUpdateManyWithoutTramiteInput = {
   presentoOriginal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cantidadFotocopias?: Prisma.IntFieldUpdateOperationsInput | number
   verificado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -536,6 +565,7 @@ export type RequisitoCompraventaSelect<ExtArgs extends runtime.Types.Extensions.
   presentoOriginal?: boolean
   cantidadFotocopias?: boolean
   verificado?: boolean
+  archivoUrl?: boolean
   tramiteId?: boolean
   tramite?: boolean | Prisma.TramiteCompraventaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisitoCompraventa"]>
@@ -546,6 +576,7 @@ export type RequisitoCompraventaSelectCreateManyAndReturn<ExtArgs extends runtim
   presentoOriginal?: boolean
   cantidadFotocopias?: boolean
   verificado?: boolean
+  archivoUrl?: boolean
   tramiteId?: boolean
   tramite?: boolean | Prisma.TramiteCompraventaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisitoCompraventa"]>
@@ -556,6 +587,7 @@ export type RequisitoCompraventaSelectUpdateManyAndReturn<ExtArgs extends runtim
   presentoOriginal?: boolean
   cantidadFotocopias?: boolean
   verificado?: boolean
+  archivoUrl?: boolean
   tramiteId?: boolean
   tramite?: boolean | Prisma.TramiteCompraventaDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["requisitoCompraventa"]>
@@ -566,10 +598,11 @@ export type RequisitoCompraventaSelectScalar = {
   presentoOriginal?: boolean
   cantidadFotocopias?: boolean
   verificado?: boolean
+  archivoUrl?: boolean
   tramiteId?: boolean
 }
 
-export type RequisitoCompraventaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tipoRequisito" | "presentoOriginal" | "cantidadFotocopias" | "verificado" | "tramiteId", ExtArgs["result"]["requisitoCompraventa"]>
+export type RequisitoCompraventaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tipoRequisito" | "presentoOriginal" | "cantidadFotocopias" | "verificado" | "archivoUrl" | "tramiteId", ExtArgs["result"]["requisitoCompraventa"]>
 export type RequisitoCompraventaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tramite?: boolean | Prisma.TramiteCompraventaDefaultArgs<ExtArgs>
 }
@@ -591,6 +624,7 @@ export type $RequisitoCompraventaPayload<ExtArgs extends runtime.Types.Extension
     presentoOriginal: boolean
     cantidadFotocopias: number
     verificado: boolean
+    archivoUrl: string | null
     tramiteId: number
   }, ExtArgs["result"]["requisitoCompraventa"]>
   composites: {}
@@ -1021,6 +1055,7 @@ export interface RequisitoCompraventaFieldRefs {
   readonly presentoOriginal: Prisma.FieldRef<"RequisitoCompraventa", 'Boolean'>
   readonly cantidadFotocopias: Prisma.FieldRef<"RequisitoCompraventa", 'Int'>
   readonly verificado: Prisma.FieldRef<"RequisitoCompraventa", 'Boolean'>
+  readonly archivoUrl: Prisma.FieldRef<"RequisitoCompraventa", 'String'>
   readonly tramiteId: Prisma.FieldRef<"RequisitoCompraventa", 'Int'>
 }
     

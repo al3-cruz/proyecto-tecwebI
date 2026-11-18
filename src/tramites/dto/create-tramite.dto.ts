@@ -1,8 +1,9 @@
-import { Type } from 'class-transformer';
+import { Type } from "class-transformer";
 import {
   ArrayMaxSize,
   IsArray,
   IsBoolean,
+  IsDateString,
   IsIn,
   IsInt,
   IsNotEmpty,
@@ -12,20 +13,20 @@ import {
   MaxLength,
   Min,
   ValidateNested,
-} from 'class-validator';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+} from "class-validator";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
-export const MODALIDADES_TRAMITE = ['PRESENCIAL', 'VIRTUAL', 'MIXTA'] as const;
+export const MODALIDADES_TRAMITE = ["PRESENCIAL", "VIRTUAL", "MIXTA"] as const;
 export type ModalidadTramite = (typeof MODALIDADES_TRAMITE)[number];
 
 export class CreateRequisitoTramiteDto {
-  @ApiProperty({ maxLength: 240, example: 'Cédula de identidad vigente' })
+  @ApiProperty({ maxLength: 240, example: "Cédula de identidad vigente" })
   @IsString()
   @IsNotEmpty()
   @MaxLength(240)
   nombre!: string;
 
-  @ApiProperty({ example: 'Presentar original para cotejo y copia legible.' })
+  @ApiProperty({ example: "Presentar original para cotejo y copia legible." })
   @IsString()
   @IsNotEmpty()
   detalle!: string;
@@ -41,8 +42,8 @@ export class CreateRequisitoTramiteDto {
   orden!: number;
 
   @ApiPropertyOptional({
-    description: 'Condición que determina cuándo aplica este requisito.',
-    example: 'Solo si el titular registral hubiera fallecido.',
+    description: "Condición que determina cuándo aplica este requisito.",
+    example: "Solo si el titular registral hubiera fallecido.",
   })
   @IsOptional()
   @IsString()
@@ -55,14 +56,14 @@ export class CreatePasoProcedimientoDto {
   @Min(1)
   orden!: number;
 
-  @ApiProperty({ maxLength: 240, example: 'Presentar solicitud' })
+  @ApiProperty({ maxLength: 240, example: "Presentar solicitud" })
   @IsString()
   @IsNotEmpty()
   @MaxLength(240)
   titulo!: string;
 
   @ApiProperty({
-    example: 'Ingresar la documentación ante la oficina competente.',
+    example: "Ingresar la documentación ante la oficina competente.",
   })
   @IsString()
   @IsNotEmpty()
@@ -82,7 +83,7 @@ export class CreateTramiteDto {
   @Max(53)
   codigo!: number;
 
-  @ApiPropertyOptional({ maxLength: 20, example: '1' })
+  @ApiPropertyOptional({ maxLength: 20, example: "1" })
   @IsOptional()
   @IsString()
   @MaxLength(20)
@@ -90,34 +91,21 @@ export class CreateTramiteDto {
 
   @ApiProperty({
     maxLength: 240,
-    example: 'Corrección de datos de identidad - Ley 247',
+    example: "Corrección de datos de identidad - Ley 247",
   })
   @IsString()
   @IsNotEmpty()
   @MaxLength(240)
   titulo!: string;
 
-  @ApiPropertyOptional({
-    default: 'Registro Público de Derechos Reales',
-    maxLength: 160,
-  })
-  @IsOptional()
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(160)
-  institucionResponsable?: string;
-
-  @ApiPropertyOptional({
-    maxLength: 160,
-    example: 'Ventanilla de Inscripción Rápida',
-  })
-  @IsOptional()
-  @IsString()
-  @MaxLength(160)
-  oficina?: string;
+  @ApiProperty({ description: "ID de la institución responsable", example: 1 })
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  institucionId!: number;
 
   @ApiProperty({
-    example: 'Corregir los datos de identidad del titular en el registro.',
+    example: "Corregir los datos de identidad del titular en el registro.",
   })
   @IsString()
   @IsNotEmpty()
@@ -128,13 +116,13 @@ export class CreateTramiteDto {
   @Min(1)
   plazoEntregaDias!: number;
 
-  @ApiProperty({ enum: MODALIDADES_TRAMITE, example: 'PRESENCIAL' })
+  @ApiProperty({ enum: MODALIDADES_TRAMITE, example: "PRESENCIAL" })
   @IsString()
   @IsIn(MODALIDADES_TRAMITE)
   modalidad!: ModalidadTramite;
 
   @ApiPropertyOptional({
-    example: 'Presentar todos los documentos en originales y dos fotocopias.',
+    example: "Presentar todos los documentos en originales y dos fotocopias.",
   })
   @IsOptional()
   @IsString()
@@ -142,7 +130,7 @@ export class CreateTramiteDto {
 
   @ApiPropertyOptional({
     type: [String],
-    example: ['Folio Real actualizado con el asiento inscrito.'],
+    example: ["Folio Real actualizado con el asiento inscrito."],
   })
   @IsOptional()
   @IsArray()
@@ -152,16 +140,15 @@ export class CreateTramiteDto {
   documentosEntregables?: string[] = [];
 
   @ApiPropertyOptional({
-    example: 'Ley N.º 247 y normativa registral vigente.',
+    example: "Ley N.º 247 y normativa registral vigente.",
   })
   @IsOptional()
   @IsString()
   baseLegal?: string;
 
-  @ApiPropertyOptional({ example: '27 de octubre de 2025', maxLength: 80 })
+  @ApiPropertyOptional({ example: "2025-10-27" })
   @IsOptional()
-  @IsString()
-  @MaxLength(80)
+  @IsDateString()
   fechaActualizacionOficial?: string;
 
   @ApiPropertyOptional({ type: [CreateRequisitoTramiteDto] })
@@ -180,11 +167,16 @@ export class CreateTramiteDto {
   @Type(() => CreatePasoProcedimientoDto)
   pasos?: CreatePasoProcedimientoDto[] = [];
 
-  @ApiPropertyOptional({ type: [Number], example: [1, 2] })
+  @ApiPropertyOptional({
+    type: [Number],
+    example: [1, 2],
+    description: "IDs de las oficinas asociadas al trámite.",
+  })
   @IsOptional()
   @IsArray()
   @ArrayMaxSize(100)
   @IsInt({ each: true })
   @Min(1, { each: true })
+  @Type(() => Number)
   oficinaIds?: number[] = [];
 }

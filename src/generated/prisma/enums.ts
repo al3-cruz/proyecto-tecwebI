@@ -41,3 +41,38 @@ export const TipoRequisitoCompraventa = {
 } as const
 
 export type TipoRequisitoCompraventa = (typeof TipoRequisitoCompraventa)[keyof typeof TipoRequisitoCompraventa]
+
+
+export const TipoUbicacion = {
+  DEPARTAMENTO: 'DEPARTAMENTO',
+  PROVINCIA: 'PROVINCIA',
+  MUNICIPIO: 'MUNICIPIO'
+} as const
+
+export type TipoUbicacion = (typeof TipoUbicacion)[keyof typeof TipoUbicacion]
+
+
+export const TipoProfesional = {
+  ABOGADO_GESTOR: 'ABOGADO_GESTOR',
+  NOTARIO: 'NOTARIO',
+  ASESOR_JUNIOR: 'ASESOR_JUNIOR'
+} as const
+
+export type TipoProfesional = (typeof TipoProfesional)[keyof typeof TipoProfesional]
+
+
+export const MetodoPago = {
+  QR: 'QR',
+  PRESENCIAL: 'PRESENCIAL'
+} as const
+
+export type MetodoPago = (typeof MetodoPago)[keyof typeof MetodoPago]
+
+
+export const EstadoPago = {
+  PENDIENTE: 'PENDIENTE',
+  APROBADO: 'APROBADO',
+  RECHAZADO: 'RECHAZADO'
+} as const
+
+export type EstadoPago = (typeof EstadoPago)[keyof typeof EstadoPago]

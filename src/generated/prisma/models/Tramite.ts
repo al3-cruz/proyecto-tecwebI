@@ -28,32 +28,38 @@ export type AggregateTramite = {
 
 export type TramiteAvgAggregateOutputType = {
   id: number | null
-  usuarioId: number | null
   codigo: number | null
   plazoEntregaDias: number | null
+  institucionId: number | null
+  clienteId: number | null
+  tramitadorId: number | null
 }
 
 export type TramiteSumAggregateOutputType = {
   id: number | null
-  usuarioId: number | null
   codigo: number | null
   plazoEntregaDias: number | null
+  institucionId: number | null
+  clienteId: number | null
+  tramitadorId: number | null
 }
 
 export type TramiteMinAggregateOutputType = {
   id: number | null
-  usuarioId: number | null
   codigo: number | null
   codigoOficial: string | null
   titulo: string | null
-  institucionResponsable: string | null
-  oficina: string | null
   finalidad: string | null
   plazoEntregaDias: number | null
   modalidad: $Enums.ModalidadTramite | null
   notaRequisitos: string | null
   baseLegal: string | null
-  fechaActualizacionOficial: string | null
+  videoLsbUrl: string | null
+  audioQuechuaUrl: string | null
+  fechaActualizacionOficial: Date | null
+  institucionId: number | null
+  clienteId: number | null
+  tramitadorId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -61,18 +67,20 @@ export type TramiteMinAggregateOutputType = {
 
 export type TramiteMaxAggregateOutputType = {
   id: number | null
-  usuarioId: number | null
   codigo: number | null
   codigoOficial: string | null
   titulo: string | null
-  institucionResponsable: string | null
-  oficina: string | null
   finalidad: string | null
   plazoEntregaDias: number | null
   modalidad: $Enums.ModalidadTramite | null
   notaRequisitos: string | null
   baseLegal: string | null
-  fechaActualizacionOficial: string | null
+  videoLsbUrl: string | null
+  audioQuechuaUrl: string | null
+  fechaActualizacionOficial: Date | null
+  institucionId: number | null
+  clienteId: number | null
+  tramitadorId: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -80,19 +88,20 @@ export type TramiteMaxAggregateOutputType = {
 
 export type TramiteCountAggregateOutputType = {
   id: number
-  usuarioId: number
   codigo: number
   codigoOficial: number
   titulo: number
-  institucionResponsable: number
-  oficina: number
   finalidad: number
   plazoEntregaDias: number
   modalidad: number
   notaRequisitos: number
-  documentosEntregables: number
   baseLegal: number
+  videoLsbUrl: number
+  audioQuechuaUrl: number
   fechaActualizacionOficial: number
+  institucionId: number
+  clienteId: number
+  tramitadorId: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -102,32 +111,38 @@ export type TramiteCountAggregateOutputType = {
 
 export type TramiteAvgAggregateInputType = {
   id?: true
-  usuarioId?: true
   codigo?: true
   plazoEntregaDias?: true
+  institucionId?: true
+  clienteId?: true
+  tramitadorId?: true
 }
 
 export type TramiteSumAggregateInputType = {
   id?: true
-  usuarioId?: true
   codigo?: true
   plazoEntregaDias?: true
+  institucionId?: true
+  clienteId?: true
+  tramitadorId?: true
 }
 
 export type TramiteMinAggregateInputType = {
   id?: true
-  usuarioId?: true
   codigo?: true
   codigoOficial?: true
   titulo?: true
-  institucionResponsable?: true
-  oficina?: true
   finalidad?: true
   plazoEntregaDias?: true
   modalidad?: true
   notaRequisitos?: true
   baseLegal?: true
+  videoLsbUrl?: true
+  audioQuechuaUrl?: true
   fechaActualizacionOficial?: true
+  institucionId?: true
+  clienteId?: true
+  tramitadorId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -135,18 +150,20 @@ export type TramiteMinAggregateInputType = {
 
 export type TramiteMaxAggregateInputType = {
   id?: true
-  usuarioId?: true
   codigo?: true
   codigoOficial?: true
   titulo?: true
-  institucionResponsable?: true
-  oficina?: true
   finalidad?: true
   plazoEntregaDias?: true
   modalidad?: true
   notaRequisitos?: true
   baseLegal?: true
+  videoLsbUrl?: true
+  audioQuechuaUrl?: true
   fechaActualizacionOficial?: true
+  institucionId?: true
+  clienteId?: true
+  tramitadorId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -154,19 +171,20 @@ export type TramiteMaxAggregateInputType = {
 
 export type TramiteCountAggregateInputType = {
   id?: true
-  usuarioId?: true
   codigo?: true
   codigoOficial?: true
   titulo?: true
-  institucionResponsable?: true
-  oficina?: true
   finalidad?: true
   plazoEntregaDias?: true
   modalidad?: true
   notaRequisitos?: true
-  documentosEntregables?: true
   baseLegal?: true
+  videoLsbUrl?: true
+  audioQuechuaUrl?: true
   fechaActualizacionOficial?: true
+  institucionId?: true
+  clienteId?: true
+  tramitadorId?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -261,19 +279,20 @@ export type TramiteGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type TramiteGroupByOutputType = {
   id: number
-  usuarioId: number
   codigo: number
   codigoOficial: string | null
   titulo: string
-  institucionResponsable: string
-  oficina: string | null
   finalidad: string
   plazoEntregaDias: number
   modalidad: $Enums.ModalidadTramite
   notaRequisitos: string | null
-  documentosEntregables: string[]
   baseLegal: string | null
-  fechaActualizacionOficial: string | null
+  videoLsbUrl: string | null
+  audioQuechuaUrl: string | null
+  fechaActualizacionOficial: Date | null
+  institucionId: number
+  clienteId: number | null
+  tramitadorId: number
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -304,94 +323,107 @@ export type TramiteWhereInput = {
   OR?: Prisma.TramiteWhereInput[]
   NOT?: Prisma.TramiteWhereInput | Prisma.TramiteWhereInput[]
   id?: Prisma.IntFilter<"Tramite"> | number
-  usuarioId?: Prisma.IntFilter<"Tramite"> | number
   codigo?: Prisma.IntFilter<"Tramite"> | number
   codigoOficial?: Prisma.StringNullableFilter<"Tramite"> | string | null
   titulo?: Prisma.StringFilter<"Tramite"> | string
-  institucionResponsable?: Prisma.StringFilter<"Tramite"> | string
-  oficina?: Prisma.StringNullableFilter<"Tramite"> | string | null
   finalidad?: Prisma.StringFilter<"Tramite"> | string
   plazoEntregaDias?: Prisma.IntFilter<"Tramite"> | number
   modalidad?: Prisma.EnumModalidadTramiteFilter<"Tramite"> | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.StringNullableFilter<"Tramite"> | string | null
-  documentosEntregables?: Prisma.StringNullableListFilter<"Tramite">
   baseLegal?: Prisma.StringNullableFilter<"Tramite"> | string | null
-  fechaActualizacionOficial?: Prisma.StringNullableFilter<"Tramite"> | string | null
+  videoLsbUrl?: Prisma.StringNullableFilter<"Tramite"> | string | null
+  audioQuechuaUrl?: Prisma.StringNullableFilter<"Tramite"> | string | null
+  fechaActualizacionOficial?: Prisma.DateTimeNullableFilter<"Tramite"> | Date | string | null
+  institucionId?: Prisma.IntFilter<"Tramite"> | number
+  clienteId?: Prisma.IntNullableFilter<"Tramite"> | number | null
+  tramitadorId?: Prisma.IntFilter<"Tramite"> | number
   createdAt?: Prisma.DateTimeFilter<"Tramite"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Tramite"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Tramite"> | Date | string | null
+  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
+  cliente?: Prisma.XOR<Prisma.UsuarioNullableScalarRelationFilter, Prisma.UsuarioWhereInput> | null
+  tramitador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   requisitos?: Prisma.RequisitoTramiteListRelationFilter
   pasos?: Prisma.PasoProcedimientoListRelationFilter
-  oficinas?: Prisma.DireccionListRelationFilter
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
+  documentosEntregables?: Prisma.DocumentoEntregableListRelationFilter
+  oficinas?: Prisma.OficinaListRelationFilter
 }
 
 export type TramiteOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  usuarioId?: Prisma.SortOrder
   codigo?: Prisma.SortOrder
   codigoOficial?: Prisma.SortOrderInput | Prisma.SortOrder
   titulo?: Prisma.SortOrder
-  institucionResponsable?: Prisma.SortOrder
-  oficina?: Prisma.SortOrderInput | Prisma.SortOrder
   finalidad?: Prisma.SortOrder
   plazoEntregaDias?: Prisma.SortOrder
   modalidad?: Prisma.SortOrder
   notaRequisitos?: Prisma.SortOrderInput | Prisma.SortOrder
-  documentosEntregables?: Prisma.SortOrder
   baseLegal?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoLsbUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  audioQuechuaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaActualizacionOficial?: Prisma.SortOrderInput | Prisma.SortOrder
+  institucionId?: Prisma.SortOrder
+  clienteId?: Prisma.SortOrderInput | Prisma.SortOrder
+  tramitadorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  institucion?: Prisma.InstitucionOrderByWithRelationInput
+  cliente?: Prisma.UsuarioOrderByWithRelationInput
+  tramitador?: Prisma.UsuarioOrderByWithRelationInput
   requisitos?: Prisma.RequisitoTramiteOrderByRelationAggregateInput
   pasos?: Prisma.PasoProcedimientoOrderByRelationAggregateInput
-  oficinas?: Prisma.DireccionOrderByRelationAggregateInput
-  usuario?: Prisma.UsuarioOrderByWithRelationInput
+  documentosEntregables?: Prisma.DocumentoEntregableOrderByRelationAggregateInput
+  oficinas?: Prisma.OficinaOrderByRelationAggregateInput
 }
 
 export type TramiteWhereUniqueInput = Prisma.AtLeast<{
   id?: number
   codigo?: number
+  codigoOficial?: string
   AND?: Prisma.TramiteWhereInput | Prisma.TramiteWhereInput[]
   OR?: Prisma.TramiteWhereInput[]
   NOT?: Prisma.TramiteWhereInput | Prisma.TramiteWhereInput[]
-  usuarioId?: Prisma.IntFilter<"Tramite"> | number
-  codigoOficial?: Prisma.StringNullableFilter<"Tramite"> | string | null
   titulo?: Prisma.StringFilter<"Tramite"> | string
-  institucionResponsable?: Prisma.StringFilter<"Tramite"> | string
-  oficina?: Prisma.StringNullableFilter<"Tramite"> | string | null
   finalidad?: Prisma.StringFilter<"Tramite"> | string
   plazoEntregaDias?: Prisma.IntFilter<"Tramite"> | number
   modalidad?: Prisma.EnumModalidadTramiteFilter<"Tramite"> | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.StringNullableFilter<"Tramite"> | string | null
-  documentosEntregables?: Prisma.StringNullableListFilter<"Tramite">
   baseLegal?: Prisma.StringNullableFilter<"Tramite"> | string | null
-  fechaActualizacionOficial?: Prisma.StringNullableFilter<"Tramite"> | string | null
+  videoLsbUrl?: Prisma.StringNullableFilter<"Tramite"> | string | null
+  audioQuechuaUrl?: Prisma.StringNullableFilter<"Tramite"> | string | null
+  fechaActualizacionOficial?: Prisma.DateTimeNullableFilter<"Tramite"> | Date | string | null
+  institucionId?: Prisma.IntFilter<"Tramite"> | number
+  clienteId?: Prisma.IntNullableFilter<"Tramite"> | number | null
+  tramitadorId?: Prisma.IntFilter<"Tramite"> | number
   createdAt?: Prisma.DateTimeFilter<"Tramite"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Tramite"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Tramite"> | Date | string | null
+  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
+  cliente?: Prisma.XOR<Prisma.UsuarioNullableScalarRelationFilter, Prisma.UsuarioWhereInput> | null
+  tramitador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   requisitos?: Prisma.RequisitoTramiteListRelationFilter
   pasos?: Prisma.PasoProcedimientoListRelationFilter
-  oficinas?: Prisma.DireccionListRelationFilter
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
-}, "id" | "codigo">
+  documentosEntregables?: Prisma.DocumentoEntregableListRelationFilter
+  oficinas?: Prisma.OficinaListRelationFilter
+}, "id" | "codigo" | "codigoOficial">
 
 export type TramiteOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  usuarioId?: Prisma.SortOrder
   codigo?: Prisma.SortOrder
   codigoOficial?: Prisma.SortOrderInput | Prisma.SortOrder
   titulo?: Prisma.SortOrder
-  institucionResponsable?: Prisma.SortOrder
-  oficina?: Prisma.SortOrderInput | Prisma.SortOrder
   finalidad?: Prisma.SortOrder
   plazoEntregaDias?: Prisma.SortOrder
   modalidad?: Prisma.SortOrder
   notaRequisitos?: Prisma.SortOrderInput | Prisma.SortOrder
-  documentosEntregables?: Prisma.SortOrder
   baseLegal?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoLsbUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  audioQuechuaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaActualizacionOficial?: Prisma.SortOrderInput | Prisma.SortOrder
+  institucionId?: Prisma.SortOrder
+  clienteId?: Prisma.SortOrderInput | Prisma.SortOrder
+  tramitadorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -407,19 +439,20 @@ export type TramiteScalarWhereWithAggregatesInput = {
   OR?: Prisma.TramiteScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TramiteScalarWhereWithAggregatesInput | Prisma.TramiteScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Tramite"> | number
-  usuarioId?: Prisma.IntWithAggregatesFilter<"Tramite"> | number
   codigo?: Prisma.IntWithAggregatesFilter<"Tramite"> | number
   codigoOficial?: Prisma.StringNullableWithAggregatesFilter<"Tramite"> | string | null
   titulo?: Prisma.StringWithAggregatesFilter<"Tramite"> | string
-  institucionResponsable?: Prisma.StringWithAggregatesFilter<"Tramite"> | string
-  oficina?: Prisma.StringNullableWithAggregatesFilter<"Tramite"> | string | null
   finalidad?: Prisma.StringWithAggregatesFilter<"Tramite"> | string
   plazoEntregaDias?: Prisma.IntWithAggregatesFilter<"Tramite"> | number
   modalidad?: Prisma.EnumModalidadTramiteWithAggregatesFilter<"Tramite"> | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.StringNullableWithAggregatesFilter<"Tramite"> | string | null
-  documentosEntregables?: Prisma.StringNullableListFilter<"Tramite">
   baseLegal?: Prisma.StringNullableWithAggregatesFilter<"Tramite"> | string | null
-  fechaActualizacionOficial?: Prisma.StringNullableWithAggregatesFilter<"Tramite"> | string | null
+  videoLsbUrl?: Prisma.StringNullableWithAggregatesFilter<"Tramite"> | string | null
+  audioQuechuaUrl?: Prisma.StringNullableWithAggregatesFilter<"Tramite"> | string | null
+  fechaActualizacionOficial?: Prisma.DateTimeNullableWithAggregatesFilter<"Tramite"> | Date | string | null
+  institucionId?: Prisma.IntWithAggregatesFilter<"Tramite"> | number
+  clienteId?: Prisma.IntNullableWithAggregatesFilter<"Tramite"> | number | null
+  tramitadorId?: Prisma.IntWithAggregatesFilter<"Tramite"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Tramite"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Tramite"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Tramite"> | Date | string | null
@@ -429,107 +462,116 @@ export type TramiteCreateInput = {
   codigo: number
   codigoOficial?: string | null
   titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
   finalidad: string
   plazoEntregaDias: number
   modalidad: $Enums.ModalidadTramite
   notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
   baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  institucion: Prisma.InstitucionCreateNestedOneWithoutTramitesInput
+  cliente?: Prisma.UsuarioCreateNestedOneWithoutTramitesComoClienteInput
+  tramitador: Prisma.UsuarioCreateNestedOneWithoutTramitesComoTramitadorInput
   requisitos?: Prisma.RequisitoTramiteCreateNestedManyWithoutTramiteInput
   pasos?: Prisma.PasoProcedimientoCreateNestedManyWithoutTramiteInput
-  oficinas?: Prisma.DireccionCreateNestedManyWithoutTramitesInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutTramitesInput
+  documentosEntregables?: Prisma.DocumentoEntregableCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaCreateNestedManyWithoutTramitesInput
 }
 
 export type TramiteUncheckedCreateInput = {
   id?: number
-  usuarioId: number
   codigo: number
   codigoOficial?: string | null
   titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
   finalidad: string
   plazoEntregaDias: number
   modalidad: $Enums.ModalidadTramite
   notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
   baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  institucionId: number
+  clienteId?: number | null
+  tramitadorId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   requisitos?: Prisma.RequisitoTramiteUncheckedCreateNestedManyWithoutTramiteInput
   pasos?: Prisma.PasoProcedimientoUncheckedCreateNestedManyWithoutTramiteInput
-  oficinas?: Prisma.DireccionUncheckedCreateNestedManyWithoutTramitesInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaUncheckedCreateNestedManyWithoutTramitesInput
 }
 
 export type TramiteUpdateInput = {
   codigo?: Prisma.IntFieldUpdateOperationsInput | number
   codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalidad?: Prisma.StringFieldUpdateOperationsInput | string
   plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
   modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
   baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutTramitesNestedInput
+  cliente?: Prisma.UsuarioUpdateOneWithoutTramitesComoClienteNestedInput
+  tramitador?: Prisma.UsuarioUpdateOneRequiredWithoutTramitesComoTramitadorNestedInput
   requisitos?: Prisma.RequisitoTramiteUpdateManyWithoutTramiteNestedInput
   pasos?: Prisma.PasoProcedimientoUpdateManyWithoutTramiteNestedInput
-  oficinas?: Prisma.DireccionUpdateManyWithoutTramitesNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutTramitesNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUpdateManyWithoutTramitesNestedInput
 }
 
 export type TramiteUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
   codigo?: Prisma.IntFieldUpdateOperationsInput | number
   codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalidad?: Prisma.StringFieldUpdateOperationsInput | string
   plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
   modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
   baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  clienteId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tramitadorId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requisitos?: Prisma.RequisitoTramiteUncheckedUpdateManyWithoutTramiteNestedInput
   pasos?: Prisma.PasoProcedimientoUncheckedUpdateManyWithoutTramiteNestedInput
-  oficinas?: Prisma.DireccionUncheckedUpdateManyWithoutTramitesNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUncheckedUpdateManyWithoutTramitesNestedInput
 }
 
 export type TramiteCreateManyInput = {
   id?: number
-  usuarioId: number
   codigo: number
   codigoOficial?: string | null
   titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
   finalidad: string
   plazoEntregaDias: number
   modalidad: $Enums.ModalidadTramite
   notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
   baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  institucionId: number
+  clienteId?: number | null
+  tramitadorId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -539,15 +581,14 @@ export type TramiteUpdateManyMutationInput = {
   codigo?: Prisma.IntFieldUpdateOperationsInput | number
   codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalidad?: Prisma.StringFieldUpdateOperationsInput | string
   plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
   modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
   baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -555,102 +596,23 @@ export type TramiteUpdateManyMutationInput = {
 
 export type TramiteUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
   codigo?: Prisma.IntFieldUpdateOperationsInput | number
   codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalidad?: Prisma.StringFieldUpdateOperationsInput | string
   plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
   modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
   baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  clienteId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tramitadorId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-}
-
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
-}
-
-export type TramiteCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  usuarioId?: Prisma.SortOrder
-  codigo?: Prisma.SortOrder
-  codigoOficial?: Prisma.SortOrder
-  titulo?: Prisma.SortOrder
-  institucionResponsable?: Prisma.SortOrder
-  oficina?: Prisma.SortOrder
-  finalidad?: Prisma.SortOrder
-  plazoEntregaDias?: Prisma.SortOrder
-  modalidad?: Prisma.SortOrder
-  notaRequisitos?: Prisma.SortOrder
-  documentosEntregables?: Prisma.SortOrder
-  baseLegal?: Prisma.SortOrder
-  fechaActualizacionOficial?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-}
-
-export type TramiteAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  usuarioId?: Prisma.SortOrder
-  codigo?: Prisma.SortOrder
-  plazoEntregaDias?: Prisma.SortOrder
-}
-
-export type TramiteMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  usuarioId?: Prisma.SortOrder
-  codigo?: Prisma.SortOrder
-  codigoOficial?: Prisma.SortOrder
-  titulo?: Prisma.SortOrder
-  institucionResponsable?: Prisma.SortOrder
-  oficina?: Prisma.SortOrder
-  finalidad?: Prisma.SortOrder
-  plazoEntregaDias?: Prisma.SortOrder
-  modalidad?: Prisma.SortOrder
-  notaRequisitos?: Prisma.SortOrder
-  baseLegal?: Prisma.SortOrder
-  fechaActualizacionOficial?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-}
-
-export type TramiteMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  usuarioId?: Prisma.SortOrder
-  codigo?: Prisma.SortOrder
-  codigoOficial?: Prisma.SortOrder
-  titulo?: Prisma.SortOrder
-  institucionResponsable?: Prisma.SortOrder
-  oficina?: Prisma.SortOrder
-  finalidad?: Prisma.SortOrder
-  plazoEntregaDias?: Prisma.SortOrder
-  modalidad?: Prisma.SortOrder
-  notaRequisitos?: Prisma.SortOrder
-  baseLegal?: Prisma.SortOrder
-  fechaActualizacionOficial?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-}
-
-export type TramiteSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  usuarioId?: Prisma.SortOrder
-  codigo?: Prisma.SortOrder
-  plazoEntregaDias?: Prisma.SortOrder
 }
 
 export type TramiteListRelationFilter = {
@@ -663,116 +625,132 @@ export type TramiteOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type TramiteCountOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  codigo?: Prisma.SortOrder
+  codigoOficial?: Prisma.SortOrder
+  titulo?: Prisma.SortOrder
+  finalidad?: Prisma.SortOrder
+  plazoEntregaDias?: Prisma.SortOrder
+  modalidad?: Prisma.SortOrder
+  notaRequisitos?: Prisma.SortOrder
+  baseLegal?: Prisma.SortOrder
+  videoLsbUrl?: Prisma.SortOrder
+  audioQuechuaUrl?: Prisma.SortOrder
+  fechaActualizacionOficial?: Prisma.SortOrder
+  institucionId?: Prisma.SortOrder
+  clienteId?: Prisma.SortOrder
+  tramitadorId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+}
+
+export type TramiteAvgOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  codigo?: Prisma.SortOrder
+  plazoEntregaDias?: Prisma.SortOrder
+  institucionId?: Prisma.SortOrder
+  clienteId?: Prisma.SortOrder
+  tramitadorId?: Prisma.SortOrder
+}
+
+export type TramiteMaxOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  codigo?: Prisma.SortOrder
+  codigoOficial?: Prisma.SortOrder
+  titulo?: Prisma.SortOrder
+  finalidad?: Prisma.SortOrder
+  plazoEntregaDias?: Prisma.SortOrder
+  modalidad?: Prisma.SortOrder
+  notaRequisitos?: Prisma.SortOrder
+  baseLegal?: Prisma.SortOrder
+  videoLsbUrl?: Prisma.SortOrder
+  audioQuechuaUrl?: Prisma.SortOrder
+  fechaActualizacionOficial?: Prisma.SortOrder
+  institucionId?: Prisma.SortOrder
+  clienteId?: Prisma.SortOrder
+  tramitadorId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+}
+
+export type TramiteMinOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  codigo?: Prisma.SortOrder
+  codigoOficial?: Prisma.SortOrder
+  titulo?: Prisma.SortOrder
+  finalidad?: Prisma.SortOrder
+  plazoEntregaDias?: Prisma.SortOrder
+  modalidad?: Prisma.SortOrder
+  notaRequisitos?: Prisma.SortOrder
+  baseLegal?: Prisma.SortOrder
+  videoLsbUrl?: Prisma.SortOrder
+  audioQuechuaUrl?: Prisma.SortOrder
+  fechaActualizacionOficial?: Prisma.SortOrder
+  institucionId?: Prisma.SortOrder
+  clienteId?: Prisma.SortOrder
+  tramitadorId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+}
+
+export type TramiteSumOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  codigo?: Prisma.SortOrder
+  plazoEntregaDias?: Prisma.SortOrder
+  institucionId?: Prisma.SortOrder
+  clienteId?: Prisma.SortOrder
+  tramitadorId?: Prisma.SortOrder
+}
+
 export type TramiteScalarRelationFilter = {
   is?: Prisma.TramiteWhereInput
   isNot?: Prisma.TramiteWhereInput
 }
 
-export type TramiteCreatedocumentosEntregablesInput = {
-  set: string[]
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
-export type EnumModalidadTramiteFieldUpdateOperationsInput = {
-  set?: $Enums.ModalidadTramite
-}
-
-export type TramiteUpdatedocumentosEntregablesInput = {
-  set?: string[]
-  push?: string | string[]
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
-export type TramiteCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.TramiteCreateWithoutUsuarioInput, Prisma.TramiteUncheckedCreateWithoutUsuarioInput> | Prisma.TramiteCreateWithoutUsuarioInput[] | Prisma.TramiteUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutUsuarioInput | Prisma.TramiteCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.TramiteCreateManyUsuarioInputEnvelope
+export type TramiteCreateNestedManyWithoutInstitucionInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutInstitucionInput, Prisma.TramiteUncheckedCreateWithoutInstitucionInput> | Prisma.TramiteCreateWithoutInstitucionInput[] | Prisma.TramiteUncheckedCreateWithoutInstitucionInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutInstitucionInput | Prisma.TramiteCreateOrConnectWithoutInstitucionInput[]
+  createMany?: Prisma.TramiteCreateManyInstitucionInputEnvelope
   connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
 }
 
-export type TramiteUncheckedCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.TramiteCreateWithoutUsuarioInput, Prisma.TramiteUncheckedCreateWithoutUsuarioInput> | Prisma.TramiteCreateWithoutUsuarioInput[] | Prisma.TramiteUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutUsuarioInput | Prisma.TramiteCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.TramiteCreateManyUsuarioInputEnvelope
+export type TramiteUncheckedCreateNestedManyWithoutInstitucionInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutInstitucionInput, Prisma.TramiteUncheckedCreateWithoutInstitucionInput> | Prisma.TramiteCreateWithoutInstitucionInput[] | Prisma.TramiteUncheckedCreateWithoutInstitucionInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutInstitucionInput | Prisma.TramiteCreateOrConnectWithoutInstitucionInput[]
+  createMany?: Prisma.TramiteCreateManyInstitucionInputEnvelope
   connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
 }
 
-export type TramiteUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.TramiteCreateWithoutUsuarioInput, Prisma.TramiteUncheckedCreateWithoutUsuarioInput> | Prisma.TramiteCreateWithoutUsuarioInput[] | Prisma.TramiteUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutUsuarioInput | Prisma.TramiteCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.TramiteUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.TramiteUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.TramiteCreateManyUsuarioInputEnvelope
+export type TramiteUpdateManyWithoutInstitucionNestedInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutInstitucionInput, Prisma.TramiteUncheckedCreateWithoutInstitucionInput> | Prisma.TramiteCreateWithoutInstitucionInput[] | Prisma.TramiteUncheckedCreateWithoutInstitucionInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutInstitucionInput | Prisma.TramiteCreateOrConnectWithoutInstitucionInput[]
+  upsert?: Prisma.TramiteUpsertWithWhereUniqueWithoutInstitucionInput | Prisma.TramiteUpsertWithWhereUniqueWithoutInstitucionInput[]
+  createMany?: Prisma.TramiteCreateManyInstitucionInputEnvelope
   set?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
   disconnect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
   delete?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
   connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
-  update?: Prisma.TramiteUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.TramiteUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.TramiteUpdateManyWithWhereWithoutUsuarioInput | Prisma.TramiteUpdateManyWithWhereWithoutUsuarioInput[]
+  update?: Prisma.TramiteUpdateWithWhereUniqueWithoutInstitucionInput | Prisma.TramiteUpdateWithWhereUniqueWithoutInstitucionInput[]
+  updateMany?: Prisma.TramiteUpdateManyWithWhereWithoutInstitucionInput | Prisma.TramiteUpdateManyWithWhereWithoutInstitucionInput[]
   deleteMany?: Prisma.TramiteScalarWhereInput | Prisma.TramiteScalarWhereInput[]
 }
 
-export type TramiteUncheckedUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.TramiteCreateWithoutUsuarioInput, Prisma.TramiteUncheckedCreateWithoutUsuarioInput> | Prisma.TramiteCreateWithoutUsuarioInput[] | Prisma.TramiteUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutUsuarioInput | Prisma.TramiteCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.TramiteUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.TramiteUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.TramiteCreateManyUsuarioInputEnvelope
+export type TramiteUncheckedUpdateManyWithoutInstitucionNestedInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutInstitucionInput, Prisma.TramiteUncheckedCreateWithoutInstitucionInput> | Prisma.TramiteCreateWithoutInstitucionInput[] | Prisma.TramiteUncheckedCreateWithoutInstitucionInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutInstitucionInput | Prisma.TramiteCreateOrConnectWithoutInstitucionInput[]
+  upsert?: Prisma.TramiteUpsertWithWhereUniqueWithoutInstitucionInput | Prisma.TramiteUpsertWithWhereUniqueWithoutInstitucionInput[]
+  createMany?: Prisma.TramiteCreateManyInstitucionInputEnvelope
   set?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
   disconnect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
   delete?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
   connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
-  update?: Prisma.TramiteUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.TramiteUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.TramiteUpdateManyWithWhereWithoutUsuarioInput | Prisma.TramiteUpdateManyWithWhereWithoutUsuarioInput[]
+  update?: Prisma.TramiteUpdateWithWhereUniqueWithoutInstitucionInput | Prisma.TramiteUpdateWithWhereUniqueWithoutInstitucionInput[]
+  updateMany?: Prisma.TramiteUpdateManyWithWhereWithoutInstitucionInput | Prisma.TramiteUpdateManyWithWhereWithoutInstitucionInput[]
   deleteMany?: Prisma.TramiteScalarWhereInput | Prisma.TramiteScalarWhereInput[]
-}
-
-export type TramiteCreateNestedOneWithoutRequisitosInput = {
-  create?: Prisma.XOR<Prisma.TramiteCreateWithoutRequisitosInput, Prisma.TramiteUncheckedCreateWithoutRequisitosInput>
-  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutRequisitosInput
-  connect?: Prisma.TramiteWhereUniqueInput
-}
-
-export type TramiteUpdateOneRequiredWithoutRequisitosNestedInput = {
-  create?: Prisma.XOR<Prisma.TramiteCreateWithoutRequisitosInput, Prisma.TramiteUncheckedCreateWithoutRequisitosInput>
-  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutRequisitosInput
-  upsert?: Prisma.TramiteUpsertWithoutRequisitosInput
-  connect?: Prisma.TramiteWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TramiteUpdateToOneWithWhereWithoutRequisitosInput, Prisma.TramiteUpdateWithoutRequisitosInput>, Prisma.TramiteUncheckedUpdateWithoutRequisitosInput>
-}
-
-export type TramiteCreateNestedOneWithoutPasosInput = {
-  create?: Prisma.XOR<Prisma.TramiteCreateWithoutPasosInput, Prisma.TramiteUncheckedCreateWithoutPasosInput>
-  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutPasosInput
-  connect?: Prisma.TramiteWhereUniqueInput
-}
-
-export type TramiteUpdateOneRequiredWithoutPasosNestedInput = {
-  create?: Prisma.XOR<Prisma.TramiteCreateWithoutPasosInput, Prisma.TramiteUncheckedCreateWithoutPasosInput>
-  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutPasosInput
-  upsert?: Prisma.TramiteUpsertWithoutPasosInput
-  connect?: Prisma.TramiteWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TramiteUpdateToOneWithWhereWithoutPasosInput, Prisma.TramiteUpdateWithoutPasosInput>, Prisma.TramiteUncheckedUpdateWithoutPasosInput>
 }
 
 export type TramiteCreateNestedManyWithoutOficinasInput = {
@@ -813,73 +791,207 @@ export type TramiteUncheckedUpdateManyWithoutOficinasNestedInput = {
   deleteMany?: Prisma.TramiteScalarWhereInput | Prisma.TramiteScalarWhereInput[]
 }
 
-export type TramiteCreateWithoutUsuarioInput = {
+export type TramiteCreateNestedManyWithoutClienteInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutClienteInput, Prisma.TramiteUncheckedCreateWithoutClienteInput> | Prisma.TramiteCreateWithoutClienteInput[] | Prisma.TramiteUncheckedCreateWithoutClienteInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutClienteInput | Prisma.TramiteCreateOrConnectWithoutClienteInput[]
+  createMany?: Prisma.TramiteCreateManyClienteInputEnvelope
+  connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+}
+
+export type TramiteCreateNestedManyWithoutTramitadorInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutTramitadorInput, Prisma.TramiteUncheckedCreateWithoutTramitadorInput> | Prisma.TramiteCreateWithoutTramitadorInput[] | Prisma.TramiteUncheckedCreateWithoutTramitadorInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutTramitadorInput | Prisma.TramiteCreateOrConnectWithoutTramitadorInput[]
+  createMany?: Prisma.TramiteCreateManyTramitadorInputEnvelope
+  connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+}
+
+export type TramiteUncheckedCreateNestedManyWithoutClienteInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutClienteInput, Prisma.TramiteUncheckedCreateWithoutClienteInput> | Prisma.TramiteCreateWithoutClienteInput[] | Prisma.TramiteUncheckedCreateWithoutClienteInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutClienteInput | Prisma.TramiteCreateOrConnectWithoutClienteInput[]
+  createMany?: Prisma.TramiteCreateManyClienteInputEnvelope
+  connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+}
+
+export type TramiteUncheckedCreateNestedManyWithoutTramitadorInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutTramitadorInput, Prisma.TramiteUncheckedCreateWithoutTramitadorInput> | Prisma.TramiteCreateWithoutTramitadorInput[] | Prisma.TramiteUncheckedCreateWithoutTramitadorInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutTramitadorInput | Prisma.TramiteCreateOrConnectWithoutTramitadorInput[]
+  createMany?: Prisma.TramiteCreateManyTramitadorInputEnvelope
+  connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+}
+
+export type TramiteUpdateManyWithoutClienteNestedInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutClienteInput, Prisma.TramiteUncheckedCreateWithoutClienteInput> | Prisma.TramiteCreateWithoutClienteInput[] | Prisma.TramiteUncheckedCreateWithoutClienteInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutClienteInput | Prisma.TramiteCreateOrConnectWithoutClienteInput[]
+  upsert?: Prisma.TramiteUpsertWithWhereUniqueWithoutClienteInput | Prisma.TramiteUpsertWithWhereUniqueWithoutClienteInput[]
+  createMany?: Prisma.TramiteCreateManyClienteInputEnvelope
+  set?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  disconnect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  delete?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  update?: Prisma.TramiteUpdateWithWhereUniqueWithoutClienteInput | Prisma.TramiteUpdateWithWhereUniqueWithoutClienteInput[]
+  updateMany?: Prisma.TramiteUpdateManyWithWhereWithoutClienteInput | Prisma.TramiteUpdateManyWithWhereWithoutClienteInput[]
+  deleteMany?: Prisma.TramiteScalarWhereInput | Prisma.TramiteScalarWhereInput[]
+}
+
+export type TramiteUpdateManyWithoutTramitadorNestedInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutTramitadorInput, Prisma.TramiteUncheckedCreateWithoutTramitadorInput> | Prisma.TramiteCreateWithoutTramitadorInput[] | Prisma.TramiteUncheckedCreateWithoutTramitadorInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutTramitadorInput | Prisma.TramiteCreateOrConnectWithoutTramitadorInput[]
+  upsert?: Prisma.TramiteUpsertWithWhereUniqueWithoutTramitadorInput | Prisma.TramiteUpsertWithWhereUniqueWithoutTramitadorInput[]
+  createMany?: Prisma.TramiteCreateManyTramitadorInputEnvelope
+  set?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  disconnect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  delete?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  update?: Prisma.TramiteUpdateWithWhereUniqueWithoutTramitadorInput | Prisma.TramiteUpdateWithWhereUniqueWithoutTramitadorInput[]
+  updateMany?: Prisma.TramiteUpdateManyWithWhereWithoutTramitadorInput | Prisma.TramiteUpdateManyWithWhereWithoutTramitadorInput[]
+  deleteMany?: Prisma.TramiteScalarWhereInput | Prisma.TramiteScalarWhereInput[]
+}
+
+export type TramiteUncheckedUpdateManyWithoutClienteNestedInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutClienteInput, Prisma.TramiteUncheckedCreateWithoutClienteInput> | Prisma.TramiteCreateWithoutClienteInput[] | Prisma.TramiteUncheckedCreateWithoutClienteInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutClienteInput | Prisma.TramiteCreateOrConnectWithoutClienteInput[]
+  upsert?: Prisma.TramiteUpsertWithWhereUniqueWithoutClienteInput | Prisma.TramiteUpsertWithWhereUniqueWithoutClienteInput[]
+  createMany?: Prisma.TramiteCreateManyClienteInputEnvelope
+  set?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  disconnect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  delete?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  update?: Prisma.TramiteUpdateWithWhereUniqueWithoutClienteInput | Prisma.TramiteUpdateWithWhereUniqueWithoutClienteInput[]
+  updateMany?: Prisma.TramiteUpdateManyWithWhereWithoutClienteInput | Prisma.TramiteUpdateManyWithWhereWithoutClienteInput[]
+  deleteMany?: Prisma.TramiteScalarWhereInput | Prisma.TramiteScalarWhereInput[]
+}
+
+export type TramiteUncheckedUpdateManyWithoutTramitadorNestedInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutTramitadorInput, Prisma.TramiteUncheckedCreateWithoutTramitadorInput> | Prisma.TramiteCreateWithoutTramitadorInput[] | Prisma.TramiteUncheckedCreateWithoutTramitadorInput[]
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutTramitadorInput | Prisma.TramiteCreateOrConnectWithoutTramitadorInput[]
+  upsert?: Prisma.TramiteUpsertWithWhereUniqueWithoutTramitadorInput | Prisma.TramiteUpsertWithWhereUniqueWithoutTramitadorInput[]
+  createMany?: Prisma.TramiteCreateManyTramitadorInputEnvelope
+  set?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  disconnect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  delete?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  connect?: Prisma.TramiteWhereUniqueInput | Prisma.TramiteWhereUniqueInput[]
+  update?: Prisma.TramiteUpdateWithWhereUniqueWithoutTramitadorInput | Prisma.TramiteUpdateWithWhereUniqueWithoutTramitadorInput[]
+  updateMany?: Prisma.TramiteUpdateManyWithWhereWithoutTramitadorInput | Prisma.TramiteUpdateManyWithWhereWithoutTramitadorInput[]
+  deleteMany?: Prisma.TramiteScalarWhereInput | Prisma.TramiteScalarWhereInput[]
+}
+
+export type EnumModalidadTramiteFieldUpdateOperationsInput = {
+  set?: $Enums.ModalidadTramite
+}
+
+export type TramiteCreateNestedOneWithoutDocumentosEntregablesInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutDocumentosEntregablesInput, Prisma.TramiteUncheckedCreateWithoutDocumentosEntregablesInput>
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutDocumentosEntregablesInput
+  connect?: Prisma.TramiteWhereUniqueInput
+}
+
+export type TramiteUpdateOneRequiredWithoutDocumentosEntregablesNestedInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutDocumentosEntregablesInput, Prisma.TramiteUncheckedCreateWithoutDocumentosEntregablesInput>
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutDocumentosEntregablesInput
+  upsert?: Prisma.TramiteUpsertWithoutDocumentosEntregablesInput
+  connect?: Prisma.TramiteWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TramiteUpdateToOneWithWhereWithoutDocumentosEntregablesInput, Prisma.TramiteUpdateWithoutDocumentosEntregablesInput>, Prisma.TramiteUncheckedUpdateWithoutDocumentosEntregablesInput>
+}
+
+export type TramiteCreateNestedOneWithoutRequisitosInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutRequisitosInput, Prisma.TramiteUncheckedCreateWithoutRequisitosInput>
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutRequisitosInput
+  connect?: Prisma.TramiteWhereUniqueInput
+}
+
+export type TramiteUpdateOneRequiredWithoutRequisitosNestedInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutRequisitosInput, Prisma.TramiteUncheckedCreateWithoutRequisitosInput>
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutRequisitosInput
+  upsert?: Prisma.TramiteUpsertWithoutRequisitosInput
+  connect?: Prisma.TramiteWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TramiteUpdateToOneWithWhereWithoutRequisitosInput, Prisma.TramiteUpdateWithoutRequisitosInput>, Prisma.TramiteUncheckedUpdateWithoutRequisitosInput>
+}
+
+export type TramiteCreateNestedOneWithoutPasosInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutPasosInput, Prisma.TramiteUncheckedCreateWithoutPasosInput>
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutPasosInput
+  connect?: Prisma.TramiteWhereUniqueInput
+}
+
+export type TramiteUpdateOneRequiredWithoutPasosNestedInput = {
+  create?: Prisma.XOR<Prisma.TramiteCreateWithoutPasosInput, Prisma.TramiteUncheckedCreateWithoutPasosInput>
+  connectOrCreate?: Prisma.TramiteCreateOrConnectWithoutPasosInput
+  upsert?: Prisma.TramiteUpsertWithoutPasosInput
+  connect?: Prisma.TramiteWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TramiteUpdateToOneWithWhereWithoutPasosInput, Prisma.TramiteUpdateWithoutPasosInput>, Prisma.TramiteUncheckedUpdateWithoutPasosInput>
+}
+
+export type TramiteCreateWithoutInstitucionInput = {
   codigo: number
   codigoOficial?: string | null
   titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
   finalidad: string
   plazoEntregaDias: number
   modalidad: $Enums.ModalidadTramite
   notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
   baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  cliente?: Prisma.UsuarioCreateNestedOneWithoutTramitesComoClienteInput
+  tramitador: Prisma.UsuarioCreateNestedOneWithoutTramitesComoTramitadorInput
   requisitos?: Prisma.RequisitoTramiteCreateNestedManyWithoutTramiteInput
   pasos?: Prisma.PasoProcedimientoCreateNestedManyWithoutTramiteInput
-  oficinas?: Prisma.DireccionCreateNestedManyWithoutTramitesInput
+  documentosEntregables?: Prisma.DocumentoEntregableCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaCreateNestedManyWithoutTramitesInput
 }
 
-export type TramiteUncheckedCreateWithoutUsuarioInput = {
+export type TramiteUncheckedCreateWithoutInstitucionInput = {
   id?: number
   codigo: number
   codigoOficial?: string | null
   titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
   finalidad: string
   plazoEntregaDias: number
   modalidad: $Enums.ModalidadTramite
   notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
   baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  clienteId?: number | null
+  tramitadorId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   requisitos?: Prisma.RequisitoTramiteUncheckedCreateNestedManyWithoutTramiteInput
   pasos?: Prisma.PasoProcedimientoUncheckedCreateNestedManyWithoutTramiteInput
-  oficinas?: Prisma.DireccionUncheckedCreateNestedManyWithoutTramitesInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaUncheckedCreateNestedManyWithoutTramitesInput
 }
 
-export type TramiteCreateOrConnectWithoutUsuarioInput = {
+export type TramiteCreateOrConnectWithoutInstitucionInput = {
   where: Prisma.TramiteWhereUniqueInput
-  create: Prisma.XOR<Prisma.TramiteCreateWithoutUsuarioInput, Prisma.TramiteUncheckedCreateWithoutUsuarioInput>
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutInstitucionInput, Prisma.TramiteUncheckedCreateWithoutInstitucionInput>
 }
 
-export type TramiteCreateManyUsuarioInputEnvelope = {
-  data: Prisma.TramiteCreateManyUsuarioInput | Prisma.TramiteCreateManyUsuarioInput[]
+export type TramiteCreateManyInstitucionInputEnvelope = {
+  data: Prisma.TramiteCreateManyInstitucionInput | Prisma.TramiteCreateManyInstitucionInput[]
   skipDuplicates?: boolean
 }
 
-export type TramiteUpsertWithWhereUniqueWithoutUsuarioInput = {
+export type TramiteUpsertWithWhereUniqueWithoutInstitucionInput = {
   where: Prisma.TramiteWhereUniqueInput
-  update: Prisma.XOR<Prisma.TramiteUpdateWithoutUsuarioInput, Prisma.TramiteUncheckedUpdateWithoutUsuarioInput>
-  create: Prisma.XOR<Prisma.TramiteCreateWithoutUsuarioInput, Prisma.TramiteUncheckedCreateWithoutUsuarioInput>
+  update: Prisma.XOR<Prisma.TramiteUpdateWithoutInstitucionInput, Prisma.TramiteUncheckedUpdateWithoutInstitucionInput>
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutInstitucionInput, Prisma.TramiteUncheckedCreateWithoutInstitucionInput>
 }
 
-export type TramiteUpdateWithWhereUniqueWithoutUsuarioInput = {
+export type TramiteUpdateWithWhereUniqueWithoutInstitucionInput = {
   where: Prisma.TramiteWhereUniqueInput
-  data: Prisma.XOR<Prisma.TramiteUpdateWithoutUsuarioInput, Prisma.TramiteUncheckedUpdateWithoutUsuarioInput>
+  data: Prisma.XOR<Prisma.TramiteUpdateWithoutInstitucionInput, Prisma.TramiteUncheckedUpdateWithoutInstitucionInput>
 }
 
-export type TramiteUpdateManyWithWhereWithoutUsuarioInput = {
+export type TramiteUpdateManyWithWhereWithoutInstitucionInput = {
   where: Prisma.TramiteScalarWhereInput
-  data: Prisma.XOR<Prisma.TramiteUpdateManyMutationInput, Prisma.TramiteUncheckedUpdateManyWithoutUsuarioInput>
+  data: Prisma.XOR<Prisma.TramiteUpdateManyMutationInput, Prisma.TramiteUncheckedUpdateManyWithoutInstitucionInput>
 }
 
 export type TramiteScalarWhereInput = {
@@ -887,269 +999,70 @@ export type TramiteScalarWhereInput = {
   OR?: Prisma.TramiteScalarWhereInput[]
   NOT?: Prisma.TramiteScalarWhereInput | Prisma.TramiteScalarWhereInput[]
   id?: Prisma.IntFilter<"Tramite"> | number
-  usuarioId?: Prisma.IntFilter<"Tramite"> | number
   codigo?: Prisma.IntFilter<"Tramite"> | number
   codigoOficial?: Prisma.StringNullableFilter<"Tramite"> | string | null
   titulo?: Prisma.StringFilter<"Tramite"> | string
-  institucionResponsable?: Prisma.StringFilter<"Tramite"> | string
-  oficina?: Prisma.StringNullableFilter<"Tramite"> | string | null
   finalidad?: Prisma.StringFilter<"Tramite"> | string
   plazoEntregaDias?: Prisma.IntFilter<"Tramite"> | number
   modalidad?: Prisma.EnumModalidadTramiteFilter<"Tramite"> | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.StringNullableFilter<"Tramite"> | string | null
-  documentosEntregables?: Prisma.StringNullableListFilter<"Tramite">
   baseLegal?: Prisma.StringNullableFilter<"Tramite"> | string | null
-  fechaActualizacionOficial?: Prisma.StringNullableFilter<"Tramite"> | string | null
+  videoLsbUrl?: Prisma.StringNullableFilter<"Tramite"> | string | null
+  audioQuechuaUrl?: Prisma.StringNullableFilter<"Tramite"> | string | null
+  fechaActualizacionOficial?: Prisma.DateTimeNullableFilter<"Tramite"> | Date | string | null
+  institucionId?: Prisma.IntFilter<"Tramite"> | number
+  clienteId?: Prisma.IntNullableFilter<"Tramite"> | number | null
+  tramitadorId?: Prisma.IntFilter<"Tramite"> | number
   createdAt?: Prisma.DateTimeFilter<"Tramite"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Tramite"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Tramite"> | Date | string | null
-}
-
-export type TramiteCreateWithoutRequisitosInput = {
-  codigo: number
-  codigoOficial?: string | null
-  titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
-  finalidad: string
-  plazoEntregaDias: number
-  modalidad: $Enums.ModalidadTramite
-  notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
-  baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  pasos?: Prisma.PasoProcedimientoCreateNestedManyWithoutTramiteInput
-  oficinas?: Prisma.DireccionCreateNestedManyWithoutTramitesInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutTramitesInput
-}
-
-export type TramiteUncheckedCreateWithoutRequisitosInput = {
-  id?: number
-  usuarioId: number
-  codigo: number
-  codigoOficial?: string | null
-  titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
-  finalidad: string
-  plazoEntregaDias: number
-  modalidad: $Enums.ModalidadTramite
-  notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
-  baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  pasos?: Prisma.PasoProcedimientoUncheckedCreateNestedManyWithoutTramiteInput
-  oficinas?: Prisma.DireccionUncheckedCreateNestedManyWithoutTramitesInput
-}
-
-export type TramiteCreateOrConnectWithoutRequisitosInput = {
-  where: Prisma.TramiteWhereUniqueInput
-  create: Prisma.XOR<Prisma.TramiteCreateWithoutRequisitosInput, Prisma.TramiteUncheckedCreateWithoutRequisitosInput>
-}
-
-export type TramiteUpsertWithoutRequisitosInput = {
-  update: Prisma.XOR<Prisma.TramiteUpdateWithoutRequisitosInput, Prisma.TramiteUncheckedUpdateWithoutRequisitosInput>
-  create: Prisma.XOR<Prisma.TramiteCreateWithoutRequisitosInput, Prisma.TramiteUncheckedCreateWithoutRequisitosInput>
-  where?: Prisma.TramiteWhereInput
-}
-
-export type TramiteUpdateToOneWithWhereWithoutRequisitosInput = {
-  where?: Prisma.TramiteWhereInput
-  data: Prisma.XOR<Prisma.TramiteUpdateWithoutRequisitosInput, Prisma.TramiteUncheckedUpdateWithoutRequisitosInput>
-}
-
-export type TramiteUpdateWithoutRequisitosInput = {
-  codigo?: Prisma.IntFieldUpdateOperationsInput | number
-  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
-  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
-  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
-  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
-  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  pasos?: Prisma.PasoProcedimientoUpdateManyWithoutTramiteNestedInput
-  oficinas?: Prisma.DireccionUpdateManyWithoutTramitesNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutTramitesNestedInput
-}
-
-export type TramiteUncheckedUpdateWithoutRequisitosInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
-  codigo?: Prisma.IntFieldUpdateOperationsInput | number
-  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
-  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
-  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
-  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
-  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  pasos?: Prisma.PasoProcedimientoUncheckedUpdateManyWithoutTramiteNestedInput
-  oficinas?: Prisma.DireccionUncheckedUpdateManyWithoutTramitesNestedInput
-}
-
-export type TramiteCreateWithoutPasosInput = {
-  codigo: number
-  codigoOficial?: string | null
-  titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
-  finalidad: string
-  plazoEntregaDias: number
-  modalidad: $Enums.ModalidadTramite
-  notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
-  baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  requisitos?: Prisma.RequisitoTramiteCreateNestedManyWithoutTramiteInput
-  oficinas?: Prisma.DireccionCreateNestedManyWithoutTramitesInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutTramitesInput
-}
-
-export type TramiteUncheckedCreateWithoutPasosInput = {
-  id?: number
-  usuarioId: number
-  codigo: number
-  codigoOficial?: string | null
-  titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
-  finalidad: string
-  plazoEntregaDias: number
-  modalidad: $Enums.ModalidadTramite
-  notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
-  baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  requisitos?: Prisma.RequisitoTramiteUncheckedCreateNestedManyWithoutTramiteInput
-  oficinas?: Prisma.DireccionUncheckedCreateNestedManyWithoutTramitesInput
-}
-
-export type TramiteCreateOrConnectWithoutPasosInput = {
-  where: Prisma.TramiteWhereUniqueInput
-  create: Prisma.XOR<Prisma.TramiteCreateWithoutPasosInput, Prisma.TramiteUncheckedCreateWithoutPasosInput>
-}
-
-export type TramiteUpsertWithoutPasosInput = {
-  update: Prisma.XOR<Prisma.TramiteUpdateWithoutPasosInput, Prisma.TramiteUncheckedUpdateWithoutPasosInput>
-  create: Prisma.XOR<Prisma.TramiteCreateWithoutPasosInput, Prisma.TramiteUncheckedCreateWithoutPasosInput>
-  where?: Prisma.TramiteWhereInput
-}
-
-export type TramiteUpdateToOneWithWhereWithoutPasosInput = {
-  where?: Prisma.TramiteWhereInput
-  data: Prisma.XOR<Prisma.TramiteUpdateWithoutPasosInput, Prisma.TramiteUncheckedUpdateWithoutPasosInput>
-}
-
-export type TramiteUpdateWithoutPasosInput = {
-  codigo?: Prisma.IntFieldUpdateOperationsInput | number
-  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
-  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
-  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
-  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
-  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  requisitos?: Prisma.RequisitoTramiteUpdateManyWithoutTramiteNestedInput
-  oficinas?: Prisma.DireccionUpdateManyWithoutTramitesNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutTramitesNestedInput
-}
-
-export type TramiteUncheckedUpdateWithoutPasosInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
-  codigo?: Prisma.IntFieldUpdateOperationsInput | number
-  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
-  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
-  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
-  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
-  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  requisitos?: Prisma.RequisitoTramiteUncheckedUpdateManyWithoutTramiteNestedInput
-  oficinas?: Prisma.DireccionUncheckedUpdateManyWithoutTramitesNestedInput
 }
 
 export type TramiteCreateWithoutOficinasInput = {
   codigo: number
   codigoOficial?: string | null
   titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
   finalidad: string
   plazoEntregaDias: number
   modalidad: $Enums.ModalidadTramite
   notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
   baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  institucion: Prisma.InstitucionCreateNestedOneWithoutTramitesInput
+  cliente?: Prisma.UsuarioCreateNestedOneWithoutTramitesComoClienteInput
+  tramitador: Prisma.UsuarioCreateNestedOneWithoutTramitesComoTramitadorInput
   requisitos?: Prisma.RequisitoTramiteCreateNestedManyWithoutTramiteInput
   pasos?: Prisma.PasoProcedimientoCreateNestedManyWithoutTramiteInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutTramitesInput
+  documentosEntregables?: Prisma.DocumentoEntregableCreateNestedManyWithoutTramiteInput
 }
 
 export type TramiteUncheckedCreateWithoutOficinasInput = {
   id?: number
-  usuarioId: number
   codigo: number
   codigoOficial?: string | null
   titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
   finalidad: string
   plazoEntregaDias: number
   modalidad: $Enums.ModalidadTramite
   notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
   baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  institucionId: number
+  clienteId?: number | null
+  tramitadorId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   requisitos?: Prisma.RequisitoTramiteUncheckedCreateNestedManyWithoutTramiteInput
   pasos?: Prisma.PasoProcedimientoUncheckedCreateNestedManyWithoutTramiteInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedCreateNestedManyWithoutTramiteInput
 }
 
 export type TramiteCreateOrConnectWithoutOficinasInput = {
@@ -1173,82 +1086,564 @@ export type TramiteUpdateManyWithWhereWithoutOficinasInput = {
   data: Prisma.XOR<Prisma.TramiteUpdateManyMutationInput, Prisma.TramiteUncheckedUpdateManyWithoutOficinasInput>
 }
 
-export type TramiteCreateManyUsuarioInput = {
-  id?: number
+export type TramiteCreateWithoutClienteInput = {
   codigo: number
   codigoOficial?: string | null
   titulo: string
-  institucionResponsable?: string
-  oficina?: string | null
   finalidad: string
   plazoEntregaDias: number
   modalidad: $Enums.ModalidadTramite
   notaRequisitos?: string | null
-  documentosEntregables?: Prisma.TramiteCreatedocumentosEntregablesInput | string[]
   baseLegal?: string | null
-  fechaActualizacionOficial?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  institucion: Prisma.InstitucionCreateNestedOneWithoutTramitesInput
+  tramitador: Prisma.UsuarioCreateNestedOneWithoutTramitesComoTramitadorInput
+  requisitos?: Prisma.RequisitoTramiteCreateNestedManyWithoutTramiteInput
+  pasos?: Prisma.PasoProcedimientoCreateNestedManyWithoutTramiteInput
+  documentosEntregables?: Prisma.DocumentoEntregableCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaCreateNestedManyWithoutTramitesInput
 }
 
-export type TramiteUpdateWithoutUsuarioInput = {
+export type TramiteUncheckedCreateWithoutClienteInput = {
+  id?: number
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  institucionId: number
+  tramitadorId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  requisitos?: Prisma.RequisitoTramiteUncheckedCreateNestedManyWithoutTramiteInput
+  pasos?: Prisma.PasoProcedimientoUncheckedCreateNestedManyWithoutTramiteInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaUncheckedCreateNestedManyWithoutTramitesInput
+}
+
+export type TramiteCreateOrConnectWithoutClienteInput = {
+  where: Prisma.TramiteWhereUniqueInput
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutClienteInput, Prisma.TramiteUncheckedCreateWithoutClienteInput>
+}
+
+export type TramiteCreateManyClienteInputEnvelope = {
+  data: Prisma.TramiteCreateManyClienteInput | Prisma.TramiteCreateManyClienteInput[]
+  skipDuplicates?: boolean
+}
+
+export type TramiteCreateWithoutTramitadorInput = {
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  institucion: Prisma.InstitucionCreateNestedOneWithoutTramitesInput
+  cliente?: Prisma.UsuarioCreateNestedOneWithoutTramitesComoClienteInput
+  requisitos?: Prisma.RequisitoTramiteCreateNestedManyWithoutTramiteInput
+  pasos?: Prisma.PasoProcedimientoCreateNestedManyWithoutTramiteInput
+  documentosEntregables?: Prisma.DocumentoEntregableCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaCreateNestedManyWithoutTramitesInput
+}
+
+export type TramiteUncheckedCreateWithoutTramitadorInput = {
+  id?: number
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  institucionId: number
+  clienteId?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  requisitos?: Prisma.RequisitoTramiteUncheckedCreateNestedManyWithoutTramiteInput
+  pasos?: Prisma.PasoProcedimientoUncheckedCreateNestedManyWithoutTramiteInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaUncheckedCreateNestedManyWithoutTramitesInput
+}
+
+export type TramiteCreateOrConnectWithoutTramitadorInput = {
+  where: Prisma.TramiteWhereUniqueInput
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutTramitadorInput, Prisma.TramiteUncheckedCreateWithoutTramitadorInput>
+}
+
+export type TramiteCreateManyTramitadorInputEnvelope = {
+  data: Prisma.TramiteCreateManyTramitadorInput | Prisma.TramiteCreateManyTramitadorInput[]
+  skipDuplicates?: boolean
+}
+
+export type TramiteUpsertWithWhereUniqueWithoutClienteInput = {
+  where: Prisma.TramiteWhereUniqueInput
+  update: Prisma.XOR<Prisma.TramiteUpdateWithoutClienteInput, Prisma.TramiteUncheckedUpdateWithoutClienteInput>
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutClienteInput, Prisma.TramiteUncheckedCreateWithoutClienteInput>
+}
+
+export type TramiteUpdateWithWhereUniqueWithoutClienteInput = {
+  where: Prisma.TramiteWhereUniqueInput
+  data: Prisma.XOR<Prisma.TramiteUpdateWithoutClienteInput, Prisma.TramiteUncheckedUpdateWithoutClienteInput>
+}
+
+export type TramiteUpdateManyWithWhereWithoutClienteInput = {
+  where: Prisma.TramiteScalarWhereInput
+  data: Prisma.XOR<Prisma.TramiteUpdateManyMutationInput, Prisma.TramiteUncheckedUpdateManyWithoutClienteInput>
+}
+
+export type TramiteUpsertWithWhereUniqueWithoutTramitadorInput = {
+  where: Prisma.TramiteWhereUniqueInput
+  update: Prisma.XOR<Prisma.TramiteUpdateWithoutTramitadorInput, Prisma.TramiteUncheckedUpdateWithoutTramitadorInput>
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutTramitadorInput, Prisma.TramiteUncheckedCreateWithoutTramitadorInput>
+}
+
+export type TramiteUpdateWithWhereUniqueWithoutTramitadorInput = {
+  where: Prisma.TramiteWhereUniqueInput
+  data: Prisma.XOR<Prisma.TramiteUpdateWithoutTramitadorInput, Prisma.TramiteUncheckedUpdateWithoutTramitadorInput>
+}
+
+export type TramiteUpdateManyWithWhereWithoutTramitadorInput = {
+  where: Prisma.TramiteScalarWhereInput
+  data: Prisma.XOR<Prisma.TramiteUpdateManyMutationInput, Prisma.TramiteUncheckedUpdateManyWithoutTramitadorInput>
+}
+
+export type TramiteCreateWithoutDocumentosEntregablesInput = {
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  institucion: Prisma.InstitucionCreateNestedOneWithoutTramitesInput
+  cliente?: Prisma.UsuarioCreateNestedOneWithoutTramitesComoClienteInput
+  tramitador: Prisma.UsuarioCreateNestedOneWithoutTramitesComoTramitadorInput
+  requisitos?: Prisma.RequisitoTramiteCreateNestedManyWithoutTramiteInput
+  pasos?: Prisma.PasoProcedimientoCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaCreateNestedManyWithoutTramitesInput
+}
+
+export type TramiteUncheckedCreateWithoutDocumentosEntregablesInput = {
+  id?: number
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  institucionId: number
+  clienteId?: number | null
+  tramitadorId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  requisitos?: Prisma.RequisitoTramiteUncheckedCreateNestedManyWithoutTramiteInput
+  pasos?: Prisma.PasoProcedimientoUncheckedCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaUncheckedCreateNestedManyWithoutTramitesInput
+}
+
+export type TramiteCreateOrConnectWithoutDocumentosEntregablesInput = {
+  where: Prisma.TramiteWhereUniqueInput
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutDocumentosEntregablesInput, Prisma.TramiteUncheckedCreateWithoutDocumentosEntregablesInput>
+}
+
+export type TramiteUpsertWithoutDocumentosEntregablesInput = {
+  update: Prisma.XOR<Prisma.TramiteUpdateWithoutDocumentosEntregablesInput, Prisma.TramiteUncheckedUpdateWithoutDocumentosEntregablesInput>
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutDocumentosEntregablesInput, Prisma.TramiteUncheckedCreateWithoutDocumentosEntregablesInput>
+  where?: Prisma.TramiteWhereInput
+}
+
+export type TramiteUpdateToOneWithWhereWithoutDocumentosEntregablesInput = {
+  where?: Prisma.TramiteWhereInput
+  data: Prisma.XOR<Prisma.TramiteUpdateWithoutDocumentosEntregablesInput, Prisma.TramiteUncheckedUpdateWithoutDocumentosEntregablesInput>
+}
+
+export type TramiteUpdateWithoutDocumentosEntregablesInput = {
   codigo?: Prisma.IntFieldUpdateOperationsInput | number
   codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalidad?: Prisma.StringFieldUpdateOperationsInput | string
   plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
   modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
   baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutTramitesNestedInput
+  cliente?: Prisma.UsuarioUpdateOneWithoutTramitesComoClienteNestedInput
+  tramitador?: Prisma.UsuarioUpdateOneRequiredWithoutTramitesComoTramitadorNestedInput
   requisitos?: Prisma.RequisitoTramiteUpdateManyWithoutTramiteNestedInput
   pasos?: Prisma.PasoProcedimientoUpdateManyWithoutTramiteNestedInput
-  oficinas?: Prisma.DireccionUpdateManyWithoutTramitesNestedInput
+  oficinas?: Prisma.OficinaUpdateManyWithoutTramitesNestedInput
 }
 
-export type TramiteUncheckedUpdateWithoutUsuarioInput = {
+export type TramiteUncheckedUpdateWithoutDocumentosEntregablesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   codigo?: Prisma.IntFieldUpdateOperationsInput | number
   codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalidad?: Prisma.StringFieldUpdateOperationsInput | string
   plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
   modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
   baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  clienteId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tramitadorId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requisitos?: Prisma.RequisitoTramiteUncheckedUpdateManyWithoutTramiteNestedInput
   pasos?: Prisma.PasoProcedimientoUncheckedUpdateManyWithoutTramiteNestedInput
-  oficinas?: Prisma.DireccionUncheckedUpdateManyWithoutTramitesNestedInput
+  oficinas?: Prisma.OficinaUncheckedUpdateManyWithoutTramitesNestedInput
 }
 
-export type TramiteUncheckedUpdateManyWithoutUsuarioInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+export type TramiteCreateWithoutRequisitosInput = {
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  institucion: Prisma.InstitucionCreateNestedOneWithoutTramitesInput
+  cliente?: Prisma.UsuarioCreateNestedOneWithoutTramitesComoClienteInput
+  tramitador: Prisma.UsuarioCreateNestedOneWithoutTramitesComoTramitadorInput
+  pasos?: Prisma.PasoProcedimientoCreateNestedManyWithoutTramiteInput
+  documentosEntregables?: Prisma.DocumentoEntregableCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaCreateNestedManyWithoutTramitesInput
+}
+
+export type TramiteUncheckedCreateWithoutRequisitosInput = {
+  id?: number
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  institucionId: number
+  clienteId?: number | null
+  tramitadorId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  pasos?: Prisma.PasoProcedimientoUncheckedCreateNestedManyWithoutTramiteInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaUncheckedCreateNestedManyWithoutTramitesInput
+}
+
+export type TramiteCreateOrConnectWithoutRequisitosInput = {
+  where: Prisma.TramiteWhereUniqueInput
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutRequisitosInput, Prisma.TramiteUncheckedCreateWithoutRequisitosInput>
+}
+
+export type TramiteUpsertWithoutRequisitosInput = {
+  update: Prisma.XOR<Prisma.TramiteUpdateWithoutRequisitosInput, Prisma.TramiteUncheckedUpdateWithoutRequisitosInput>
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutRequisitosInput, Prisma.TramiteUncheckedCreateWithoutRequisitosInput>
+  where?: Prisma.TramiteWhereInput
+}
+
+export type TramiteUpdateToOneWithWhereWithoutRequisitosInput = {
+  where?: Prisma.TramiteWhereInput
+  data: Prisma.XOR<Prisma.TramiteUpdateWithoutRequisitosInput, Prisma.TramiteUncheckedUpdateWithoutRequisitosInput>
+}
+
+export type TramiteUpdateWithoutRequisitosInput = {
   codigo?: Prisma.IntFieldUpdateOperationsInput | number
   codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalidad?: Prisma.StringFieldUpdateOperationsInput | string
   plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
   modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
   baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutTramitesNestedInput
+  cliente?: Prisma.UsuarioUpdateOneWithoutTramitesComoClienteNestedInput
+  tramitador?: Prisma.UsuarioUpdateOneRequiredWithoutTramitesComoTramitadorNestedInput
+  pasos?: Prisma.PasoProcedimientoUpdateManyWithoutTramiteNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUpdateManyWithoutTramitesNestedInput
+}
+
+export type TramiteUncheckedUpdateWithoutRequisitosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  clienteId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tramitadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pasos?: Prisma.PasoProcedimientoUncheckedUpdateManyWithoutTramiteNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUncheckedUpdateManyWithoutTramitesNestedInput
+}
+
+export type TramiteCreateWithoutPasosInput = {
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  institucion: Prisma.InstitucionCreateNestedOneWithoutTramitesInput
+  cliente?: Prisma.UsuarioCreateNestedOneWithoutTramitesComoClienteInput
+  tramitador: Prisma.UsuarioCreateNestedOneWithoutTramitesComoTramitadorInput
+  requisitos?: Prisma.RequisitoTramiteCreateNestedManyWithoutTramiteInput
+  documentosEntregables?: Prisma.DocumentoEntregableCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaCreateNestedManyWithoutTramitesInput
+}
+
+export type TramiteUncheckedCreateWithoutPasosInput = {
+  id?: number
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  institucionId: number
+  clienteId?: number | null
+  tramitadorId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  requisitos?: Prisma.RequisitoTramiteUncheckedCreateNestedManyWithoutTramiteInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedCreateNestedManyWithoutTramiteInput
+  oficinas?: Prisma.OficinaUncheckedCreateNestedManyWithoutTramitesInput
+}
+
+export type TramiteCreateOrConnectWithoutPasosInput = {
+  where: Prisma.TramiteWhereUniqueInput
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutPasosInput, Prisma.TramiteUncheckedCreateWithoutPasosInput>
+}
+
+export type TramiteUpsertWithoutPasosInput = {
+  update: Prisma.XOR<Prisma.TramiteUpdateWithoutPasosInput, Prisma.TramiteUncheckedUpdateWithoutPasosInput>
+  create: Prisma.XOR<Prisma.TramiteCreateWithoutPasosInput, Prisma.TramiteUncheckedCreateWithoutPasosInput>
+  where?: Prisma.TramiteWhereInput
+}
+
+export type TramiteUpdateToOneWithWhereWithoutPasosInput = {
+  where?: Prisma.TramiteWhereInput
+  data: Prisma.XOR<Prisma.TramiteUpdateWithoutPasosInput, Prisma.TramiteUncheckedUpdateWithoutPasosInput>
+}
+
+export type TramiteUpdateWithoutPasosInput = {
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutTramitesNestedInput
+  cliente?: Prisma.UsuarioUpdateOneWithoutTramitesComoClienteNestedInput
+  tramitador?: Prisma.UsuarioUpdateOneRequiredWithoutTramitesComoTramitadorNestedInput
+  requisitos?: Prisma.RequisitoTramiteUpdateManyWithoutTramiteNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUpdateManyWithoutTramitesNestedInput
+}
+
+export type TramiteUncheckedUpdateWithoutPasosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  clienteId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tramitadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requisitos?: Prisma.RequisitoTramiteUncheckedUpdateManyWithoutTramiteNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUncheckedUpdateManyWithoutTramitesNestedInput
+}
+
+export type TramiteCreateManyInstitucionInput = {
+  id?: number
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  clienteId?: number | null
+  tramitadorId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type TramiteUpdateWithoutInstitucionInput = {
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cliente?: Prisma.UsuarioUpdateOneWithoutTramitesComoClienteNestedInput
+  tramitador?: Prisma.UsuarioUpdateOneRequiredWithoutTramitesComoTramitadorNestedInput
+  requisitos?: Prisma.RequisitoTramiteUpdateManyWithoutTramiteNestedInput
+  pasos?: Prisma.PasoProcedimientoUpdateManyWithoutTramiteNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUpdateManyWithoutTramitesNestedInput
+}
+
+export type TramiteUncheckedUpdateWithoutInstitucionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clienteId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tramitadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requisitos?: Prisma.RequisitoTramiteUncheckedUpdateManyWithoutTramiteNestedInput
+  pasos?: Prisma.PasoProcedimientoUncheckedUpdateManyWithoutTramiteNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUncheckedUpdateManyWithoutTramitesNestedInput
+}
+
+export type TramiteUncheckedUpdateManyWithoutInstitucionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clienteId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tramitadorId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1258,60 +1653,239 @@ export type TramiteUpdateWithoutOficinasInput = {
   codigo?: Prisma.IntFieldUpdateOperationsInput | number
   codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalidad?: Prisma.StringFieldUpdateOperationsInput | string
   plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
   modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
   baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutTramitesNestedInput
+  cliente?: Prisma.UsuarioUpdateOneWithoutTramitesComoClienteNestedInput
+  tramitador?: Prisma.UsuarioUpdateOneRequiredWithoutTramitesComoTramitadorNestedInput
   requisitos?: Prisma.RequisitoTramiteUpdateManyWithoutTramiteNestedInput
   pasos?: Prisma.PasoProcedimientoUpdateManyWithoutTramiteNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutTramitesNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUpdateManyWithoutTramiteNestedInput
 }
 
 export type TramiteUncheckedUpdateWithoutOficinasInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
   codigo?: Prisma.IntFieldUpdateOperationsInput | number
   codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalidad?: Prisma.StringFieldUpdateOperationsInput | string
   plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
   modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
   baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  clienteId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tramitadorId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requisitos?: Prisma.RequisitoTramiteUncheckedUpdateManyWithoutTramiteNestedInput
   pasos?: Prisma.PasoProcedimientoUncheckedUpdateManyWithoutTramiteNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedUpdateManyWithoutTramiteNestedInput
 }
 
 export type TramiteUncheckedUpdateManyWithoutOficinasInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
   codigo?: Prisma.IntFieldUpdateOperationsInput | number
   codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  institucionResponsable?: Prisma.StringFieldUpdateOperationsInput | string
-  oficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   finalidad?: Prisma.StringFieldUpdateOperationsInput | string
   plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
   modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
   notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  documentosEntregables?: Prisma.TramiteUpdatedocumentosEntregablesInput | string[]
   baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaActualizacionOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  clienteId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tramitadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type TramiteCreateManyClienteInput = {
+  id?: number
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  institucionId: number
+  tramitadorId: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type TramiteCreateManyTramitadorInput = {
+  id?: number
+  codigo: number
+  codigoOficial?: string | null
+  titulo: string
+  finalidad: string
+  plazoEntregaDias: number
+  modalidad: $Enums.ModalidadTramite
+  notaRequisitos?: string | null
+  baseLegal?: string | null
+  videoLsbUrl?: string | null
+  audioQuechuaUrl?: string | null
+  fechaActualizacionOficial?: Date | string | null
+  institucionId: number
+  clienteId?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type TramiteUpdateWithoutClienteInput = {
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutTramitesNestedInput
+  tramitador?: Prisma.UsuarioUpdateOneRequiredWithoutTramitesComoTramitadorNestedInput
+  requisitos?: Prisma.RequisitoTramiteUpdateManyWithoutTramiteNestedInput
+  pasos?: Prisma.PasoProcedimientoUpdateManyWithoutTramiteNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUpdateManyWithoutTramitesNestedInput
+}
+
+export type TramiteUncheckedUpdateWithoutClienteInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  tramitadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requisitos?: Prisma.RequisitoTramiteUncheckedUpdateManyWithoutTramiteNestedInput
+  pasos?: Prisma.PasoProcedimientoUncheckedUpdateManyWithoutTramiteNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUncheckedUpdateManyWithoutTramitesNestedInput
+}
+
+export type TramiteUncheckedUpdateManyWithoutClienteInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  tramitadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type TramiteUpdateWithoutTramitadorInput = {
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutTramitesNestedInput
+  cliente?: Prisma.UsuarioUpdateOneWithoutTramitesComoClienteNestedInput
+  requisitos?: Prisma.RequisitoTramiteUpdateManyWithoutTramiteNestedInput
+  pasos?: Prisma.PasoProcedimientoUpdateManyWithoutTramiteNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUpdateManyWithoutTramitesNestedInput
+}
+
+export type TramiteUncheckedUpdateWithoutTramitadorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  clienteId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requisitos?: Prisma.RequisitoTramiteUncheckedUpdateManyWithoutTramiteNestedInput
+  pasos?: Prisma.PasoProcedimientoUncheckedUpdateManyWithoutTramiteNestedInput
+  documentosEntregables?: Prisma.DocumentoEntregableUncheckedUpdateManyWithoutTramiteNestedInput
+  oficinas?: Prisma.OficinaUncheckedUpdateManyWithoutTramitesNestedInput
+}
+
+export type TramiteUncheckedUpdateManyWithoutTramitadorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  codigo?: Prisma.IntFieldUpdateOperationsInput | number
+  codigoOficial?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  finalidad?: Prisma.StringFieldUpdateOperationsInput | string
+  plazoEntregaDias?: Prisma.IntFieldUpdateOperationsInput | number
+  modalidad?: Prisma.EnumModalidadTramiteFieldUpdateOperationsInput | $Enums.ModalidadTramite
+  notaRequisitos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoLsbUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioQuechuaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaActualizacionOficial?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  clienteId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1325,12 +1899,14 @@ export type TramiteUncheckedUpdateManyWithoutOficinasInput = {
 export type TramiteCountOutputType = {
   requisitos: number
   pasos: number
+  documentosEntregables: number
   oficinas: number
 }
 
 export type TramiteCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   requisitos?: boolean | TramiteCountOutputTypeCountRequisitosArgs
   pasos?: boolean | TramiteCountOutputTypeCountPasosArgs
+  documentosEntregables?: boolean | TramiteCountOutputTypeCountDocumentosEntregablesArgs
   oficinas?: boolean | TramiteCountOutputTypeCountOficinasArgs
 }
 
@@ -1361,136 +1937,165 @@ export type TramiteCountOutputTypeCountPasosArgs<ExtArgs extends runtime.Types.E
 /**
  * TramiteCountOutputType without action
  */
+export type TramiteCountOutputTypeCountDocumentosEntregablesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DocumentoEntregableWhereInput
+}
+
+/**
+ * TramiteCountOutputType without action
+ */
 export type TramiteCountOutputTypeCountOficinasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DireccionWhereInput
+  where?: Prisma.OficinaWhereInput
 }
 
 
 export type TramiteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  usuarioId?: boolean
   codigo?: boolean
   codigoOficial?: boolean
   titulo?: boolean
-  institucionResponsable?: boolean
-  oficina?: boolean
   finalidad?: boolean
   plazoEntregaDias?: boolean
   modalidad?: boolean
   notaRequisitos?: boolean
-  documentosEntregables?: boolean
   baseLegal?: boolean
+  videoLsbUrl?: boolean
+  audioQuechuaUrl?: boolean
   fechaActualizacionOficial?: boolean
+  institucionId?: boolean
+  clienteId?: boolean
+  tramitadorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  cliente?: boolean | Prisma.Tramite$clienteArgs<ExtArgs>
+  tramitador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   requisitos?: boolean | Prisma.Tramite$requisitosArgs<ExtArgs>
   pasos?: boolean | Prisma.Tramite$pasosArgs<ExtArgs>
+  documentosEntregables?: boolean | Prisma.Tramite$documentosEntregablesArgs<ExtArgs>
   oficinas?: boolean | Prisma.Tramite$oficinasArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.TramiteCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tramite"]>
 
 export type TramiteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  usuarioId?: boolean
   codigo?: boolean
   codigoOficial?: boolean
   titulo?: boolean
-  institucionResponsable?: boolean
-  oficina?: boolean
   finalidad?: boolean
   plazoEntregaDias?: boolean
   modalidad?: boolean
   notaRequisitos?: boolean
-  documentosEntregables?: boolean
   baseLegal?: boolean
+  videoLsbUrl?: boolean
+  audioQuechuaUrl?: boolean
   fechaActualizacionOficial?: boolean
+  institucionId?: boolean
+  clienteId?: boolean
+  tramitadorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  cliente?: boolean | Prisma.Tramite$clienteArgs<ExtArgs>
+  tramitador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tramite"]>
 
 export type TramiteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  usuarioId?: boolean
   codigo?: boolean
   codigoOficial?: boolean
   titulo?: boolean
-  institucionResponsable?: boolean
-  oficina?: boolean
   finalidad?: boolean
   plazoEntregaDias?: boolean
   modalidad?: boolean
   notaRequisitos?: boolean
-  documentosEntregables?: boolean
   baseLegal?: boolean
+  videoLsbUrl?: boolean
+  audioQuechuaUrl?: boolean
   fechaActualizacionOficial?: boolean
+  institucionId?: boolean
+  clienteId?: boolean
+  tramitadorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  cliente?: boolean | Prisma.Tramite$clienteArgs<ExtArgs>
+  tramitador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tramite"]>
 
 export type TramiteSelectScalar = {
   id?: boolean
-  usuarioId?: boolean
   codigo?: boolean
   codigoOficial?: boolean
   titulo?: boolean
-  institucionResponsable?: boolean
-  oficina?: boolean
   finalidad?: boolean
   plazoEntregaDias?: boolean
   modalidad?: boolean
   notaRequisitos?: boolean
-  documentosEntregables?: boolean
   baseLegal?: boolean
+  videoLsbUrl?: boolean
+  audioQuechuaUrl?: boolean
   fechaActualizacionOficial?: boolean
+  institucionId?: boolean
+  clienteId?: boolean
+  tramitadorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type TramiteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "usuarioId" | "codigo" | "codigoOficial" | "titulo" | "institucionResponsable" | "oficina" | "finalidad" | "plazoEntregaDias" | "modalidad" | "notaRequisitos" | "documentosEntregables" | "baseLegal" | "fechaActualizacionOficial" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["tramite"]>
+export type TramiteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "codigo" | "codigoOficial" | "titulo" | "finalidad" | "plazoEntregaDias" | "modalidad" | "notaRequisitos" | "baseLegal" | "videoLsbUrl" | "audioQuechuaUrl" | "fechaActualizacionOficial" | "institucionId" | "clienteId" | "tramitadorId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["tramite"]>
 export type TramiteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  cliente?: boolean | Prisma.Tramite$clienteArgs<ExtArgs>
+  tramitador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   requisitos?: boolean | Prisma.Tramite$requisitosArgs<ExtArgs>
   pasos?: boolean | Prisma.Tramite$pasosArgs<ExtArgs>
+  documentosEntregables?: boolean | Prisma.Tramite$documentosEntregablesArgs<ExtArgs>
   oficinas?: boolean | Prisma.Tramite$oficinasArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.TramiteCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TramiteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  cliente?: boolean | Prisma.Tramite$clienteArgs<ExtArgs>
+  tramitador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type TramiteIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  cliente?: boolean | Prisma.Tramite$clienteArgs<ExtArgs>
+  tramitador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 
 export type $TramitePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Tramite"
   objects: {
+    institucion: Prisma.$InstitucionPayload<ExtArgs>
+    cliente: Prisma.$UsuarioPayload<ExtArgs> | null
+    tramitador: Prisma.$UsuarioPayload<ExtArgs>
     requisitos: Prisma.$RequisitoTramitePayload<ExtArgs>[]
     pasos: Prisma.$PasoProcedimientoPayload<ExtArgs>[]
-    oficinas: Prisma.$DireccionPayload<ExtArgs>[]
-    usuario: Prisma.$UsuarioPayload<ExtArgs>
+    documentosEntregables: Prisma.$DocumentoEntregablePayload<ExtArgs>[]
+    oficinas: Prisma.$OficinaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    usuarioId: number
     codigo: number
     codigoOficial: string | null
     titulo: string
-    institucionResponsable: string
-    oficina: string | null
     finalidad: string
     plazoEntregaDias: number
     modalidad: $Enums.ModalidadTramite
     notaRequisitos: string | null
-    documentosEntregables: string[]
     baseLegal: string | null
-    fechaActualizacionOficial: string | null
+    videoLsbUrl: string | null
+    audioQuechuaUrl: string | null
+    fechaActualizacionOficial: Date | null
+    institucionId: number
+    clienteId: number | null
+    tramitadorId: number
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -1888,10 +2493,13 @@ readonly fields: TramiteFieldRefs;
  */
 export interface Prisma__TramiteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  cliente<T extends Prisma.Tramite$clienteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tramite$clienteArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tramitador<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   requisitos<T extends Prisma.Tramite$requisitosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tramite$requisitosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequisitoTramitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pasos<T extends Prisma.Tramite$pasosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tramite$pasosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasoProcedimientoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  oficinas<T extends Prisma.Tramite$oficinasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tramite$oficinasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DireccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  documentosEntregables<T extends Prisma.Tramite$documentosEntregablesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tramite$documentosEntregablesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentoEntregablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  oficinas<T extends Prisma.Tramite$oficinasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tramite$oficinasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OficinaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1922,19 +2530,20 @@ export interface Prisma__TramiteClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface TramiteFieldRefs {
   readonly id: Prisma.FieldRef<"Tramite", 'Int'>
-  readonly usuarioId: Prisma.FieldRef<"Tramite", 'Int'>
   readonly codigo: Prisma.FieldRef<"Tramite", 'Int'>
   readonly codigoOficial: Prisma.FieldRef<"Tramite", 'String'>
   readonly titulo: Prisma.FieldRef<"Tramite", 'String'>
-  readonly institucionResponsable: Prisma.FieldRef<"Tramite", 'String'>
-  readonly oficina: Prisma.FieldRef<"Tramite", 'String'>
   readonly finalidad: Prisma.FieldRef<"Tramite", 'String'>
   readonly plazoEntregaDias: Prisma.FieldRef<"Tramite", 'Int'>
   readonly modalidad: Prisma.FieldRef<"Tramite", 'ModalidadTramite'>
   readonly notaRequisitos: Prisma.FieldRef<"Tramite", 'String'>
-  readonly documentosEntregables: Prisma.FieldRef<"Tramite", 'String[]'>
   readonly baseLegal: Prisma.FieldRef<"Tramite", 'String'>
-  readonly fechaActualizacionOficial: Prisma.FieldRef<"Tramite", 'String'>
+  readonly videoLsbUrl: Prisma.FieldRef<"Tramite", 'String'>
+  readonly audioQuechuaUrl: Prisma.FieldRef<"Tramite", 'String'>
+  readonly fechaActualizacionOficial: Prisma.FieldRef<"Tramite", 'DateTime'>
+  readonly institucionId: Prisma.FieldRef<"Tramite", 'Int'>
+  readonly clienteId: Prisma.FieldRef<"Tramite", 'Int'>
+  readonly tramitadorId: Prisma.FieldRef<"Tramite", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Tramite", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Tramite", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Tramite", 'DateTime'>
@@ -2339,6 +2948,25 @@ export type TramiteDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Tramite.cliente
+ */
+export type Tramite$clienteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Usuario
+   */
+  select?: Prisma.UsuarioSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Usuario
+   */
+  omit?: Prisma.UsuarioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioInclude<ExtArgs> | null
+  where?: Prisma.UsuarioWhereInput
+}
+
+/**
  * Tramite.requisitos
  */
 export type Tramite$requisitosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2387,27 +3015,51 @@ export type Tramite$pasosArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
+ * Tramite.documentosEntregables
+ */
+export type Tramite$documentosEntregablesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DocumentoEntregable
+   */
+  select?: Prisma.DocumentoEntregableSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DocumentoEntregable
+   */
+  omit?: Prisma.DocumentoEntregableOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentoEntregableInclude<ExtArgs> | null
+  where?: Prisma.DocumentoEntregableWhereInput
+  orderBy?: Prisma.DocumentoEntregableOrderByWithRelationInput | Prisma.DocumentoEntregableOrderByWithRelationInput[]
+  cursor?: Prisma.DocumentoEntregableWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DocumentoEntregableScalarFieldEnum | Prisma.DocumentoEntregableScalarFieldEnum[]
+}
+
+/**
  * Tramite.oficinas
  */
 export type Tramite$oficinasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Direccion
+   * Select specific fields to fetch from the Oficina
    */
-  select?: Prisma.DireccionSelect<ExtArgs> | null
+  select?: Prisma.OficinaSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Direccion
+   * Omit specific fields from the Oficina
    */
-  omit?: Prisma.DireccionOmit<ExtArgs> | null
+  omit?: Prisma.OficinaOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.DireccionInclude<ExtArgs> | null
-  where?: Prisma.DireccionWhereInput
-  orderBy?: Prisma.DireccionOrderByWithRelationInput | Prisma.DireccionOrderByWithRelationInput[]
-  cursor?: Prisma.DireccionWhereUniqueInput
+  include?: Prisma.OficinaInclude<ExtArgs> | null
+  where?: Prisma.OficinaWhereInput
+  orderBy?: Prisma.OficinaOrderByWithRelationInput | Prisma.OficinaOrderByWithRelationInput[]
+  cursor?: Prisma.OficinaWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.DireccionScalarFieldEnum | Prisma.DireccionScalarFieldEnum[]
+  distinct?: Prisma.OficinaScalarFieldEnum | Prisma.OficinaScalarFieldEnum[]
 }
 
 /**

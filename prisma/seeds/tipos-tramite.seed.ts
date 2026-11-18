@@ -1,19 +1,9 @@
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import type { Prisma, PrismaClient } from '../../src/generated/prisma/client';
-
-interface OficinaSeed {
-  codigoOficina: string;
-  nombreOficina: string;
-  departamento: string;
-  provincia: string;
-  municipio: string;
-  zonaOComunidad: string;
-  calleOAvenida: string;
-  numeroPuerta?: string;
-  latitud?: number;
-  longitud?: number;
-}
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import {
+  ModalidadTramite,
+  type PrismaClient,
+} from "../../src/generated/prisma/client";
 
 interface RequisitoSeed {
   nombre: string;
@@ -35,7 +25,6 @@ interface TramiteSeed {
   codigoOficial?: string | null;
   titulo: string;
   institucionResponsable: string;
-  oficina?: string | null;
   finalidad: string;
   plazoEntregaDias: number;
   modalidad: string;
@@ -48,117 +37,135 @@ interface TramiteSeed {
   oficinas: string[];
 }
 
-const OFICINAS_BASE: OficinaSeed[] = [
-  {
-    codigoOficina: 'CHQ-SUCRE-CENTRAL',
-    nombreOficina: 'Oficina Central de Sucre',
-    departamento: 'Chuquisaca',
-    provincia: 'Oropeza',
-    municipio: 'Sucre',
-    zonaOComunidad: 'Centro (Atención: Lunes a Viernes 08:00 - 16:00)',
-    calleOAvenida: 'Av. Venezuela esq. Ladislao Cabrera (edificio TDJ)',
-    numeroPuerta: 'S/N',
-    latitud: -19.04295,
-    longitud: -65.25548,
+const OFICINAS_SEED: Record<
+  string,
+  { nombre: string; direccion: string; telefono: string }
+> = {
+  "CHQ-SUCRE-CENTRAL": {
+    nombre: "Oficina Central de Sucre",
+    direccion: "Av. Venezuela esq. Ladislao Cabrera (edificio TDJ)",
+    telefono: "+591 4 1234567",
   },
-];
+};
 
-const LEGACY_OFFICE_CODES = [
-  'LPZ-CENTRAL',
-  'CBB-CENTRAL',
-  'SCZ-CENTRAL',
-  'CHQ-SUCRE-MODULO',
-] as const;
-
-function mapModalidad(modalidad: string): 'PRESENCIAL' | 'VIRTUAL' | 'MIXTA' {
+function mapModalidad(modalidad: string): ModalidadTramite {
   switch (modalidad) {
-    case 'Presencial':
-    case 'PRESENCIAL':
-      return 'PRESENCIAL';
-    case 'En línea':
-    case 'VIRTUAL':
-      return 'VIRTUAL';
-    case 'Mixto':
-    case 'MIXTA':
-      return 'MIXTA';
+    case "Presencial":
+    case "PRESENCIAL":
+      return ModalidadTramite.PRESENCIAL;
+    case "En línea":
+    case "VIRTUAL":
+      return ModalidadTramite.VIRTUAL;
+    case "Mixto":
+    case "MIXTA":
+      return ModalidadTramite.MIXTA;
     default:
       throw new Error(`Unsupported procedure modality in seed: ${modalidad}`);
   }
 }
 
-async function loadTiposTramite(): Promise<TramiteSeed[]> {
-  const jsonPath = join(process.cwd(), 'prisma', 'data', 'tramites.json');
-  const tramites = JSON.parse(
-    await readFile(jsonPath, 'utf8'),
-  ) as TramiteSeed[];
-  if (
-    tramites.length !== 1 ||
-    tramites[0].codigoOficial !== '1' ||
-    tramites[0].oficinas.length !== 1 ||
-    tramites[0].oficinas[0] !== 'CHQ-SUCRE-CENTRAL'
-  ) {
-    throw new Error(
-      'The Sucre seed must contain exactly the official procedure 1 and the CHQ-SUCRE-CENTRAL office.',
-    );
+function parseFechaActualizacion(value?: string | null): Date | null {
+  if (!value) {
+    return null;
   }
-  return tramites;
+  const fecha = new Date(value);
+  if (Number.isNaN(fecha.getTime())) {
+    throw new Error(`Invalid official update date in seed: ${value}`);
+  }
+  return fecha;
 }
 
 export async function seedTiposTramite(
   prisma: PrismaClient,
   usuarioId: number,
+  municipioSucreId: number,
 ): Promise<void> {
-  const tramites = await loadTiposTramite();
-
-  await prisma.direccion.deleteMany({
-    where: { codigoOficina: { in: [...LEGACY_OFFICE_CODES] } },
-  });
-
-  for (const oficina of OFICINAS_BASE) {
-    const { codigoOficina, ...datosOficina } = oficina;
-    await prisma.direccion.upsert({
-      where: { codigoOficina },
-      create: { codigoOficina, ...datosOficina },
-      update: datosOficina,
-    });
-  }
+  const jsonPath = join(process.cwd(), "prisma", "data", "tramites.json");
+  const tramites = JSON.parse(
+    await readFile(jsonPath, "utf8"),
+  ) as TramiteSeed[];
 
   for (const tramite of tramites) {
-    const { requisitos, pasos, oficinas, modalidad, ...datosTramite } = tramite;
-    const datosFicha: Prisma.TramiteUncheckedCreateInput = {
-      ...datosTramite,
-      usuarioId,
-      deletedAt: null,
+    const institucion = await prisma.institucion.upsert({
+      where: { nombre: tramite.institucionResponsable },
+      update: {},
+      create: { nombre: tramite.institucionResponsable },
+    });
+
+    const oficinaIds = await Promise.all(
+      tramite.oficinas.map(async (codigoOficina) => {
+        const datosOficina = OFICINAS_SEED[codigoOficina];
+        if (!datosOficina) {
+          throw new Error(`Unknown office code in seed: ${codigoOficina}`);
+        }
+
+        const oficina = await prisma.oficina.upsert({
+          where: { codigoOficina },
+          update: { ...datosOficina, municipioId: municipioSucreId },
+          create: {
+            codigoOficina,
+            ...datosOficina,
+            municipioId: municipioSucreId,
+          },
+          select: { id: true },
+        });
+        return { id: oficina.id };
+      }),
+    );
+
+    const datosTramite = {
       codigoOficial: tramite.codigoOficial ?? null,
-      oficina: tramite.oficina ?? null,
-      modalidad: mapModalidad(modalidad),
+      titulo: tramite.titulo,
+      finalidad: tramite.finalidad,
+      plazoEntregaDias: tramite.plazoEntregaDias,
+      modalidad: mapModalidad(tramite.modalidad),
       notaRequisitos: tramite.notaRequisitos ?? null,
-      documentosEntregables: tramite.documentosEntregables ?? [],
-      fechaActualizacionOficial: tramite.fechaActualizacionOficial ?? null,
+      baseLegal: tramite.baseLegal,
+      fechaActualizacionOficial: parseFechaActualizacion(
+        tramite.fechaActualizacionOficial,
+      ),
+      institucion: { connect: { id: institucion.id } },
+      tramitador: { connect: { id: usuarioId } },
     };
-    const relacionesOficina = oficinas.map((codigoOficina) => ({
-      codigoOficina,
+    const requisitos = tramite.requisitos.map((requisito) => ({
+      nombre: requisito.nombre,
+      detalle: requisito.detalle,
+      obligatorio: requisito.obligatorio,
+      orden: requisito.orden,
+      notaCondicional: requisito.notaCondicional ?? null,
     }));
+    const pasos = tramite.pasos.map((paso) => ({
+      orden: paso.orden,
+      titulo: paso.titulo,
+      descripcion: paso.descripcion,
+      plazoDias: paso.plazoDias,
+    }));
+    const documentosEntregables = (tramite.documentosEntregables ?? []).map(
+      (nombre) => ({ nombre }),
+    );
 
     await prisma.tramite.upsert({
       where: { codigo: tramite.codigo },
       create: {
-        ...datosFicha,
+        ...datosTramite,
+        codigo: tramite.codigo,
         requisitos: { create: requisitos },
         pasos: { create: pasos },
-        oficinas: { connect: relacionesOficina },
+        documentosEntregables: { create: documentosEntregables },
+        oficinas: { connect: oficinaIds },
       },
       update: {
-        ...datosFicha,
-        deletedAt: null,
+        ...datosTramite,
         requisitos: { deleteMany: {}, create: requisitos },
         pasos: { deleteMany: {}, create: pasos },
-        oficinas: { set: relacionesOficina },
+        documentosEntregables: {
+          deleteMany: {},
+          create: documentosEntregables,
+        },
+        oficinas: { set: oficinaIds },
       },
     });
   }
 
-  console.info(
-    `Seeded ${OFICINAS_BASE.length} offices and ${tramites.length} procedure types.`,
-  );
+  console.info(`Seeded ${tramites.length} procedure types.`);
 }

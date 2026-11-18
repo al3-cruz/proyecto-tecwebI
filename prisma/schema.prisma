@@ -7,6 +7,10 @@ datasource db {
   provider = "postgresql"
 }
 
+// ==========================================
+// ENUMS (Catálogos Fijos)
+// ==========================================
+
 enum ModalidadTramite {
   PRESENCIAL
   VIRTUAL
@@ -32,68 +36,259 @@ enum TipoRequisitoCompraventa {
   PODER_NOTARIADO
 }
 
-model Tramite {
-  id                        Int                 @id @default(autoincrement())
-  usuarioId                 Int
-  codigo                    Int                 @unique
-  codigoOficial             String?             @db.VarChar(20)
-  titulo                    String              @db.VarChar(240)
-  institucionResponsable    String              @default("Registro Público de Derechos Reales") @db.Text
-  oficina                   String?             @db.VarChar(160)
-  finalidad                 String              @db.Text
-  plazoEntregaDias          Int
-  modalidad                 ModalidadTramite
-  notaRequisitos            String?             @db.Text
-  documentosEntregables     String[]            @default([])
-  baseLegal                 String?             @db.Text
-  fechaActualizacionOficial String?             @db.VarChar(80)
-  createdAt                 DateTime            @default(now())
-  updatedAt                 DateTime            @updatedAt
-  deletedAt                 DateTime?
-  requisitos                RequisitoTramite[]
-  pasos                     PasoProcedimiento[]
-  oficinas                  Direccion[]         @relation("TramiteOficinas")
-  usuario                   Usuario             @relation(fields: [usuarioId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  @@index([codigo])
-  @@index([modalidad])
-  @@index([plazoEntregaDias])
-  @@index([usuarioId, id])
-  @@index([deletedAt])
+enum TipoUbicacion {
+  DEPARTAMENTO
+  PROVINCIA
+  MUNICIPIO
 }
+
+enum TipoProfesional {
+  ABOGADO_GESTOR
+  NOTARIO
+  ASESOR_JUNIOR
+}
+
+enum MetodoPago {
+  QR
+  PRESENCIAL
+}
+
+enum EstadoPago {
+  PENDIENTE
+  APROBADO
+  RECHAZADO
+}
+
+// ==========================================
+// CATÁLOGOS MAESTROS
+// ==========================================
+
+model Ubicacion {
+  id        Int           @id @default(autoincrement())
+  nombre    String        @db.VarChar(100)
+  tipo      TipoUbicacion
+  
+  padreId   Int?
+  padre     Ubicacion?    @relation("JerarquiaUbicacion", fields: [padreId], references: [id])
+  hijos     Ubicacion[]   @relation("JerarquiaUbicacion")
+  
+  oficinas  Oficina[]
+  direcciones Direccion[]
+
+  @@index([padreId])
+}
+
+model Institucion {
+  id        Int       @id @default(autoincrement())
+  nombre    String    @unique @db.VarChar(160)
+  tramites  Tramite[]
+}
+
+model Oficina {
+  id             Int       @id @default(autoincrement())
+  codigoOficina  String    @unique @db.VarChar(40)
+  nombre         String    @db.VarChar(160)
+  direccion      String    @db.VarChar(250)
+  telefono       String?   @db.VarChar(40)
+  latitud        Float?
+  longitud       Float?
+  
+  municipioId    Int
+  municipio      Ubicacion @relation(fields: [municipioId], references: [id])
+  
+  tramites       Tramite[] @relation("TramiteOficinas")
+}
+
+model Plan {
+  id             Int           @id @default(autoincrement())
+  nombre         String        @unique @db.VarChar(80)
+  precio         Decimal       @db.Decimal(10, 2)
+  esParaProfesional Boolean    @default(false)
+  suscripciones  Suscripcion[]
+}
+
+// ==========================================
+// SEGURIDAD Y USUARIOS (RBAC)
+// ==========================================
 
 model Usuario {
   id           Int                  @id @default(autoincrement())
   email        String               @unique @db.VarChar(254)
   passwordHash String               @db.VarChar(255)
+  telefono     String?              @db.VarChar(40)
   createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
   deletedAt    DateTime?
-  tramites     Tramite[]
+  
   roles        Rol[]                @relation("UsuarioRoles")
-  compraventas TramiteCompraventa[]
-  auditLogs    AuditLog[]
+  direcciones  Direccion[]
+  suscripcion  Suscripcion?
+  
+  tramitesComoCliente     Tramite[] @relation("TramiteCliente")
+  tramitesComoTramitador  Tramite[] @relation("TramiteTramitador")
+  compraventas            TramiteCompraventa[]
+  perfilProfesional       PerfilProfesional?
+  pagosRealizados         Pago[]
+  mensajesBitacora        MensajeTramite[]
+  auditLogs               AuditLog[]
 
   @@index([deletedAt])
 }
 
 model Rol {
-  id        Int       @id @default(autoincrement())
-  codigo    String    @unique @db.VarChar(80)
-  nombre    String    @db.VarChar(120)
-  usuarios  Usuario[] @relation("UsuarioRoles")
-  permisos  Permiso[] @relation("RolPermisos")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id          Int           @id @default(autoincrement())
+  codigo      String        @unique @db.VarChar(80)
+  nombre      String        @db.VarChar(120)
+  usuarios    Usuario[]     @relation("UsuarioRoles")
+  permisos    RolPermiso[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 }
 
 model Permiso {
-  id          Int      @id @default(autoincrement())
-  codigo      String   @unique @db.VarChar(120)
-  descripcion String   @db.VarChar(240)
-  roles       Rol[]    @relation("RolPermisos")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id          Int           @id @default(autoincrement())
+  codigo      String        @unique @db.VarChar(120)
+  descripcion String        @db.VarChar(240)
+  roles       RolPermiso[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 }
+
+model RolPermiso {
+  rolId     Int
+  permisoId Int
+  rol       Rol     @relation(fields: [rolId], references: [id], onDelete: Cascade)
+  permiso   Permiso @relation(fields: [permisoId], references: [id], onDelete: Cascade)
+
+  @@id([rolId, permisoId])
+}
+
+model PerfilProfesional {
+  id                Int             @id @default(autoincrement())
+  usuarioId         Int             @unique
+  usuario           Usuario         @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  tipo              TipoProfesional
+  matricula         String          @db.VarChar(100)
+  especialidad      String?         @db.VarChar(200)
+  tarifaReferencial Decimal?        @db.Decimal(10, 2)
+  
+  verificado        Boolean         @default(false)
+  destacado         Boolean         @default(false)
+  
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model Suscripcion {
+  id           Int         @id @default(autoincrement())
+  usuarioId    Int         @unique
+  usuario      Usuario     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  planId       Int
+  plan         Plan        @relation(fields: [planId], references: [id])
+  fechaInicio  DateTime    @default(now())
+  fechaFin     DateTime
+  activa       Boolean     @default(true)
+  deletedAt    DateTime?
+
+  @@index([deletedAt])
+}
+
+model Pago {
+  id             Int          @id @default(autoincrement())
+  usuarioId      Int
+  usuario        Usuario      @relation(fields: [usuarioId], references: [id])
+  monto          Decimal      @db.Decimal(10, 2)
+  metodo         MetodoPago
+  estado         EstadoPago   @default(PENDIENTE)
+  comprobanteUrl String?      @db.VarChar(500)
+  
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+// ==========================================
+// TRÁMITES (Catálogo)
+// ==========================================
+
+model Tramite {
+  id                        Int                 @id @default(autoincrement())
+  codigo                    Int                 @unique
+  codigoOficial             String?             @unique @db.VarChar(20)
+  titulo                    String              @db.VarChar(240)
+  finalidad                 String              @db.Text
+  plazoEntregaDias          Int
+  modalidad                 ModalidadTramite
+  notaRequisitos            String?             @db.Text
+  baseLegal                 String?             @db.Text
+  
+  videoLsbUrl               String?             @db.VarChar(500)
+  audioQuechuaUrl           String?             @db.VarChar(500)
+  
+  fechaActualizacionOficial DateTime?           
+  
+  institucionId             Int
+  institucion               Institucion         @relation(fields: [institucionId], references: [id])
+  
+  clienteId                 Int?                
+  cliente                   Usuario?            @relation("TramiteCliente", fields: [clienteId], references: [id])
+  tramitadorId              Int                 
+  tramitador                Usuario             @relation("TramiteTramitador", fields: [tramitadorId], references: [id], onDelete: Cascade)
+
+  createdAt                 DateTime            @default(now())
+  updatedAt                 DateTime            @updatedAt
+  deletedAt                 DateTime?
+  
+  requisitos                RequisitoTramite[]
+  pasos                     PasoProcedimiento[]
+  documentosEntregables     DocumentoEntregable[]
+  oficinas                  Oficina[]           @relation("TramiteOficinas")
+
+  @@index([codigo])
+  @@index([clienteId])
+  @@index([tramitadorId, id])
+  @@index([deletedAt])
+}
+
+model DocumentoEntregable {
+  id        Int     @id @default(autoincrement())
+  nombre    String  @db.VarChar(240)
+  tramiteId Int
+  tramite   Tramite @relation(fields: [tramiteId], references: [id], onDelete: Cascade)
+
+  @@index([tramiteId])
+}
+
+model RequisitoTramite {
+  id              Int     @id @default(autoincrement())
+  nombre          String  @db.VarChar(240)
+  detalle         String  @db.Text
+  obligatorio     Boolean @default(true)
+  orden           Int
+  notaCondicional String? @db.Text
+  archivoUrl      String? @db.VarChar(500) 
+  tramiteId       Int
+  tramite         Tramite @relation(fields: [tramiteId], references: [id], onDelete: Cascade)
+
+  @@index([tramiteId])
+}
+
+model PasoProcedimiento {
+  id          Int     @id @default(autoincrement())
+  orden       Int
+  titulo      String  @db.VarChar(240)
+  descripcion String  @db.Text
+  plazoDias   Int?
+  esGratuito  Boolean @default(true) 
+  tramiteId   Int
+  tramite     Tramite @relation(fields: [tramiteId], references: [id], onDelete: Cascade)
+
+  @@index([tramiteId])
+}
+
+// ==========================================
+// COMPRAVENTAS (Transaccional)
+// ==========================================
 
 model SecuenciaTramiteCompraventa {
   anio   Int @id
@@ -107,6 +302,7 @@ model TramiteCompraventa {
   fechaIngreso           DateTime               @default(now())
   fechaEstimadaEntrega   DateTime
   fechaEntregaReal       DateTime?
+  
   vendedorNombre         String                 @db.VarChar(200)
   vendedorDocumento      String                 @db.VarChar(40)
   compradorNombre        String                 @db.VarChar(200)
@@ -116,15 +312,19 @@ model TramiteCompraventa {
   apoderadoNombre        String?                @db.VarChar(200)
   apoderadoDocumento     String?                @db.VarChar(40)
   numeroPoderNotarial    String?                @db.VarChar(100)
+  
   montoArancel           Decimal                @db.Decimal(12, 2)
   arancelPagado          Boolean                @default(false)
   preImpresionConfirmada Boolean                @default(false)
-  observaciones          String?                @db.Text
+  
   estado                 EstadoTramite          @default(VENTANILLA_INFORMACIONES)
   estadoAnterior         EstadoTramite?
+  
   usuarioId              Int
-  usuario                Usuario                @relation(fields: [usuarioId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  usuario                Usuario                @relation(fields: [usuarioId], references: [id], onDelete: Restrict)
+  
   requisitos             RequisitoCompraventa[]
+  bitacora               MensajeTramite[]
   createdAt              DateTime               @default(now())
   updatedAt              DateTime               @updatedAt
   deletedAt              DateTime?
@@ -140,54 +340,45 @@ model RequisitoCompraventa {
   presentoOriginal   Boolean                  @default(false)
   cantidadFotocopias Int                      @default(0)
   verificado         Boolean                  @default(false)
+  archivoUrl         String?                  @db.VarChar(500)
+  
   tramiteId          Int
-  tramite            TramiteCompraventa       @relation(fields: [tramiteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tramite            TramiteCompraventa       @relation(fields: [tramiteId], references: [id], onDelete: Cascade)
 
   @@unique([tramiteId, tipoRequisito])
   @@index([tramiteId, verificado])
 }
 
-model RequisitoTramite {
-  id              Int     @id @default(autoincrement())
-  nombre          String  @db.VarChar(240)
-  detalle         String  @db.Text
-  obligatorio     Boolean @default(true)
-  orden           Int
-  notaCondicional String? @db.Text
-  tramiteId       Int
-  tramite         Tramite @relation(fields: [tramiteId], references: [id], onDelete: Cascade)
-
-  @@index([tramiteId])
-}
-
-model PasoProcedimiento {
-  id          Int     @id @default(autoincrement())
-  orden       Int
-  titulo      String  @db.VarChar(240)
-  descripcion String  @db.Text
-  plazoDias   Int?
+model MensajeTramite {
+  id          Int               @id @default(autoincrement())
   tramiteId   Int
-  tramite     Tramite @relation(fields: [tramiteId], references: [id], onDelete: Cascade)
+  tramite     TramiteCompraventa @relation(fields: [tramiteId], references: [id], onDelete: Cascade)
+  autorId     Int
+  autor       Usuario           @relation(fields: [autorId], references: [id], onDelete: Cascade)
+  mensaje     String            @db.Text
+  createdAt   DateTime          @default(now())
 
   @@index([tramiteId])
 }
+
+// ==========================================
+// DIRECCIONES Y AUDITORÍA
+// ==========================================
 
 model Direccion {
   id             Int       @id @default(autoincrement())
-  codigoOficina  String?   @unique @db.VarChar(40)
-  nombreOficina  String?   @db.VarChar(160)
-  usuarioId      Int?
-  departamento   String    @db.VarChar(100)
-  provincia      String    @db.VarChar(100)
-  municipio      String    @db.VarChar(100)
+  usuarioId      Int?      
+  usuario        Usuario?  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  municipioId    Int
+  municipio      Ubicacion @relation(fields: [municipioId], references: [id])
+  
   zonaOComunidad String    @db.VarChar(160)
   calleOAvenida  String    @db.VarChar(200)
   numeroPuerta   String?   @db.VarChar(40)
-  latitud        Float?
-  longitud       Float?
+  
   fechaRegistro  DateTime  @default(now())
   deletedAt      DateTime?
-  tramites       Tramite[] @relation("TramiteOficinas")
 
   @@index([usuarioId])
   @@index([deletedAt])

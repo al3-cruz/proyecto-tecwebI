@@ -1,14 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ObservacionesController } from './observaciones.controller';
-import { ObservacionesService } from './observaciones.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { ObservacionesController } from "./observaciones.controller";
+import { ObservacionesService } from "./observaciones.service";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
+import { JwtService } from "@nestjs/jwt";
 
-describe('ObservacionesController', () => {
+describe("ObservacionesController", () => {
   let controller: ObservacionesController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ObservacionesController],
       providers: [
+        { provide: JwtAuthGuard, useValue: { canActivate: jest.fn() } },
+        { provide: JwtService, useValue: { verifyAsync: jest.fn() } },
         {
           provide: ObservacionesService,
           useValue: {
@@ -26,7 +30,7 @@ describe('ObservacionesController', () => {
     controller = module.get<ObservacionesController>(ObservacionesController);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 });

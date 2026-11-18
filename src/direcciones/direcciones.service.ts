@@ -2,19 +2,19 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { Prisma } from '../generated/prisma/client';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateDireccionDto } from './dto/create-direccion.dto';
-import { UpdateDireccionDto } from './dto/update-direccion.dto';
-import { CalcularRutaGpsDto } from './dto/calcular-ruta-gps.dto';
+} from "@nestjs/common";
+import { Prisma } from "../generated/prisma/client";
+import { PrismaService } from "../prisma/prisma.service";
+import { CreateDireccionDto } from "./dto/create-direccion.dto";
+import { UpdateDireccionDto } from "./dto/update-direccion.dto";
+import { CalcularRutaGpsDto } from "./dto/calcular-ruta-gps.dto";
 import {
   calcularDistanciaHaversine,
   crearGoogleMapsUrl,
   type GeometriaGeoJson,
   type PasoNavegacion,
   type ResultadoRutaGps,
-} from './ruta-gps.helper';
+} from "./ruta-gps.helper";
 
 export interface OficinaRutaGps {
   id: number;
@@ -58,17 +58,26 @@ interface OsrmResponse {
 }
 
 const direccionInclude = {
-  tramites: {
+  municipio: {
     select: {
       id: true,
-      codigo: true,
-      titulo: true,
+      nombre: true,
+      tipo: true,
+      padre: {
+        select: {
+          id: true,
+          nombre: true,
+          tipo: true,
+          padre: {
+            select: { id: true, nombre: true, tipo: true },
+          },
+        },
+      },
     },
-    orderBy: { codigo: 'asc' },
   },
 } satisfies Prisma.DireccionInclude;
 
-export type DireccionConTramites = Prisma.DireccionGetPayload<{
+export type DireccionConMunicipio = Prisma.DireccionGetPayload<{
   include: typeof direccionInclude;
 }>;
 
@@ -76,19 +85,19 @@ export type DireccionConTramites = Prisma.DireccionGetPayload<{
 export class DireccionesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(usuarioId?: number): Promise<DireccionConTramites[]> {
+  async findAll(usuarioId?: number): Promise<DireccionConMunicipio[]> {
     try {
       return await this.prisma.direccion.findMany({
         where: usuarioId === undefined ? undefined : { usuarioId },
         include: direccionInclude,
-        orderBy: { id: 'asc' },
+        orderBy: { id: "asc" },
       });
     } catch (error) {
       this.handlePrismaError(error);
     }
   }
 
-  async findOne(id: number): Promise<DireccionConTramites> {
+  async findOne(id: number): Promise<DireccionConMunicipio> {
     try {
       const direccion = await this.prisma.direccion.findUnique({
         where: { id },
@@ -118,26 +127,45 @@ export class DireccionesService {
     pasosNavegacion: PasoNavegacion[];
     googleMapsUrl: string;
   }> {
-    const oficina = await this.prisma.direccion.findUnique({
+    const oficinaRegistro = await this.prisma.oficina.findUnique({
       where: { codigoOficina },
       select: {
         id: true,
         codigoOficina: true,
-        nombreOficina: true,
-        departamento: true,
-        provincia: true,
-        municipio: true,
-        calleOAvenida: true,
-        numeroPuerta: true,
+        nombre: true,
+        direccion: true,
         latitud: true,
         longitud: true,
+        municipio: {
+          select: {
+            nombre: true,
+            padre: {
+              select: {
+                nombre: true,
+                padre: { select: { nombre: true } },
+              },
+            },
+          },
+        },
       },
     });
-    if (!oficina) {
+    if (!oficinaRegistro) {
       throw new NotFoundException(
         `La oficina con código ${codigoOficina} no existe.`,
       );
     }
+    const oficina: OficinaRutaGps = {
+      id: oficinaRegistro.id,
+      codigoOficina: oficinaRegistro.codigoOficina,
+      nombreOficina: oficinaRegistro.nombre,
+      departamento: oficinaRegistro.municipio.padre?.padre?.nombre ?? "",
+      provincia: oficinaRegistro.municipio.padre?.nombre ?? "",
+      municipio: oficinaRegistro.municipio.nombre,
+      calleOAvenida: oficinaRegistro.direccion,
+      numeroPuerta: null,
+      latitud: oficinaRegistro.latitud,
+      longitud: oficinaRegistro.longitud,
+    };
     if (oficina.latitud === null || oficina.longitud === null) {
       throw new NotFoundException(
         `La oficina con código ${codigoOficina} no tiene coordenadas GPS.`,
@@ -176,26 +204,16 @@ export class DireccionesService {
     };
   }
 
-  async create(dto: CreateDireccionDto): Promise<DireccionConTramites> {
+  async create(dto: CreateDireccionDto): Promise<DireccionConMunicipio> {
     try {
+      await this.assertMunicipio(dto.municipioId);
       return await this.prisma.direccion.create({
         data: {
-          codigoOficina: dto.codigoOficina ?? null,
-          nombreOficina: dto.nombreOficina ?? null,
           usuarioId: dto.usuarioId ?? null,
-          departamento: dto.departamento,
-          provincia: dto.provincia,
-          municipio: dto.municipio,
+          municipioId: dto.municipioId,
           zonaOComunidad: dto.zonaOComunidad,
           calleOAvenida: dto.calleOAvenida,
           numeroPuerta: dto.numeroPuerta ?? null,
-          latitud: dto.latitud ?? null,
-          longitud: dto.longitud ?? null,
-          tramites: {
-            connect: (dto.tramiteIds ?? []).map((tramiteId) => ({
-              id: tramiteId,
-            })),
-          },
         },
         include: direccionInclude,
       });
@@ -207,27 +225,17 @@ export class DireccionesService {
   async replace(
     id: number,
     dto: CreateDireccionDto,
-  ): Promise<DireccionConTramites> {
+  ): Promise<DireccionConMunicipio> {
     try {
+      await this.assertMunicipio(dto.municipioId);
       return await this.prisma.direccion.update({
         where: { id },
         data: {
-          codigoOficina: dto.codigoOficina ?? null,
-          nombreOficina: dto.nombreOficina ?? null,
           usuarioId: dto.usuarioId ?? null,
-          departamento: dto.departamento,
-          provincia: dto.provincia,
-          municipio: dto.municipio,
+          municipioId: dto.municipioId,
           zonaOComunidad: dto.zonaOComunidad,
           calleOAvenida: dto.calleOAvenida,
           numeroPuerta: dto.numeroPuerta ?? null,
-          latitud: dto.latitud ?? null,
-          longitud: dto.longitud ?? null,
-          tramites: {
-            set: (dto.tramiteIds ?? []).map((tramiteId) => ({
-              id: tramiteId,
-            })),
-          },
         },
         include: direccionInclude,
       });
@@ -239,27 +247,18 @@ export class DireccionesService {
   async update(
     id: number,
     dto: UpdateDireccionDto,
-  ): Promise<DireccionConTramites> {
-    const data: Prisma.DireccionUpdateInput = {};
-    if (dto.codigoOficina !== undefined) data.codigoOficina = dto.codigoOficina;
-    if (dto.nombreOficina !== undefined) data.nombreOficina = dto.nombreOficina;
+  ): Promise<DireccionConMunicipio> {
+    if (dto.municipioId !== undefined) {
+      await this.assertMunicipio(dto.municipioId);
+    }
+    const data: Prisma.DireccionUncheckedUpdateInput = {};
     if (dto.usuarioId !== undefined) data.usuarioId = dto.usuarioId;
-    if (dto.departamento !== undefined) data.departamento = dto.departamento;
-    if (dto.provincia !== undefined) data.provincia = dto.provincia;
-    if (dto.municipio !== undefined) data.municipio = dto.municipio;
+    if (dto.municipioId !== undefined) data.municipioId = dto.municipioId;
     if (dto.zonaOComunidad !== undefined) {
       data.zonaOComunidad = dto.zonaOComunidad;
     }
     if (dto.calleOAvenida !== undefined) data.calleOAvenida = dto.calleOAvenida;
     if (dto.numeroPuerta !== undefined) data.numeroPuerta = dto.numeroPuerta;
-    if (dto.latitud !== undefined) data.latitud = dto.latitud;
-    if (dto.longitud !== undefined) data.longitud = dto.longitud;
-    if (dto.tramiteIds !== undefined) {
-      data.tramites = {
-        set: dto.tramiteIds.map((tramiteId) => ({ id: tramiteId })),
-      };
-    }
-
     try {
       return await this.prisma.direccion.update({
         where: { id },
@@ -279,15 +278,27 @@ export class DireccionesService {
     }
   }
 
+  private async assertMunicipio(municipioId: number): Promise<void> {
+    const municipio = await this.prisma.ubicacion.findFirst({
+      where: { id: municipioId, tipo: "MUNICIPIO" },
+      select: { id: true },
+    });
+    if (!municipio) {
+      throw new BadRequestException(
+        "La ubicación indicada no existe o no es un municipio.",
+      );
+    }
+  }
+
   private async consultarOsrm(
     origen: { latitud: number; longitud: number },
     destino: { latitud: number; longitud: number },
-    modo: CalcularRutaGpsDto['modo'],
-  ): Promise<Omit<ResultadoRutaGps, 'googleMapsUrl'> | null> {
+    modo: CalcularRutaGpsDto["modo"],
+  ): Promise<Omit<ResultadoRutaGps, "googleMapsUrl"> | null> {
     const url =
       `https://router.project-osrm.org/route/v1/${modo}/` +
       `${origen.longitud},${origen.latitud};${destino.longitud},${destino.latitud}` +
-      '?overview=full&geometries=geojson&steps=true';
+      "?overview=full&geometries=geojson&steps=true";
 
     try {
       const response = await fetch(url, {
@@ -305,12 +316,9 @@ export class DireccionesService {
         geometriaGeoJson: route.geometry,
         pasosNavegacion: route.legs.flatMap((leg) =>
           leg.steps.map((step) => ({
-            instrucciones: [
-              step.maneuver.type,
-              step.maneuver.modifier,
-            ]
+            instrucciones: [step.maneuver.type, step.maneuver.modifier]
               .filter((parte): parte is string => Boolean(parte))
-              .join(' '),
+              .join(" "),
             nombreCalle: step.name,
             distanciaMetros: step.distance,
             duracionSegundos: step.duration,
@@ -323,16 +331,16 @@ export class DireccionesService {
   }
 
   private esRespuestaOsrm(value: unknown): value is OsrmResponse {
-    if (!value || typeof value !== 'object') return false;
+    if (!value || typeof value !== "object") return false;
     const response = value as Partial<OsrmResponse>;
     const route = response.routes?.[0];
     return (
-      response.code === 'Ok' &&
+      response.code === "Ok" &&
       Array.isArray(response.routes) &&
       !!route &&
-      typeof route.distance === 'number' &&
-      typeof route.duration === 'number' &&
-      route.geometry?.type === 'LineString' &&
+      typeof route.distance === "number" &&
+      typeof route.duration === "number" &&
+      route.geometry?.type === "LineString" &&
       Array.isArray(route.geometry.coordinates) &&
       Array.isArray(route.legs) &&
       route.legs.every((leg) => Array.isArray(leg.steps))
@@ -341,14 +349,12 @@ export class DireccionesService {
 
   private handlePrismaError(error: unknown): never {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === 'P2025') {
-        throw new NotFoundException(
-          'No se encontró la dirección o alguno de los trámites asociados.',
-        );
+      if (error.code === "P2025") {
+        throw new NotFoundException("No se encontró la dirección solicitada.");
       }
-      if (error.code === 'P2002' || error.code === 'P2003') {
+      if (error.code === "P2002" || error.code === "P2003") {
         throw new BadRequestException(
-          'El código de oficina ya existe o alguno de los identificadores relacionados no es válido.',
+          "Uno de los identificadores relacionados no es válido.",
         );
       }
     }

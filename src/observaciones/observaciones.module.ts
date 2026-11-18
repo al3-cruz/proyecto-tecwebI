@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
-import { ObservacionesController } from './observaciones.controller';
-import { ObservacionesService } from './observaciones.service';
-import { PrismaModule } from '../prisma/prisma.module';
+import { Module } from "@nestjs/common";
+import { AuthModule } from "../auth/auth.module.js";
+import { ObservacionesController } from "./observaciones.controller";
+import { ObservacionesService } from "./observaciones.service";
+import { PrismaModule } from "../prisma/prisma.module";
 
 @Module({
-  imports: [PrismaModule],
+  imports: [AuthModule, PrismaModule],
   controllers: [ObservacionesController],
-  providers: [ObservacionesService]
+  providers: [ObservacionesService],
 })
 export class ObservacionesModule {}

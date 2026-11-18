@@ -51,15 +51,25 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Tramite: 'Tramite',
+  Ubicacion: 'Ubicacion',
+  Institucion: 'Institucion',
+  Oficina: 'Oficina',
+  Plan: 'Plan',
   Usuario: 'Usuario',
   Rol: 'Rol',
   Permiso: 'Permiso',
+  RolPermiso: 'RolPermiso',
+  PerfilProfesional: 'PerfilProfesional',
+  Suscripcion: 'Suscripcion',
+  Pago: 'Pago',
+  Tramite: 'Tramite',
+  DocumentoEntregable: 'DocumentoEntregable',
+  RequisitoTramite: 'RequisitoTramite',
+  PasoProcedimiento: 'PasoProcedimiento',
   SecuenciaTramiteCompraventa: 'SecuenciaTramiteCompraventa',
   TramiteCompraventa: 'TramiteCompraventa',
   RequisitoCompraventa: 'RequisitoCompraventa',
-  RequisitoTramite: 'RequisitoTramite',
-  PasoProcedimiento: 'PasoProcedimiento',
+  MensajeTramite: 'MensajeTramite',
   Direccion: 'Direccion',
   AuditLog: 'AuditLog'
 } as const
@@ -80,34 +90,55 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const TramiteScalarFieldEnum = {
+export const UbicacionScalarFieldEnum = {
   id: 'id',
-  usuarioId: 'usuarioId',
-  codigo: 'codigo',
-  codigoOficial: 'codigoOficial',
-  titulo: 'titulo',
-  institucionResponsable: 'institucionResponsable',
-  oficina: 'oficina',
-  finalidad: 'finalidad',
-  plazoEntregaDias: 'plazoEntregaDias',
-  modalidad: 'modalidad',
-  notaRequisitos: 'notaRequisitos',
-  documentosEntregables: 'documentosEntregables',
-  baseLegal: 'baseLegal',
-  fechaActualizacionOficial: 'fechaActualizacionOficial',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  nombre: 'nombre',
+  tipo: 'tipo',
+  padreId: 'padreId'
 } as const
 
-export type TramiteScalarFieldEnum = (typeof TramiteScalarFieldEnum)[keyof typeof TramiteScalarFieldEnum]
+export type UbicacionScalarFieldEnum = (typeof UbicacionScalarFieldEnum)[keyof typeof UbicacionScalarFieldEnum]
+
+
+export const InstitucionScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre'
+} as const
+
+export type InstitucionScalarFieldEnum = (typeof InstitucionScalarFieldEnum)[keyof typeof InstitucionScalarFieldEnum]
+
+
+export const OficinaScalarFieldEnum = {
+  id: 'id',
+  codigoOficina: 'codigoOficina',
+  nombre: 'nombre',
+  direccion: 'direccion',
+  telefono: 'telefono',
+  latitud: 'latitud',
+  longitud: 'longitud',
+  municipioId: 'municipioId'
+} as const
+
+export type OficinaScalarFieldEnum = (typeof OficinaScalarFieldEnum)[keyof typeof OficinaScalarFieldEnum]
+
+
+export const PlanScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  precio: 'precio',
+  esParaProfesional: 'esParaProfesional'
+} as const
+
+export type PlanScalarFieldEnum = (typeof PlanScalarFieldEnum)[keyof typeof PlanScalarFieldEnum]
 
 
 export const UsuarioScalarFieldEnum = {
   id: 'id',
   email: 'email',
   passwordHash: 'passwordHash',
+  telefono: 'telefono',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
 } as const
 
@@ -134,6 +165,117 @@ export const PermisoScalarFieldEnum = {
 } as const
 
 export type PermisoScalarFieldEnum = (typeof PermisoScalarFieldEnum)[keyof typeof PermisoScalarFieldEnum]
+
+
+export const RolPermisoScalarFieldEnum = {
+  rolId: 'rolId',
+  permisoId: 'permisoId'
+} as const
+
+export type RolPermisoScalarFieldEnum = (typeof RolPermisoScalarFieldEnum)[keyof typeof RolPermisoScalarFieldEnum]
+
+
+export const PerfilProfesionalScalarFieldEnum = {
+  id: 'id',
+  usuarioId: 'usuarioId',
+  tipo: 'tipo',
+  matricula: 'matricula',
+  especialidad: 'especialidad',
+  tarifaReferencial: 'tarifaReferencial',
+  verificado: 'verificado',
+  destacado: 'destacado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PerfilProfesionalScalarFieldEnum = (typeof PerfilProfesionalScalarFieldEnum)[keyof typeof PerfilProfesionalScalarFieldEnum]
+
+
+export const SuscripcionScalarFieldEnum = {
+  id: 'id',
+  usuarioId: 'usuarioId',
+  planId: 'planId',
+  fechaInicio: 'fechaInicio',
+  fechaFin: 'fechaFin',
+  activa: 'activa',
+  deletedAt: 'deletedAt'
+} as const
+
+export type SuscripcionScalarFieldEnum = (typeof SuscripcionScalarFieldEnum)[keyof typeof SuscripcionScalarFieldEnum]
+
+
+export const PagoScalarFieldEnum = {
+  id: 'id',
+  usuarioId: 'usuarioId',
+  monto: 'monto',
+  metodo: 'metodo',
+  estado: 'estado',
+  comprobanteUrl: 'comprobanteUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PagoScalarFieldEnum = (typeof PagoScalarFieldEnum)[keyof typeof PagoScalarFieldEnum]
+
+
+export const TramiteScalarFieldEnum = {
+  id: 'id',
+  codigo: 'codigo',
+  codigoOficial: 'codigoOficial',
+  titulo: 'titulo',
+  finalidad: 'finalidad',
+  plazoEntregaDias: 'plazoEntregaDias',
+  modalidad: 'modalidad',
+  notaRequisitos: 'notaRequisitos',
+  baseLegal: 'baseLegal',
+  videoLsbUrl: 'videoLsbUrl',
+  audioQuechuaUrl: 'audioQuechuaUrl',
+  fechaActualizacionOficial: 'fechaActualizacionOficial',
+  institucionId: 'institucionId',
+  clienteId: 'clienteId',
+  tramitadorId: 'tramitadorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type TramiteScalarFieldEnum = (typeof TramiteScalarFieldEnum)[keyof typeof TramiteScalarFieldEnum]
+
+
+export const DocumentoEntregableScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  tramiteId: 'tramiteId'
+} as const
+
+export type DocumentoEntregableScalarFieldEnum = (typeof DocumentoEntregableScalarFieldEnum)[keyof typeof DocumentoEntregableScalarFieldEnum]
+
+
+export const RequisitoTramiteScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  detalle: 'detalle',
+  obligatorio: 'obligatorio',
+  orden: 'orden',
+  notaCondicional: 'notaCondicional',
+  archivoUrl: 'archivoUrl',
+  tramiteId: 'tramiteId'
+} as const
+
+export type RequisitoTramiteScalarFieldEnum = (typeof RequisitoTramiteScalarFieldEnum)[keyof typeof RequisitoTramiteScalarFieldEnum]
+
+
+export const PasoProcedimientoScalarFieldEnum = {
+  id: 'id',
+  orden: 'orden',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  plazoDias: 'plazoDias',
+  esGratuito: 'esGratuito',
+  tramiteId: 'tramiteId'
+} as const
+
+export type PasoProcedimientoScalarFieldEnum = (typeof PasoProcedimientoScalarFieldEnum)[keyof typeof PasoProcedimientoScalarFieldEnum]
 
 
 export const SecuenciaTramiteCompraventaScalarFieldEnum = {
@@ -163,7 +305,6 @@ export const TramiteCompraventaScalarFieldEnum = {
   montoArancel: 'montoArancel',
   arancelPagado: 'arancelPagado',
   preImpresionConfirmada: 'preImpresionConfirmada',
-  observaciones: 'observaciones',
   estado: 'estado',
   estadoAnterior: 'estadoAnterior',
   usuarioId: 'usuarioId',
@@ -181,50 +322,31 @@ export const RequisitoCompraventaScalarFieldEnum = {
   presentoOriginal: 'presentoOriginal',
   cantidadFotocopias: 'cantidadFotocopias',
   verificado: 'verificado',
+  archivoUrl: 'archivoUrl',
   tramiteId: 'tramiteId'
 } as const
 
 export type RequisitoCompraventaScalarFieldEnum = (typeof RequisitoCompraventaScalarFieldEnum)[keyof typeof RequisitoCompraventaScalarFieldEnum]
 
 
-export const RequisitoTramiteScalarFieldEnum = {
+export const MensajeTramiteScalarFieldEnum = {
   id: 'id',
-  nombre: 'nombre',
-  detalle: 'detalle',
-  obligatorio: 'obligatorio',
-  orden: 'orden',
-  notaCondicional: 'notaCondicional',
-  tramiteId: 'tramiteId'
+  tramiteId: 'tramiteId',
+  autorId: 'autorId',
+  mensaje: 'mensaje',
+  createdAt: 'createdAt'
 } as const
 
-export type RequisitoTramiteScalarFieldEnum = (typeof RequisitoTramiteScalarFieldEnum)[keyof typeof RequisitoTramiteScalarFieldEnum]
-
-
-export const PasoProcedimientoScalarFieldEnum = {
-  id: 'id',
-  orden: 'orden',
-  titulo: 'titulo',
-  descripcion: 'descripcion',
-  plazoDias: 'plazoDias',
-  tramiteId: 'tramiteId'
-} as const
-
-export type PasoProcedimientoScalarFieldEnum = (typeof PasoProcedimientoScalarFieldEnum)[keyof typeof PasoProcedimientoScalarFieldEnum]
+export type MensajeTramiteScalarFieldEnum = (typeof MensajeTramiteScalarFieldEnum)[keyof typeof MensajeTramiteScalarFieldEnum]
 
 
 export const DireccionScalarFieldEnum = {
   id: 'id',
-  codigoOficina: 'codigoOficina',
-  nombreOficina: 'nombreOficina',
   usuarioId: 'usuarioId',
-  departamento: 'departamento',
-  provincia: 'provincia',
-  municipio: 'municipio',
+  municipioId: 'municipioId',
   zonaOComunidad: 'zonaOComunidad',
   calleOAvenida: 'calleOAvenida',
   numeroPuerta: 'numeroPuerta',
-  latitud: 'latitud',
-  longitud: 'longitud',
   fechaRegistro: 'fechaRegistro',
   deletedAt: 'deletedAt'
 } as const

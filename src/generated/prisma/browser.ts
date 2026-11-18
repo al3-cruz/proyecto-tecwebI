@@ -18,10 +18,25 @@ export { Prisma }
 export * as $Enums from './enums.js'
 export * from './enums.js';
 /**
- * Model Tramite
+ * Model Ubicacion
  * 
  */
-export type Tramite = Prisma.TramiteModel
+export type Ubicacion = Prisma.UbicacionModel
+/**
+ * Model Institucion
+ * 
+ */
+export type Institucion = Prisma.InstitucionModel
+/**
+ * Model Oficina
+ * 
+ */
+export type Oficina = Prisma.OficinaModel
+/**
+ * Model Plan
+ * 
+ */
+export type Plan = Prisma.PlanModel
 /**
  * Model Usuario
  * 
@@ -38,6 +53,46 @@ export type Rol = Prisma.RolModel
  */
 export type Permiso = Prisma.PermisoModel
 /**
+ * Model RolPermiso
+ * 
+ */
+export type RolPermiso = Prisma.RolPermisoModel
+/**
+ * Model PerfilProfesional
+ * 
+ */
+export type PerfilProfesional = Prisma.PerfilProfesionalModel
+/**
+ * Model Suscripcion
+ * 
+ */
+export type Suscripcion = Prisma.SuscripcionModel
+/**
+ * Model Pago
+ * 
+ */
+export type Pago = Prisma.PagoModel
+/**
+ * Model Tramite
+ * 
+ */
+export type Tramite = Prisma.TramiteModel
+/**
+ * Model DocumentoEntregable
+ * 
+ */
+export type DocumentoEntregable = Prisma.DocumentoEntregableModel
+/**
+ * Model RequisitoTramite
+ * 
+ */
+export type RequisitoTramite = Prisma.RequisitoTramiteModel
+/**
+ * Model PasoProcedimiento
+ * 
+ */
+export type PasoProcedimiento = Prisma.PasoProcedimientoModel
+/**
  * Model SecuenciaTramiteCompraventa
  * 
  */
@@ -53,15 +108,10 @@ export type TramiteCompraventa = Prisma.TramiteCompraventaModel
  */
 export type RequisitoCompraventa = Prisma.RequisitoCompraventaModel
 /**
- * Model RequisitoTramite
+ * Model MensajeTramite
  * 
  */
-export type RequisitoTramite = Prisma.RequisitoTramiteModel
-/**
- * Model PasoProcedimiento
- * 
- */
-export type PasoProcedimiento = Prisma.PasoProcedimientoModel
+export type MensajeTramite = Prisma.MensajeTramiteModel
 /**
  * Model Direccion
  * 

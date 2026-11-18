@@ -19,3 +19,6 @@ yarn-debug.log*
 pnpm-debug.log*
 *.sqlite
 *.sqlite-journal
+
+._*
+.DS_Store

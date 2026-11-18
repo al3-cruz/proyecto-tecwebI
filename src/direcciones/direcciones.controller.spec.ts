@@ -1,14 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { DireccionesController } from './direcciones.controller';
-import { DireccionesService } from './direcciones.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { DireccionesController } from "./direcciones.controller";
+import { DireccionesService } from "./direcciones.service";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
+import { JwtService } from "@nestjs/jwt";
 
-describe('DireccionesController', () => {
+describe("DireccionesController", () => {
   let controller: DireccionesController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [DireccionesController],
       providers: [
+        { provide: JwtAuthGuard, useValue: { canActivate: jest.fn() } },
+        { provide: JwtService, useValue: { verifyAsync: jest.fn() } },
         {
           provide: DireccionesService,
           useValue: {
@@ -26,7 +30,7 @@ describe('DireccionesController', () => {
     controller = module.get<DireccionesController>(DireccionesController);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 });

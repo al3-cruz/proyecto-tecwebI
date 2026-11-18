@@ -1,12 +1,12 @@
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from "@nestjs/common";
 import {
   EstadoTramite,
   TipoRequisitoCompraventa,
-} from '../generated/prisma/client.js';
-import { PrismaService } from '../prisma/prisma.service.js';
-import { CompraventasService } from './compraventas.service.js';
+} from "../generated/prisma/client.js";
+import { PrismaService } from "../prisma/prisma.service.js";
+import { CompraventasService } from "./compraventas.service.js";
 
-describe('CompraventasService', () => {
+describe("CompraventasService", () => {
   let service: CompraventasService;
 
   const tx = {
@@ -20,6 +20,9 @@ describe('CompraventasService', () => {
     requisitoCompraventa: {
       findFirst: jest.fn(),
       update: jest.fn(),
+    },
+    mensajeTramite: {
+      create: jest.fn(),
     },
   };
   const prismaMock = {
@@ -37,7 +40,7 @@ describe('CompraventasService', () => {
     service = new CompraventasService(prismaMock as unknown as PrismaService);
   });
 
-  it('creates a unique code and all base requirements in one transaction', async () => {
+  it("creates a unique code and all base requirements in one transaction", async () => {
     tx.secuenciaTramiteCompraventa.upsert.mockResolvedValue({
       anio: 2026,
       ultimo: 3,
@@ -46,14 +49,15 @@ describe('CompraventasService', () => {
 
     await service.crear(
       {
-        folioReal: '1.01.1.01.0001234',
-        vendedorNombre: 'Vendedora',
-        vendedorDocumento: '123456',
-        compradorNombre: 'Comprador',
-        compradorDocumento: '654321',
+        folioReal: "1.01.1.01.0001234",
+        vendedorNombre: "Vendedora",
+        vendedorDocumento: "123456",
+        compradorNombre: "Comprador",
+        compradorDocumento: "654321",
         esBienGanancial: false,
         conApoderado: false,
         montoArancel: 900,
+        observaciones: "Revisar el documento original.",
       },
       7,
     );
@@ -62,8 +66,14 @@ describe('CompraventasService', () => {
     expect(tx.tramiteCompraventa.create).toHaveBeenCalledWith(
       expect.objectContaining({
         data: expect.objectContaining({
-          codigoTramite: 'DDRR-CV-2026-0003',
+          codigoTramite: "DDRR-CV-2026-0003",
           usuarioId: 7,
+          bitacora: {
+            create: {
+              autorId: 7,
+              mensaje: "Revisar el documento original.",
+            },
+          },
           requisitos: {
             create: [
               { tipoRequisito: TipoRequisitoCompraventa.TITULO_TRANSFERENCIA },
@@ -85,15 +95,15 @@ describe('CompraventasService', () => {
     );
   });
 
-  it('adds the power document and rejects missing attorney data', async () => {
+  it("adds the power document and rejects missing attorney data", async () => {
     await expect(
       service.crear(
         {
-          folioReal: 'folio',
-          vendedorNombre: 'Vendedora',
-          vendedorDocumento: '123',
-          compradorNombre: 'Comprador',
-          compradorDocumento: '456',
+          folioReal: "folio",
+          vendedorNombre: "Vendedora",
+          vendedorDocumento: "123",
+          compradorNombre: "Comprador",
+          compradorDocumento: "456",
           esBienGanancial: false,
           conApoderado: true,
           montoArancel: 900,
@@ -110,16 +120,16 @@ describe('CompraventasService', () => {
     tx.tramiteCompraventa.create.mockResolvedValue({ id: 9 });
     await service.crear(
       {
-        folioReal: 'folio',
-        vendedorNombre: 'Vendedora',
-        vendedorDocumento: '123',
-        compradorNombre: 'Comprador',
-        compradorDocumento: '456',
+        folioReal: "folio",
+        vendedorNombre: "Vendedora",
+        vendedorDocumento: "123",
+        compradorNombre: "Comprador",
+        compradorDocumento: "456",
         esBienGanancial: false,
         conApoderado: true,
-        apoderadoNombre: 'Apoderado',
-        apoderadoDocumento: '789',
-        numeroPoderNotarial: 'P-10',
+        apoderadoNombre: "Apoderado",
+        apoderadoDocumento: "789",
+        numeroPoderNotarial: "P-10",
         montoArancel: 900,
       },
       7,
@@ -140,7 +150,7 @@ describe('CompraventasService', () => {
     );
   });
 
-  it('only advances after every required document is verified', async () => {
+  it("only advances after every required document is verified", async () => {
     tx.tramiteCompraventa.findFirst.mockResolvedValue({
       id: 1,
       estado: EstadoTramite.VENTANILLA_INFORMACIONES,
@@ -166,7 +176,7 @@ describe('CompraventasService', () => {
     expect(tx.tramiteCompraventa.update).not.toHaveBeenCalled();
   });
 
-  it('does not advance when the required checklist is incomplete', async () => {
+  it("does not advance when the required checklist is incomplete", async () => {
     tx.tramiteCompraventa.findFirst.mockResolvedValue({
       id: 1,
       estado: EstadoTramite.VENTANILLA_INFORMACIONES,
@@ -185,7 +195,7 @@ describe('CompraventasService', () => {
     expect(tx.tramiteCompraventa.update).not.toHaveBeenCalled();
   });
 
-  it('does not let a user read a compraventa owned by another user', async () => {
+  it("does not let a user read a compraventa owned by another user", async () => {
     prismaMock.tramiteCompraventa.findFirst.mockResolvedValue(null);
 
     await expect(service.obtener(1, 7, false)).rejects.toBeInstanceOf(
@@ -196,7 +206,39 @@ describe('CompraventasService', () => {
     );
   });
 
-  it('blocks deletion after registry processing has started', async () => {
+  it("stores updated observations as authored bitacora messages", async () => {
+    tx.tramiteCompraventa.findFirst.mockResolvedValue({
+      id: 1,
+      estado: EstadoTramite.VENTANILLA_INFORMACIONES,
+      arancelPagado: false,
+      requisitos: [],
+    });
+    tx.mensajeTramite.create.mockResolvedValue({ id: 2 });
+    tx.tramiteCompraventa.update.mockResolvedValue({ id: 1 });
+
+    await service.actualizar(
+      1,
+      { observaciones: "Documento verificado." },
+      7,
+      false,
+    );
+
+    expect(tx.mensajeTramite.create).toHaveBeenCalledWith({
+      data: {
+        tramiteId: 1,
+        autorId: 7,
+        mensaje: "Documento verificado.",
+      },
+    });
+    expect(tx.tramiteCompraventa.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: 1 },
+        data: {},
+      }),
+    );
+  });
+
+  it("blocks deletion after registry processing has started", async () => {
     tx.tramiteCompraventa.findFirst.mockResolvedValue({
       id: 1,
       estado: EstadoTramite.EN_PROCESO_REGISTRO,

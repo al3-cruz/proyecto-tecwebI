@@ -29,64 +29,44 @@ export type AggregateDireccion = {
 export type DireccionAvgAggregateOutputType = {
   id: number | null
   usuarioId: number | null
-  latitud: number | null
-  longitud: number | null
+  municipioId: number | null
 }
 
 export type DireccionSumAggregateOutputType = {
   id: number | null
   usuarioId: number | null
-  latitud: number | null
-  longitud: number | null
+  municipioId: number | null
 }
 
 export type DireccionMinAggregateOutputType = {
   id: number | null
-  codigoOficina: string | null
-  nombreOficina: string | null
   usuarioId: number | null
-  departamento: string | null
-  provincia: string | null
-  municipio: string | null
+  municipioId: number | null
   zonaOComunidad: string | null
   calleOAvenida: string | null
   numeroPuerta: string | null
-  latitud: number | null
-  longitud: number | null
   fechaRegistro: Date | null
   deletedAt: Date | null
 }
 
 export type DireccionMaxAggregateOutputType = {
   id: number | null
-  codigoOficina: string | null
-  nombreOficina: string | null
   usuarioId: number | null
-  departamento: string | null
-  provincia: string | null
-  municipio: string | null
+  municipioId: number | null
   zonaOComunidad: string | null
   calleOAvenida: string | null
   numeroPuerta: string | null
-  latitud: number | null
-  longitud: number | null
   fechaRegistro: Date | null
   deletedAt: Date | null
 }
 
 export type DireccionCountAggregateOutputType = {
   id: number
-  codigoOficina: number
-  nombreOficina: number
   usuarioId: number
-  departamento: number
-  provincia: number
-  municipio: number
+  municipioId: number
   zonaOComunidad: number
   calleOAvenida: number
   numeroPuerta: number
-  latitud: number
-  longitud: number
   fechaRegistro: number
   deletedAt: number
   _all: number
@@ -96,64 +76,44 @@ export type DireccionCountAggregateOutputType = {
 export type DireccionAvgAggregateInputType = {
   id?: true
   usuarioId?: true
-  latitud?: true
-  longitud?: true
+  municipioId?: true
 }
 
 export type DireccionSumAggregateInputType = {
   id?: true
   usuarioId?: true
-  latitud?: true
-  longitud?: true
+  municipioId?: true
 }
 
 export type DireccionMinAggregateInputType = {
   id?: true
-  codigoOficina?: true
-  nombreOficina?: true
   usuarioId?: true
-  departamento?: true
-  provincia?: true
-  municipio?: true
+  municipioId?: true
   zonaOComunidad?: true
   calleOAvenida?: true
   numeroPuerta?: true
-  latitud?: true
-  longitud?: true
   fechaRegistro?: true
   deletedAt?: true
 }
 
 export type DireccionMaxAggregateInputType = {
   id?: true
-  codigoOficina?: true
-  nombreOficina?: true
   usuarioId?: true
-  departamento?: true
-  provincia?: true
-  municipio?: true
+  municipioId?: true
   zonaOComunidad?: true
   calleOAvenida?: true
   numeroPuerta?: true
-  latitud?: true
-  longitud?: true
   fechaRegistro?: true
   deletedAt?: true
 }
 
 export type DireccionCountAggregateInputType = {
   id?: true
-  codigoOficina?: true
-  nombreOficina?: true
   usuarioId?: true
-  departamento?: true
-  provincia?: true
-  municipio?: true
+  municipioId?: true
   zonaOComunidad?: true
   calleOAvenida?: true
   numeroPuerta?: true
-  latitud?: true
-  longitud?: true
   fechaRegistro?: true
   deletedAt?: true
   _all?: true
@@ -247,17 +207,11 @@ export type DireccionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type DireccionGroupByOutputType = {
   id: number
-  codigoOficina: string | null
-  nombreOficina: string | null
   usuarioId: number | null
-  departamento: string
-  provincia: string
-  municipio: string
+  municipioId: number
   zonaOComunidad: string
   calleOAvenida: string
   numeroPuerta: string | null
-  latitud: number | null
-  longitud: number | null
   fechaRegistro: Date
   deletedAt: Date | null
   _count: DireccionCountAggregateOutputType | null
@@ -287,74 +241,53 @@ export type DireccionWhereInput = {
   OR?: Prisma.DireccionWhereInput[]
   NOT?: Prisma.DireccionWhereInput | Prisma.DireccionWhereInput[]
   id?: Prisma.IntFilter<"Direccion"> | number
-  codigoOficina?: Prisma.StringNullableFilter<"Direccion"> | string | null
-  nombreOficina?: Prisma.StringNullableFilter<"Direccion"> | string | null
   usuarioId?: Prisma.IntNullableFilter<"Direccion"> | number | null
-  departamento?: Prisma.StringFilter<"Direccion"> | string
-  provincia?: Prisma.StringFilter<"Direccion"> | string
-  municipio?: Prisma.StringFilter<"Direccion"> | string
+  municipioId?: Prisma.IntFilter<"Direccion"> | number
   zonaOComunidad?: Prisma.StringFilter<"Direccion"> | string
   calleOAvenida?: Prisma.StringFilter<"Direccion"> | string
   numeroPuerta?: Prisma.StringNullableFilter<"Direccion"> | string | null
-  latitud?: Prisma.FloatNullableFilter<"Direccion"> | number | null
-  longitud?: Prisma.FloatNullableFilter<"Direccion"> | number | null
   fechaRegistro?: Prisma.DateTimeFilter<"Direccion"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Direccion"> | Date | string | null
-  tramites?: Prisma.TramiteListRelationFilter
+  usuario?: Prisma.XOR<Prisma.UsuarioNullableScalarRelationFilter, Prisma.UsuarioWhereInput> | null
+  municipio?: Prisma.XOR<Prisma.UbicacionScalarRelationFilter, Prisma.UbicacionWhereInput>
 }
 
 export type DireccionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  codigoOficina?: Prisma.SortOrderInput | Prisma.SortOrder
-  nombreOficina?: Prisma.SortOrderInput | Prisma.SortOrder
   usuarioId?: Prisma.SortOrderInput | Prisma.SortOrder
-  departamento?: Prisma.SortOrder
-  provincia?: Prisma.SortOrder
-  municipio?: Prisma.SortOrder
+  municipioId?: Prisma.SortOrder
   zonaOComunidad?: Prisma.SortOrder
   calleOAvenida?: Prisma.SortOrder
   numeroPuerta?: Prisma.SortOrderInput | Prisma.SortOrder
-  latitud?: Prisma.SortOrderInput | Prisma.SortOrder
-  longitud?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaRegistro?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  tramites?: Prisma.TramiteOrderByRelationAggregateInput
+  usuario?: Prisma.UsuarioOrderByWithRelationInput
+  municipio?: Prisma.UbicacionOrderByWithRelationInput
 }
 
 export type DireccionWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  codigoOficina?: string
   AND?: Prisma.DireccionWhereInput | Prisma.DireccionWhereInput[]
   OR?: Prisma.DireccionWhereInput[]
   NOT?: Prisma.DireccionWhereInput | Prisma.DireccionWhereInput[]
-  nombreOficina?: Prisma.StringNullableFilter<"Direccion"> | string | null
   usuarioId?: Prisma.IntNullableFilter<"Direccion"> | number | null
-  departamento?: Prisma.StringFilter<"Direccion"> | string
-  provincia?: Prisma.StringFilter<"Direccion"> | string
-  municipio?: Prisma.StringFilter<"Direccion"> | string
+  municipioId?: Prisma.IntFilter<"Direccion"> | number
   zonaOComunidad?: Prisma.StringFilter<"Direccion"> | string
   calleOAvenida?: Prisma.StringFilter<"Direccion"> | string
   numeroPuerta?: Prisma.StringNullableFilter<"Direccion"> | string | null
-  latitud?: Prisma.FloatNullableFilter<"Direccion"> | number | null
-  longitud?: Prisma.FloatNullableFilter<"Direccion"> | number | null
   fechaRegistro?: Prisma.DateTimeFilter<"Direccion"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Direccion"> | Date | string | null
-  tramites?: Prisma.TramiteListRelationFilter
-}, "id" | "codigoOficina">
+  usuario?: Prisma.XOR<Prisma.UsuarioNullableScalarRelationFilter, Prisma.UsuarioWhereInput> | null
+  municipio?: Prisma.XOR<Prisma.UbicacionScalarRelationFilter, Prisma.UbicacionWhereInput>
+}, "id">
 
 export type DireccionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  codigoOficina?: Prisma.SortOrderInput | Prisma.SortOrder
-  nombreOficina?: Prisma.SortOrderInput | Prisma.SortOrder
   usuarioId?: Prisma.SortOrderInput | Prisma.SortOrder
-  departamento?: Prisma.SortOrder
-  provincia?: Prisma.SortOrder
-  municipio?: Prisma.SortOrder
+  municipioId?: Prisma.SortOrder
   zonaOComunidad?: Prisma.SortOrder
   calleOAvenida?: Prisma.SortOrder
   numeroPuerta?: Prisma.SortOrderInput | Prisma.SortOrder
-  latitud?: Prisma.SortOrderInput | Prisma.SortOrder
-  longitud?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaRegistro?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.DireccionCountOrderByAggregateInput
@@ -369,137 +302,83 @@ export type DireccionScalarWhereWithAggregatesInput = {
   OR?: Prisma.DireccionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.DireccionScalarWhereWithAggregatesInput | Prisma.DireccionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Direccion"> | number
-  codigoOficina?: Prisma.StringNullableWithAggregatesFilter<"Direccion"> | string | null
-  nombreOficina?: Prisma.StringNullableWithAggregatesFilter<"Direccion"> | string | null
   usuarioId?: Prisma.IntNullableWithAggregatesFilter<"Direccion"> | number | null
-  departamento?: Prisma.StringWithAggregatesFilter<"Direccion"> | string
-  provincia?: Prisma.StringWithAggregatesFilter<"Direccion"> | string
-  municipio?: Prisma.StringWithAggregatesFilter<"Direccion"> | string
+  municipioId?: Prisma.IntWithAggregatesFilter<"Direccion"> | number
   zonaOComunidad?: Prisma.StringWithAggregatesFilter<"Direccion"> | string
   calleOAvenida?: Prisma.StringWithAggregatesFilter<"Direccion"> | string
   numeroPuerta?: Prisma.StringNullableWithAggregatesFilter<"Direccion"> | string | null
-  latitud?: Prisma.FloatNullableWithAggregatesFilter<"Direccion"> | number | null
-  longitud?: Prisma.FloatNullableWithAggregatesFilter<"Direccion"> | number | null
   fechaRegistro?: Prisma.DateTimeWithAggregatesFilter<"Direccion"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Direccion"> | Date | string | null
 }
 
 export type DireccionCreateInput = {
-  codigoOficina?: string | null
-  nombreOficina?: string | null
-  usuarioId?: number | null
-  departamento: string
-  provincia: string
-  municipio: string
   zonaOComunidad: string
   calleOAvenida: string
   numeroPuerta?: string | null
-  latitud?: number | null
-  longitud?: number | null
   fechaRegistro?: Date | string
   deletedAt?: Date | string | null
-  tramites?: Prisma.TramiteCreateNestedManyWithoutOficinasInput
+  usuario?: Prisma.UsuarioCreateNestedOneWithoutDireccionesInput
+  municipio: Prisma.UbicacionCreateNestedOneWithoutDireccionesInput
 }
 
 export type DireccionUncheckedCreateInput = {
   id?: number
-  codigoOficina?: string | null
-  nombreOficina?: string | null
   usuarioId?: number | null
-  departamento: string
-  provincia: string
-  municipio: string
+  municipioId: number
   zonaOComunidad: string
   calleOAvenida: string
   numeroPuerta?: string | null
-  latitud?: number | null
-  longitud?: number | null
   fechaRegistro?: Date | string
   deletedAt?: Date | string | null
-  tramites?: Prisma.TramiteUncheckedCreateNestedManyWithoutOficinasInput
 }
 
 export type DireccionUpdateInput = {
-  codigoOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nombreOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  usuarioId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  departamento?: Prisma.StringFieldUpdateOperationsInput | string
-  provincia?: Prisma.StringFieldUpdateOperationsInput | string
-  municipio?: Prisma.StringFieldUpdateOperationsInput | string
   zonaOComunidad?: Prisma.StringFieldUpdateOperationsInput | string
   calleOAvenida?: Prisma.StringFieldUpdateOperationsInput | string
   numeroPuerta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tramites?: Prisma.TramiteUpdateManyWithoutOficinasNestedInput
+  usuario?: Prisma.UsuarioUpdateOneWithoutDireccionesNestedInput
+  municipio?: Prisma.UbicacionUpdateOneRequiredWithoutDireccionesNestedInput
 }
 
 export type DireccionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  codigoOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nombreOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usuarioId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  departamento?: Prisma.StringFieldUpdateOperationsInput | string
-  provincia?: Prisma.StringFieldUpdateOperationsInput | string
-  municipio?: Prisma.StringFieldUpdateOperationsInput | string
+  municipioId?: Prisma.IntFieldUpdateOperationsInput | number
   zonaOComunidad?: Prisma.StringFieldUpdateOperationsInput | string
   calleOAvenida?: Prisma.StringFieldUpdateOperationsInput | string
   numeroPuerta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  tramites?: Prisma.TramiteUncheckedUpdateManyWithoutOficinasNestedInput
 }
 
 export type DireccionCreateManyInput = {
   id?: number
-  codigoOficina?: string | null
-  nombreOficina?: string | null
   usuarioId?: number | null
-  departamento: string
-  provincia: string
-  municipio: string
+  municipioId: number
   zonaOComunidad: string
   calleOAvenida: string
   numeroPuerta?: string | null
-  latitud?: number | null
-  longitud?: number | null
   fechaRegistro?: Date | string
   deletedAt?: Date | string | null
 }
 
 export type DireccionUpdateManyMutationInput = {
-  codigoOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nombreOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  usuarioId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  departamento?: Prisma.StringFieldUpdateOperationsInput | string
-  provincia?: Prisma.StringFieldUpdateOperationsInput | string
-  municipio?: Prisma.StringFieldUpdateOperationsInput | string
   zonaOComunidad?: Prisma.StringFieldUpdateOperationsInput | string
   calleOAvenida?: Prisma.StringFieldUpdateOperationsInput | string
   numeroPuerta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type DireccionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  codigoOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nombreOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usuarioId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  departamento?: Prisma.StringFieldUpdateOperationsInput | string
-  provincia?: Prisma.StringFieldUpdateOperationsInput | string
-  municipio?: Prisma.StringFieldUpdateOperationsInput | string
+  municipioId?: Prisma.IntFieldUpdateOperationsInput | number
   zonaOComunidad?: Prisma.StringFieldUpdateOperationsInput | string
   calleOAvenida?: Prisma.StringFieldUpdateOperationsInput | string
   numeroPuerta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -516,17 +395,11 @@ export type DireccionOrderByRelationAggregateInput = {
 
 export type DireccionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  codigoOficina?: Prisma.SortOrder
-  nombreOficina?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
-  departamento?: Prisma.SortOrder
-  provincia?: Prisma.SortOrder
-  municipio?: Prisma.SortOrder
+  municipioId?: Prisma.SortOrder
   zonaOComunidad?: Prisma.SortOrder
   calleOAvenida?: Prisma.SortOrder
   numeroPuerta?: Prisma.SortOrder
-  latitud?: Prisma.SortOrder
-  longitud?: Prisma.SortOrder
   fechaRegistro?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
@@ -534,40 +407,27 @@ export type DireccionCountOrderByAggregateInput = {
 export type DireccionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
-  latitud?: Prisma.SortOrder
-  longitud?: Prisma.SortOrder
+  municipioId?: Prisma.SortOrder
 }
 
 export type DireccionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  codigoOficina?: Prisma.SortOrder
-  nombreOficina?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
-  departamento?: Prisma.SortOrder
-  provincia?: Prisma.SortOrder
-  municipio?: Prisma.SortOrder
+  municipioId?: Prisma.SortOrder
   zonaOComunidad?: Prisma.SortOrder
   calleOAvenida?: Prisma.SortOrder
   numeroPuerta?: Prisma.SortOrder
-  latitud?: Prisma.SortOrder
-  longitud?: Prisma.SortOrder
   fechaRegistro?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
 export type DireccionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  codigoOficina?: Prisma.SortOrder
-  nombreOficina?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
-  departamento?: Prisma.SortOrder
-  provincia?: Prisma.SortOrder
-  municipio?: Prisma.SortOrder
+  municipioId?: Prisma.SortOrder
   zonaOComunidad?: Prisma.SortOrder
   calleOAvenida?: Prisma.SortOrder
   numeroPuerta?: Prisma.SortOrder
-  latitud?: Prisma.SortOrder
-  longitud?: Prisma.SortOrder
   fechaRegistro?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
@@ -575,108 +435,136 @@ export type DireccionMinOrderByAggregateInput = {
 export type DireccionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
-  latitud?: Prisma.SortOrder
-  longitud?: Prisma.SortOrder
+  municipioId?: Prisma.SortOrder
 }
 
-export type DireccionCreateNestedManyWithoutTramitesInput = {
-  create?: Prisma.XOR<Prisma.DireccionCreateWithoutTramitesInput, Prisma.DireccionUncheckedCreateWithoutTramitesInput> | Prisma.DireccionCreateWithoutTramitesInput[] | Prisma.DireccionUncheckedCreateWithoutTramitesInput[]
-  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutTramitesInput | Prisma.DireccionCreateOrConnectWithoutTramitesInput[]
+export type DireccionCreateNestedManyWithoutMunicipioInput = {
+  create?: Prisma.XOR<Prisma.DireccionCreateWithoutMunicipioInput, Prisma.DireccionUncheckedCreateWithoutMunicipioInput> | Prisma.DireccionCreateWithoutMunicipioInput[] | Prisma.DireccionUncheckedCreateWithoutMunicipioInput[]
+  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutMunicipioInput | Prisma.DireccionCreateOrConnectWithoutMunicipioInput[]
+  createMany?: Prisma.DireccionCreateManyMunicipioInputEnvelope
   connect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
 }
 
-export type DireccionUncheckedCreateNestedManyWithoutTramitesInput = {
-  create?: Prisma.XOR<Prisma.DireccionCreateWithoutTramitesInput, Prisma.DireccionUncheckedCreateWithoutTramitesInput> | Prisma.DireccionCreateWithoutTramitesInput[] | Prisma.DireccionUncheckedCreateWithoutTramitesInput[]
-  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutTramitesInput | Prisma.DireccionCreateOrConnectWithoutTramitesInput[]
+export type DireccionUncheckedCreateNestedManyWithoutMunicipioInput = {
+  create?: Prisma.XOR<Prisma.DireccionCreateWithoutMunicipioInput, Prisma.DireccionUncheckedCreateWithoutMunicipioInput> | Prisma.DireccionCreateWithoutMunicipioInput[] | Prisma.DireccionUncheckedCreateWithoutMunicipioInput[]
+  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutMunicipioInput | Prisma.DireccionCreateOrConnectWithoutMunicipioInput[]
+  createMany?: Prisma.DireccionCreateManyMunicipioInputEnvelope
   connect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
 }
 
-export type DireccionUpdateManyWithoutTramitesNestedInput = {
-  create?: Prisma.XOR<Prisma.DireccionCreateWithoutTramitesInput, Prisma.DireccionUncheckedCreateWithoutTramitesInput> | Prisma.DireccionCreateWithoutTramitesInput[] | Prisma.DireccionUncheckedCreateWithoutTramitesInput[]
-  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutTramitesInput | Prisma.DireccionCreateOrConnectWithoutTramitesInput[]
-  upsert?: Prisma.DireccionUpsertWithWhereUniqueWithoutTramitesInput | Prisma.DireccionUpsertWithWhereUniqueWithoutTramitesInput[]
+export type DireccionUpdateManyWithoutMunicipioNestedInput = {
+  create?: Prisma.XOR<Prisma.DireccionCreateWithoutMunicipioInput, Prisma.DireccionUncheckedCreateWithoutMunicipioInput> | Prisma.DireccionCreateWithoutMunicipioInput[] | Prisma.DireccionUncheckedCreateWithoutMunicipioInput[]
+  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutMunicipioInput | Prisma.DireccionCreateOrConnectWithoutMunicipioInput[]
+  upsert?: Prisma.DireccionUpsertWithWhereUniqueWithoutMunicipioInput | Prisma.DireccionUpsertWithWhereUniqueWithoutMunicipioInput[]
+  createMany?: Prisma.DireccionCreateManyMunicipioInputEnvelope
   set?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
   disconnect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
   delete?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
   connect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
-  update?: Prisma.DireccionUpdateWithWhereUniqueWithoutTramitesInput | Prisma.DireccionUpdateWithWhereUniqueWithoutTramitesInput[]
-  updateMany?: Prisma.DireccionUpdateManyWithWhereWithoutTramitesInput | Prisma.DireccionUpdateManyWithWhereWithoutTramitesInput[]
+  update?: Prisma.DireccionUpdateWithWhereUniqueWithoutMunicipioInput | Prisma.DireccionUpdateWithWhereUniqueWithoutMunicipioInput[]
+  updateMany?: Prisma.DireccionUpdateManyWithWhereWithoutMunicipioInput | Prisma.DireccionUpdateManyWithWhereWithoutMunicipioInput[]
   deleteMany?: Prisma.DireccionScalarWhereInput | Prisma.DireccionScalarWhereInput[]
 }
 
-export type DireccionUncheckedUpdateManyWithoutTramitesNestedInput = {
-  create?: Prisma.XOR<Prisma.DireccionCreateWithoutTramitesInput, Prisma.DireccionUncheckedCreateWithoutTramitesInput> | Prisma.DireccionCreateWithoutTramitesInput[] | Prisma.DireccionUncheckedCreateWithoutTramitesInput[]
-  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutTramitesInput | Prisma.DireccionCreateOrConnectWithoutTramitesInput[]
-  upsert?: Prisma.DireccionUpsertWithWhereUniqueWithoutTramitesInput | Prisma.DireccionUpsertWithWhereUniqueWithoutTramitesInput[]
+export type DireccionUncheckedUpdateManyWithoutMunicipioNestedInput = {
+  create?: Prisma.XOR<Prisma.DireccionCreateWithoutMunicipioInput, Prisma.DireccionUncheckedCreateWithoutMunicipioInput> | Prisma.DireccionCreateWithoutMunicipioInput[] | Prisma.DireccionUncheckedCreateWithoutMunicipioInput[]
+  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutMunicipioInput | Prisma.DireccionCreateOrConnectWithoutMunicipioInput[]
+  upsert?: Prisma.DireccionUpsertWithWhereUniqueWithoutMunicipioInput | Prisma.DireccionUpsertWithWhereUniqueWithoutMunicipioInput[]
+  createMany?: Prisma.DireccionCreateManyMunicipioInputEnvelope
   set?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
   disconnect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
   delete?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
   connect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
-  update?: Prisma.DireccionUpdateWithWhereUniqueWithoutTramitesInput | Prisma.DireccionUpdateWithWhereUniqueWithoutTramitesInput[]
-  updateMany?: Prisma.DireccionUpdateManyWithWhereWithoutTramitesInput | Prisma.DireccionUpdateManyWithWhereWithoutTramitesInput[]
+  update?: Prisma.DireccionUpdateWithWhereUniqueWithoutMunicipioInput | Prisma.DireccionUpdateWithWhereUniqueWithoutMunicipioInput[]
+  updateMany?: Prisma.DireccionUpdateManyWithWhereWithoutMunicipioInput | Prisma.DireccionUpdateManyWithWhereWithoutMunicipioInput[]
   deleteMany?: Prisma.DireccionScalarWhereInput | Prisma.DireccionScalarWhereInput[]
 }
 
-export type NullableFloatFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type DireccionCreateNestedManyWithoutUsuarioInput = {
+  create?: Prisma.XOR<Prisma.DireccionCreateWithoutUsuarioInput, Prisma.DireccionUncheckedCreateWithoutUsuarioInput> | Prisma.DireccionCreateWithoutUsuarioInput[] | Prisma.DireccionUncheckedCreateWithoutUsuarioInput[]
+  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutUsuarioInput | Prisma.DireccionCreateOrConnectWithoutUsuarioInput[]
+  createMany?: Prisma.DireccionCreateManyUsuarioInputEnvelope
+  connect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
 }
 
-export type DireccionCreateWithoutTramitesInput = {
-  codigoOficina?: string | null
-  nombreOficina?: string | null
-  usuarioId?: number | null
-  departamento: string
-  provincia: string
-  municipio: string
+export type DireccionUncheckedCreateNestedManyWithoutUsuarioInput = {
+  create?: Prisma.XOR<Prisma.DireccionCreateWithoutUsuarioInput, Prisma.DireccionUncheckedCreateWithoutUsuarioInput> | Prisma.DireccionCreateWithoutUsuarioInput[] | Prisma.DireccionUncheckedCreateWithoutUsuarioInput[]
+  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutUsuarioInput | Prisma.DireccionCreateOrConnectWithoutUsuarioInput[]
+  createMany?: Prisma.DireccionCreateManyUsuarioInputEnvelope
+  connect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
+}
+
+export type DireccionUpdateManyWithoutUsuarioNestedInput = {
+  create?: Prisma.XOR<Prisma.DireccionCreateWithoutUsuarioInput, Prisma.DireccionUncheckedCreateWithoutUsuarioInput> | Prisma.DireccionCreateWithoutUsuarioInput[] | Prisma.DireccionUncheckedCreateWithoutUsuarioInput[]
+  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutUsuarioInput | Prisma.DireccionCreateOrConnectWithoutUsuarioInput[]
+  upsert?: Prisma.DireccionUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.DireccionUpsertWithWhereUniqueWithoutUsuarioInput[]
+  createMany?: Prisma.DireccionCreateManyUsuarioInputEnvelope
+  set?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
+  disconnect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
+  delete?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
+  connect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
+  update?: Prisma.DireccionUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.DireccionUpdateWithWhereUniqueWithoutUsuarioInput[]
+  updateMany?: Prisma.DireccionUpdateManyWithWhereWithoutUsuarioInput | Prisma.DireccionUpdateManyWithWhereWithoutUsuarioInput[]
+  deleteMany?: Prisma.DireccionScalarWhereInput | Prisma.DireccionScalarWhereInput[]
+}
+
+export type DireccionUncheckedUpdateManyWithoutUsuarioNestedInput = {
+  create?: Prisma.XOR<Prisma.DireccionCreateWithoutUsuarioInput, Prisma.DireccionUncheckedCreateWithoutUsuarioInput> | Prisma.DireccionCreateWithoutUsuarioInput[] | Prisma.DireccionUncheckedCreateWithoutUsuarioInput[]
+  connectOrCreate?: Prisma.DireccionCreateOrConnectWithoutUsuarioInput | Prisma.DireccionCreateOrConnectWithoutUsuarioInput[]
+  upsert?: Prisma.DireccionUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.DireccionUpsertWithWhereUniqueWithoutUsuarioInput[]
+  createMany?: Prisma.DireccionCreateManyUsuarioInputEnvelope
+  set?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
+  disconnect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
+  delete?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
+  connect?: Prisma.DireccionWhereUniqueInput | Prisma.DireccionWhereUniqueInput[]
+  update?: Prisma.DireccionUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.DireccionUpdateWithWhereUniqueWithoutUsuarioInput[]
+  updateMany?: Prisma.DireccionUpdateManyWithWhereWithoutUsuarioInput | Prisma.DireccionUpdateManyWithWhereWithoutUsuarioInput[]
+  deleteMany?: Prisma.DireccionScalarWhereInput | Prisma.DireccionScalarWhereInput[]
+}
+
+export type DireccionCreateWithoutMunicipioInput = {
   zonaOComunidad: string
   calleOAvenida: string
   numeroPuerta?: string | null
-  latitud?: number | null
-  longitud?: number | null
   fechaRegistro?: Date | string
   deletedAt?: Date | string | null
+  usuario?: Prisma.UsuarioCreateNestedOneWithoutDireccionesInput
 }
 
-export type DireccionUncheckedCreateWithoutTramitesInput = {
+export type DireccionUncheckedCreateWithoutMunicipioInput = {
   id?: number
-  codigoOficina?: string | null
-  nombreOficina?: string | null
   usuarioId?: number | null
-  departamento: string
-  provincia: string
-  municipio: string
   zonaOComunidad: string
   calleOAvenida: string
   numeroPuerta?: string | null
-  latitud?: number | null
-  longitud?: number | null
   fechaRegistro?: Date | string
   deletedAt?: Date | string | null
 }
 
-export type DireccionCreateOrConnectWithoutTramitesInput = {
+export type DireccionCreateOrConnectWithoutMunicipioInput = {
   where: Prisma.DireccionWhereUniqueInput
-  create: Prisma.XOR<Prisma.DireccionCreateWithoutTramitesInput, Prisma.DireccionUncheckedCreateWithoutTramitesInput>
+  create: Prisma.XOR<Prisma.DireccionCreateWithoutMunicipioInput, Prisma.DireccionUncheckedCreateWithoutMunicipioInput>
 }
 
-export type DireccionUpsertWithWhereUniqueWithoutTramitesInput = {
-  where: Prisma.DireccionWhereUniqueInput
-  update: Prisma.XOR<Prisma.DireccionUpdateWithoutTramitesInput, Prisma.DireccionUncheckedUpdateWithoutTramitesInput>
-  create: Prisma.XOR<Prisma.DireccionCreateWithoutTramitesInput, Prisma.DireccionUncheckedCreateWithoutTramitesInput>
+export type DireccionCreateManyMunicipioInputEnvelope = {
+  data: Prisma.DireccionCreateManyMunicipioInput | Prisma.DireccionCreateManyMunicipioInput[]
+  skipDuplicates?: boolean
 }
 
-export type DireccionUpdateWithWhereUniqueWithoutTramitesInput = {
+export type DireccionUpsertWithWhereUniqueWithoutMunicipioInput = {
   where: Prisma.DireccionWhereUniqueInput
-  data: Prisma.XOR<Prisma.DireccionUpdateWithoutTramitesInput, Prisma.DireccionUncheckedUpdateWithoutTramitesInput>
+  update: Prisma.XOR<Prisma.DireccionUpdateWithoutMunicipioInput, Prisma.DireccionUncheckedUpdateWithoutMunicipioInput>
+  create: Prisma.XOR<Prisma.DireccionCreateWithoutMunicipioInput, Prisma.DireccionUncheckedCreateWithoutMunicipioInput>
 }
 
-export type DireccionUpdateManyWithWhereWithoutTramitesInput = {
+export type DireccionUpdateWithWhereUniqueWithoutMunicipioInput = {
+  where: Prisma.DireccionWhereUniqueInput
+  data: Prisma.XOR<Prisma.DireccionUpdateWithoutMunicipioInput, Prisma.DireccionUncheckedUpdateWithoutMunicipioInput>
+}
+
+export type DireccionUpdateManyWithWhereWithoutMunicipioInput = {
   where: Prisma.DireccionScalarWhereInput
-  data: Prisma.XOR<Prisma.DireccionUpdateManyMutationInput, Prisma.DireccionUncheckedUpdateManyWithoutTramitesInput>
+  data: Prisma.XOR<Prisma.DireccionUpdateManyMutationInput, Prisma.DireccionUncheckedUpdateManyWithoutMunicipioInput>
 }
 
 export type DireccionScalarWhereInput = {
@@ -684,198 +572,217 @@ export type DireccionScalarWhereInput = {
   OR?: Prisma.DireccionScalarWhereInput[]
   NOT?: Prisma.DireccionScalarWhereInput | Prisma.DireccionScalarWhereInput[]
   id?: Prisma.IntFilter<"Direccion"> | number
-  codigoOficina?: Prisma.StringNullableFilter<"Direccion"> | string | null
-  nombreOficina?: Prisma.StringNullableFilter<"Direccion"> | string | null
   usuarioId?: Prisma.IntNullableFilter<"Direccion"> | number | null
-  departamento?: Prisma.StringFilter<"Direccion"> | string
-  provincia?: Prisma.StringFilter<"Direccion"> | string
-  municipio?: Prisma.StringFilter<"Direccion"> | string
+  municipioId?: Prisma.IntFilter<"Direccion"> | number
   zonaOComunidad?: Prisma.StringFilter<"Direccion"> | string
   calleOAvenida?: Prisma.StringFilter<"Direccion"> | string
   numeroPuerta?: Prisma.StringNullableFilter<"Direccion"> | string | null
-  latitud?: Prisma.FloatNullableFilter<"Direccion"> | number | null
-  longitud?: Prisma.FloatNullableFilter<"Direccion"> | number | null
   fechaRegistro?: Prisma.DateTimeFilter<"Direccion"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Direccion"> | Date | string | null
 }
 
-export type DireccionUpdateWithoutTramitesInput = {
-  codigoOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nombreOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  usuarioId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  departamento?: Prisma.StringFieldUpdateOperationsInput | string
-  provincia?: Prisma.StringFieldUpdateOperationsInput | string
-  municipio?: Prisma.StringFieldUpdateOperationsInput | string
+export type DireccionCreateWithoutUsuarioInput = {
+  zonaOComunidad: string
+  calleOAvenida: string
+  numeroPuerta?: string | null
+  fechaRegistro?: Date | string
+  deletedAt?: Date | string | null
+  municipio: Prisma.UbicacionCreateNestedOneWithoutDireccionesInput
+}
+
+export type DireccionUncheckedCreateWithoutUsuarioInput = {
+  id?: number
+  municipioId: number
+  zonaOComunidad: string
+  calleOAvenida: string
+  numeroPuerta?: string | null
+  fechaRegistro?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type DireccionCreateOrConnectWithoutUsuarioInput = {
+  where: Prisma.DireccionWhereUniqueInput
+  create: Prisma.XOR<Prisma.DireccionCreateWithoutUsuarioInput, Prisma.DireccionUncheckedCreateWithoutUsuarioInput>
+}
+
+export type DireccionCreateManyUsuarioInputEnvelope = {
+  data: Prisma.DireccionCreateManyUsuarioInput | Prisma.DireccionCreateManyUsuarioInput[]
+  skipDuplicates?: boolean
+}
+
+export type DireccionUpsertWithWhereUniqueWithoutUsuarioInput = {
+  where: Prisma.DireccionWhereUniqueInput
+  update: Prisma.XOR<Prisma.DireccionUpdateWithoutUsuarioInput, Prisma.DireccionUncheckedUpdateWithoutUsuarioInput>
+  create: Prisma.XOR<Prisma.DireccionCreateWithoutUsuarioInput, Prisma.DireccionUncheckedCreateWithoutUsuarioInput>
+}
+
+export type DireccionUpdateWithWhereUniqueWithoutUsuarioInput = {
+  where: Prisma.DireccionWhereUniqueInput
+  data: Prisma.XOR<Prisma.DireccionUpdateWithoutUsuarioInput, Prisma.DireccionUncheckedUpdateWithoutUsuarioInput>
+}
+
+export type DireccionUpdateManyWithWhereWithoutUsuarioInput = {
+  where: Prisma.DireccionScalarWhereInput
+  data: Prisma.XOR<Prisma.DireccionUpdateManyMutationInput, Prisma.DireccionUncheckedUpdateManyWithoutUsuarioInput>
+}
+
+export type DireccionCreateManyMunicipioInput = {
+  id?: number
+  usuarioId?: number | null
+  zonaOComunidad: string
+  calleOAvenida: string
+  numeroPuerta?: string | null
+  fechaRegistro?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type DireccionUpdateWithoutMunicipioInput = {
   zonaOComunidad?: Prisma.StringFieldUpdateOperationsInput | string
   calleOAvenida?: Prisma.StringFieldUpdateOperationsInput | string
   numeroPuerta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  usuario?: Prisma.UsuarioUpdateOneWithoutDireccionesNestedInput
 }
 
-export type DireccionUncheckedUpdateWithoutTramitesInput = {
+export type DireccionUncheckedUpdateWithoutMunicipioInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  codigoOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nombreOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usuarioId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  departamento?: Prisma.StringFieldUpdateOperationsInput | string
-  provincia?: Prisma.StringFieldUpdateOperationsInput | string
-  municipio?: Prisma.StringFieldUpdateOperationsInput | string
   zonaOComunidad?: Prisma.StringFieldUpdateOperationsInput | string
   calleOAvenida?: Prisma.StringFieldUpdateOperationsInput | string
   numeroPuerta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
-export type DireccionUncheckedUpdateManyWithoutTramitesInput = {
+export type DireccionUncheckedUpdateManyWithoutMunicipioInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  codigoOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nombreOficina?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usuarioId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  departamento?: Prisma.StringFieldUpdateOperationsInput | string
-  provincia?: Prisma.StringFieldUpdateOperationsInput | string
-  municipio?: Prisma.StringFieldUpdateOperationsInput | string
   zonaOComunidad?: Prisma.StringFieldUpdateOperationsInput | string
   calleOAvenida?: Prisma.StringFieldUpdateOperationsInput | string
   numeroPuerta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitud?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
-
-/**
- * Count Type DireccionCountOutputType
- */
-
-export type DireccionCountOutputType = {
-  tramites: number
+export type DireccionCreateManyUsuarioInput = {
+  id?: number
+  municipioId: number
+  zonaOComunidad: string
+  calleOAvenida: string
+  numeroPuerta?: string | null
+  fechaRegistro?: Date | string
+  deletedAt?: Date | string | null
 }
 
-export type DireccionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tramites?: boolean | DireccionCountOutputTypeCountTramitesArgs
+export type DireccionUpdateWithoutUsuarioInput = {
+  zonaOComunidad?: Prisma.StringFieldUpdateOperationsInput | string
+  calleOAvenida?: Prisma.StringFieldUpdateOperationsInput | string
+  numeroPuerta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  municipio?: Prisma.UbicacionUpdateOneRequiredWithoutDireccionesNestedInput
 }
 
-/**
- * DireccionCountOutputType without action
- */
-export type DireccionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DireccionCountOutputType
-   */
-  select?: Prisma.DireccionCountOutputTypeSelect<ExtArgs> | null
+export type DireccionUncheckedUpdateWithoutUsuarioInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  municipioId?: Prisma.IntFieldUpdateOperationsInput | number
+  zonaOComunidad?: Prisma.StringFieldUpdateOperationsInput | string
+  calleOAvenida?: Prisma.StringFieldUpdateOperationsInput | string
+  numeroPuerta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
-/**
- * DireccionCountOutputType without action
- */
-export type DireccionCountOutputTypeCountTramitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TramiteWhereInput
+export type DireccionUncheckedUpdateManyWithoutUsuarioInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  municipioId?: Prisma.IntFieldUpdateOperationsInput | number
+  zonaOComunidad?: Prisma.StringFieldUpdateOperationsInput | string
+  calleOAvenida?: Prisma.StringFieldUpdateOperationsInput | string
+  numeroPuerta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaRegistro?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
+
 
 
 export type DireccionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  codigoOficina?: boolean
-  nombreOficina?: boolean
   usuarioId?: boolean
-  departamento?: boolean
-  provincia?: boolean
-  municipio?: boolean
+  municipioId?: boolean
   zonaOComunidad?: boolean
   calleOAvenida?: boolean
   numeroPuerta?: boolean
-  latitud?: boolean
-  longitud?: boolean
   fechaRegistro?: boolean
   deletedAt?: boolean
-  tramites?: boolean | Prisma.Direccion$tramitesArgs<ExtArgs>
-  _count?: boolean | Prisma.DireccionCountOutputTypeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.Direccion$usuarioArgs<ExtArgs>
+  municipio?: boolean | Prisma.UbicacionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["direccion"]>
 
 export type DireccionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  codigoOficina?: boolean
-  nombreOficina?: boolean
   usuarioId?: boolean
-  departamento?: boolean
-  provincia?: boolean
-  municipio?: boolean
+  municipioId?: boolean
   zonaOComunidad?: boolean
   calleOAvenida?: boolean
   numeroPuerta?: boolean
-  latitud?: boolean
-  longitud?: boolean
   fechaRegistro?: boolean
   deletedAt?: boolean
+  usuario?: boolean | Prisma.Direccion$usuarioArgs<ExtArgs>
+  municipio?: boolean | Prisma.UbicacionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["direccion"]>
 
 export type DireccionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  codigoOficina?: boolean
-  nombreOficina?: boolean
   usuarioId?: boolean
-  departamento?: boolean
-  provincia?: boolean
-  municipio?: boolean
+  municipioId?: boolean
   zonaOComunidad?: boolean
   calleOAvenida?: boolean
   numeroPuerta?: boolean
-  latitud?: boolean
-  longitud?: boolean
   fechaRegistro?: boolean
   deletedAt?: boolean
+  usuario?: boolean | Prisma.Direccion$usuarioArgs<ExtArgs>
+  municipio?: boolean | Prisma.UbicacionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["direccion"]>
 
 export type DireccionSelectScalar = {
   id?: boolean
-  codigoOficina?: boolean
-  nombreOficina?: boolean
   usuarioId?: boolean
-  departamento?: boolean
-  provincia?: boolean
-  municipio?: boolean
+  municipioId?: boolean
   zonaOComunidad?: boolean
   calleOAvenida?: boolean
   numeroPuerta?: boolean
-  latitud?: boolean
-  longitud?: boolean
   fechaRegistro?: boolean
   deletedAt?: boolean
 }
 
-export type DireccionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "codigoOficina" | "nombreOficina" | "usuarioId" | "departamento" | "provincia" | "municipio" | "zonaOComunidad" | "calleOAvenida" | "numeroPuerta" | "latitud" | "longitud" | "fechaRegistro" | "deletedAt", ExtArgs["result"]["direccion"]>
+export type DireccionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "usuarioId" | "municipioId" | "zonaOComunidad" | "calleOAvenida" | "numeroPuerta" | "fechaRegistro" | "deletedAt", ExtArgs["result"]["direccion"]>
 export type DireccionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tramites?: boolean | Prisma.Direccion$tramitesArgs<ExtArgs>
-  _count?: boolean | Prisma.DireccionCountOutputTypeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.Direccion$usuarioArgs<ExtArgs>
+  municipio?: boolean | Prisma.UbicacionDefaultArgs<ExtArgs>
 }
-export type DireccionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type DireccionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type DireccionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  usuario?: boolean | Prisma.Direccion$usuarioArgs<ExtArgs>
+  municipio?: boolean | Prisma.UbicacionDefaultArgs<ExtArgs>
+}
+export type DireccionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  usuario?: boolean | Prisma.Direccion$usuarioArgs<ExtArgs>
+  municipio?: boolean | Prisma.UbicacionDefaultArgs<ExtArgs>
+}
 
 export type $DireccionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Direccion"
   objects: {
-    tramites: Prisma.$TramitePayload<ExtArgs>[]
+    usuario: Prisma.$UsuarioPayload<ExtArgs> | null
+    municipio: Prisma.$UbicacionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    codigoOficina: string | null
-    nombreOficina: string | null
     usuarioId: number | null
-    departamento: string
-    provincia: string
-    municipio: string
+    municipioId: number
     zonaOComunidad: string
     calleOAvenida: string
     numeroPuerta: string | null
-    latitud: number | null
-    longitud: number | null
     fechaRegistro: Date
     deletedAt: Date | null
   }, ExtArgs["result"]["direccion"]>
@@ -1272,7 +1179,8 @@ readonly fields: DireccionFieldRefs;
  */
 export interface Prisma__DireccionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tramites<T extends Prisma.Direccion$tramitesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Direccion$tramitesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TramitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usuario<T extends Prisma.Direccion$usuarioArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Direccion$usuarioArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  municipio<T extends Prisma.UbicacionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UbicacionDefaultArgs<ExtArgs>>): Prisma.Prisma__UbicacionClient<runtime.Types.Result.GetResult<Prisma.$UbicacionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1303,17 +1211,11 @@ export interface Prisma__DireccionClient<T, Null = never, ExtArgs extends runtim
  */
 export interface DireccionFieldRefs {
   readonly id: Prisma.FieldRef<"Direccion", 'Int'>
-  readonly codigoOficina: Prisma.FieldRef<"Direccion", 'String'>
-  readonly nombreOficina: Prisma.FieldRef<"Direccion", 'String'>
   readonly usuarioId: Prisma.FieldRef<"Direccion", 'Int'>
-  readonly departamento: Prisma.FieldRef<"Direccion", 'String'>
-  readonly provincia: Prisma.FieldRef<"Direccion", 'String'>
-  readonly municipio: Prisma.FieldRef<"Direccion", 'String'>
+  readonly municipioId: Prisma.FieldRef<"Direccion", 'Int'>
   readonly zonaOComunidad: Prisma.FieldRef<"Direccion", 'String'>
   readonly calleOAvenida: Prisma.FieldRef<"Direccion", 'String'>
   readonly numeroPuerta: Prisma.FieldRef<"Direccion", 'String'>
-  readonly latitud: Prisma.FieldRef<"Direccion", 'Float'>
-  readonly longitud: Prisma.FieldRef<"Direccion", 'Float'>
   readonly fechaRegistro: Prisma.FieldRef<"Direccion", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Direccion", 'DateTime'>
 }
@@ -1570,6 +1472,10 @@ export type DireccionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    */
   data: Prisma.DireccionCreateManyInput | Prisma.DireccionCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DireccionIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1640,6 +1546,10 @@ export type DireccionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many Direccions to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DireccionIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1709,27 +1619,22 @@ export type DireccionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
- * Direccion.tramites
+ * Direccion.usuario
  */
-export type Direccion$tramitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Direccion$usuarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Tramite
+   * Select specific fields to fetch from the Usuario
    */
-  select?: Prisma.TramiteSelect<ExtArgs> | null
+  select?: Prisma.UsuarioSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Tramite
+   * Omit specific fields from the Usuario
    */
-  omit?: Prisma.TramiteOmit<ExtArgs> | null
+  omit?: Prisma.UsuarioOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.TramiteInclude<ExtArgs> | null
-  where?: Prisma.TramiteWhereInput
-  orderBy?: Prisma.TramiteOrderByWithRelationInput | Prisma.TramiteOrderByWithRelationInput[]
-  cursor?: Prisma.TramiteWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TramiteScalarFieldEnum | Prisma.TramiteScalarFieldEnum[]
+  include?: Prisma.UsuarioInclude<ExtArgs> | null
+  where?: Prisma.UsuarioWhereInput
 }
 
 /**

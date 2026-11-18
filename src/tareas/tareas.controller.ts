@@ -10,12 +10,18 @@ import {
   HttpCode,
   HttpStatus,
   ParseIntPipe,
-} from '@nestjs/common';
-import { TareasService } from './tareas.service';
-import { CrearTareaDto } from './dto/crear-tarea.dto';
-import { ActualizarTareaDto } from './dto/actualizar-tarea.dto';
+  UseGuards,
+} from "@nestjs/common";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
+import { TareasService } from "./tareas.service";
+import { CrearTareaDto } from "./dto/crear-tarea.dto";
+import { ActualizarTareaDto } from "./dto/actualizar-tarea.dto";
 
-@Controller('tareas') // Endpoint base: /api/v1/tareas
+@ApiTags("Tareas")
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@Controller("tareas") // Endpoint base: /api/v1/tareas
 export class TareasController {
   constructor(private readonly tareasService: TareasService) {}
 
@@ -24,8 +30,8 @@ export class TareasController {
     return this.tareasService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  @Get(":id")
+  findOne(@Param("id", ParseIntPipe) id: number) {
     return this.tareasService.findOne(id);
   }
 
@@ -35,19 +41,25 @@ export class TareasController {
     return this.tareasService.create(crearTareaDto);
   }
 
-  @Put(':id')
-  updateFull(@Param('id', ParseIntPipe) id: number, @Body() crearTareaDto: CrearTareaDto) {
+  @Put(":id")
+  updateFull(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() crearTareaDto: CrearTareaDto,
+  ) {
     return this.tareasService.replace(id, crearTareaDto);
   }
 
-  @Patch(':id')
-  updatePartial(@Param('id', ParseIntPipe) id: number, @Body() actualizarTareaDto: ActualizarTareaDto) {
+  @Patch(":id")
+  updatePartial(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() actualizarTareaDto: ActualizarTareaDto,
+  ) {
     return this.tareasService.update(id, actualizarTareaDto);
   }
 
-  @Delete(':id')
+  @Delete(":id")
   @HttpCode(HttpStatus.NO_CONTENT) // Retorna un 204 exitoso sin cuerpo
-  remove(@Param('id', ParseIntPipe) id: number) {
+  remove(@Param("id", ParseIntPipe) id: number) {
     return this.tareasService.remove(id);
   }
 }
